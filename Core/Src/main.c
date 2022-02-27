@@ -108,47 +108,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-//	  lcdClearBuffer();
-//	  for(uint8_t j = 0; j < 240; j++){
-//		  for(uint16_t i = 0; i < 400; i++){
-//			  lcdPutPix(i,j, 1);
-////			  HAL_Delay(unifiedDelay);
-//		  }
-//		  for(uint16_t i = 0; i < 400; i++){
-//			  lcdPutPix(i,j, 0);
-//			  HAL_Delay(unifiedDelay);
-//		  }
-//	  }
-//	  char text[31] = "Pik-Pok is a king of the world!";
-//	  	  lcdClearBuffer();
 
-//		  char text[] = "PIK-POK IS A KING";
-//	  for(uint8_t i = 0; i < 42; i++){
-//	  lcdPutChar(i, 5, text[i], dig8x16);
-//	  HAL_Delay(10);
-//	  }
-	for(uint8_t i = 0; i <= 16; i++){
-  	  lcdClearBuffer();
-	  lcdPutStr(i,0, &text, dig8x16);
-	  lcdPutStr(16-i,3, &text, dig8x16);
-	  HAL_Delay(20);
-	}
-	for(uint8_t i = 16; i > 0; i--){
-	  lcdClearBuffer();
-	  lcdPutStr(i,0, &text, dig8x16);
-	  lcdPutStr(16-i,3, &text, dig8x16);
-	  HAL_Delay(20);
-	}
-
-
-//	  for(uint8_t i = 0; i < 50; i++){
-//	  lcdPutChar(i, 0, i+32, dig8x16);
-//	  HAL_Delay(20);
-//	  }
-
-//	  lcdClear();
-//  	  HAL_Delay(100);
-//  	  lcdTest();
 
     /* USER CODE END WHILE */
 
