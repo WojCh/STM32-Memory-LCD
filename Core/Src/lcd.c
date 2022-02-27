@@ -79,32 +79,32 @@ void lcdTest(){
 	}
 }
 
-uint8_t lcdBuffer[240][50] = {0x00};
-static uint8_t lcdBufferLinear[(SCR_W * SCR_H) >> 3] = {0x00};
+static uint8_t lcdBuffer[(SCR_W * SCR_H) >> 3] = {0x00};
+static uint8_t allowUpdate = 1;
 uint8_t lineAddress1[2] = {0x80, 0x00};
+
 void lcdClearBuffer(){
+	updateSetting(0);
 	for(uint8_t i = 0; i < SCR_H; i++){
 		for(uint16_t j = 0; j < SCR_W/8; j++){
-			lcdBuffer[i][j] = 0xFF;
-		}
-	}
-}
-void lcdClearBufferLinear(){
-	for(uint8_t i = 0; i < SCR_H; i++){
-		for(uint16_t j = 0; j < SCR_W/8; j++){
-			lcdBufferLinear[i*SCR_W/8+j] = 0xFF;
+			lcdBuffer[i*SCR_W/8+j] = 0xFF;
 //			if(i%2){
-//				lcdBufferLinear[i*SCR_W/8+j] = 0xAA;
+//				lcdBuffer[i*SCR_W/8+j] = 0xAA;
 //			} else {
-//				lcdBufferLinear[i*SCR_W/8+j] = 0x55;
+//				lcdBuffer[i*SCR_W/8+j] = 0x55;
 //			}
 		}
 	}
+	updateSetting(1);
+}
+
+void updateSetting(uint8_t state){
+	allowUpdate = state;
 }
 
 void lcdPutPix(uint16_t x, uint8_t y, uint8_t val){
 	uint8_t xBlock = x/8;
-	uint8_t finalVal = lcdBufferLinear[y*SCR_W/8 + xBlock];
+	uint8_t finalVal = lcdBuffer[y*SCR_W/8 + xBlock];
 	uint8_t offset = (1 << (8 - x%8 - 1));
 	switch(val){
 	case 0:
@@ -117,7 +117,7 @@ void lcdPutPix(uint16_t x, uint8_t y, uint8_t val){
 		finalVal ^= offset;
 		break;
 	}
-	lcdBufferLinear[y*SCR_W/8 + xBlock] = finalVal;
+	lcdBuffer[y*SCR_W/8 + xBlock] = finalVal;
 }
 
 void lcdPutChar(uint16_t x, uint8_t y, char chr, const Font_TypeDef *font){
@@ -125,21 +125,13 @@ void lcdPutChar(uint16_t x, uint8_t y, char chr, const Font_TypeDef *font){
 	if ((chr < font->font_MinChar) || (chr > font->font_MaxChar)) {
 		chr = font->font_UnknownChar;
 	}
-
 	uint8_t offset = x % 8;
-
 	uint8_t xBlock = x / 8;
 	for(uint8_t j = 0; j < font->font_Height; j++){
 		uint8_t dataPart1 = (font->font_Data[(chr-(font->font_MinChar))*(font->font_Height)+j] >> offset);
 		uint8_t dataPart2 = (font->font_Data[(chr-(font->font_MinChar))*(font->font_Height)+j] << (8 - offset));
-		lcdBuffer[j+y*font->font_Height][xBlock] &= ~dataPart1;
-		lcdBuffer[j+y*font->font_Height][xBlock+1] &= ~dataPart2;
-//		uint8_t dataRest = (font->font_Data[(chr-(font->font_MinChar))*(font->font_Height)+j]) << (8-offset);
-//		uint8_t dataExis = lcdBuffer[j+y*font->font_Height][xBlock+(font->font_Width)/8+1];
-//		lcdBuffer[j+y*font->font_Height][xBlock+(font->font_Width)/8] = ~(dataRest || dataExis);
-
-//		lcdBuffer[j+y*font->font_Height][xBlock+(font->font_Width)/8] = ~(font->font_Data[(chr-(font->font_MinChar))*(font->font_Height)+xBlock+(font->font_Width)/8]);
-//		lcdBuffer[j+y*17][xBlock] = ~font->font_Data[(chr-(font->font_MinChar))*(font->font_Height)+j];
+		lcdBuffer[j*SCR_W/8+y*font->font_Height*SCR_W/8 + xBlock] &= ~dataPart1;
+		lcdBuffer[j*SCR_W/8+y*font->font_Height*SCR_W/8 + xBlock+1] &= ~dataPart2;
 	}
 
 }
@@ -171,55 +163,48 @@ void lcdHLine(uint16_t x1, uint16_t x2, uint8_t y, uint8_t mode){
 //		val = 0xFF >> (8 - (x2 - x1));
 //	}
 
-	uint8_t firstBlock = lcdBufferLinear[y*SCR_W/8+x1block];
-	uint8_t lastBlock = lcdBufferLinear[y*SCR_W/8+x1block+x2block];
+	uint8_t firstBlock = lcdBuffer[y*SCR_W/8+x1block];
+	uint8_t lastBlock = lcdBuffer[y*SCR_W/8+x1block+x2block];
 	switch(mode){
 	case 0:
 		firstBlock |= (0xFF >> offset1);
 		lastBlock |= (0xFF << (8-offset2));
 		for(uint8_t i = 1; i < (x2block-x1block); i++){
-			lcdBufferLinear[y*SCR_W/8+x1block+i] |= 0xFF;
+			lcdBuffer[y*SCR_W/8+x1block+i] |= 0xFF;
 		}
 		break;
 	case 1:
 		firstBlock &= ~(0xFF >> offset1);
 		lastBlock &= ~(0xFF << (8-offset2));
 		for(uint8_t i = 1; i < (x2block-x1block); i++){
-			lcdBufferLinear[y*SCR_W/8+x1block+i] &= 0x00;
+			lcdBuffer[y*SCR_W/8+x1block+i] &= 0x00;
 		}
 		break;
 	case 2:
 		firstBlock ^= (0xFF >> offset1);
 		lastBlock ^= (0xFF << (8-offset2));
 		for(uint8_t i = 1; i < (x2block-x1block); i++){
-			lcdBufferLinear[y*SCR_W/8+x1block+i] ^= 0xFF;
+			lcdBuffer[y*SCR_W/8+x1block+i] ^= 0xFF;
 		}
 		break;
 	}
-	lcdBufferLinear[y*SCR_W/8+x1block] = firstBlock;
-	lcdBufferLinear[y*SCR_W/8+x2block] = lastBlock;
+	lcdBuffer[y*SCR_W/8+x1block] = firstBlock;
+	lcdBuffer[y*SCR_W/8+x2block] = lastBlock;
 
 }
-void lcdRefreshLinear(void){
-		SMLCD_SCS_H;
-	for(uint8_t i = 1; i <= SCR_H+1; i++){
-		lineAddress1[1] = reverse_uint8(i);
-		HAL_SPI_Transmit(&SMLCD_SPI_PORT, (uint8_t *)lineAddress1, 2, 150);
-		HAL_SPI_Transmit(&SMLCD_SPI_PORT, (uint8_t *)(&lcdBufferLinear[(i-1)*50]), 50, 150);
-	}
-		HAL_SPI_Transmit(&SMLCD_SPI_PORT, (uint8_t *)dummyBytes, 2, 150);
-		SMLCD_SCS_L;
-}
 void lcdRefresh(void){
+	if(allowUpdate){
 		SMLCD_SCS_H;
-	for(uint8_t i = 1; i <= SCR_H+1; i++){
-		lineAddress1[1] = reverse_uint8(i);
-		HAL_SPI_Transmit(&SMLCD_SPI_PORT, (uint8_t *)lineAddress1, 2, 150);
-		HAL_SPI_Transmit(&SMLCD_SPI_PORT, (uint8_t *)lcdBuffer[i-1], 50, 150);
-	}
+		for(uint8_t i = 1; i <= SCR_H+1; i++){
+			lineAddress1[1] = reverse_uint8(i);
+			HAL_SPI_Transmit(&SMLCD_SPI_PORT, (uint8_t *)lineAddress1, 2, 150);
+			HAL_SPI_Transmit(&SMLCD_SPI_PORT, (uint8_t *)(&lcdBuffer[(i-1)*50]), 50, 150);
+		}
 		HAL_SPI_Transmit(&SMLCD_SPI_PORT, (uint8_t *)dummyBytes, 2, 150);
 		SMLCD_SCS_L;
+	}
 }
+
 
 
 #include "string.h"

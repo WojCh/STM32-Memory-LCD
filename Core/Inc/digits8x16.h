@@ -11,7 +11,7 @@ static const Font_TypeDef Digits8x16 = {
 		FONT_H,      // Vertical font scan lines
 		32,          // First character: '0'
 		132,          // Last character: '9'
-		48,          // Unknown character: '0'
+		28,          // Unknown character: '0'
 		{
 				0x00, //
 				0x00, //     #

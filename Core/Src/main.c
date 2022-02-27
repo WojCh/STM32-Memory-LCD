@@ -102,24 +102,45 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim10);
   uint8_t unifiedDelay = 1;
   /* USER CODE END 2 */
-//  char text[] = "PIK-POK IS A KING OF THE WORLD, BITCHE$$$!";
+  char text[] = "PIK-POK IS A KING OF THE WORLD, BITCHE$$$!";
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
 //	  lcdClear();
-	  lcdClearBufferLinear();
-	  for(uint16_t i=0; i < SCR_W; i++){
-		  lcdHLine(0, i, 10, 1);
-		  HAL_Delay(50);
-//		  lcdClearBufferLinear();
+	  lcdClearBuffer();
+//	  uint8_t row = 0;
+//	  for(uint8_t i=32; i < 128; i++){
+//		  lcdPutChar((i-32)*8, row, i, dig8x16);
+//		  HAL_Delay(25);
+//		  if((i-31)%50 == 0) row++;
+////		  lcdClearBufferLinear();
+//	  }
+	  for(uint8_t i = 0; i < 48; i++){
+		  lcdClearBuffer();
+		  updateSetting(0);
+		  lcdPutStr(i+0,0,text,dig8x16);
+		  lcdPutStr(i+1,1,text,dig8x16);
+		  lcdPutStr(i+2,2,text,dig8x16);
+		  lcdPutStr(i+3,3,text,dig8x16);
+		  lcdPutStr(i+4,4,text,dig8x16);
+		  lcdPutStr(i+5,5,text,dig8x16);
+		  lcdPutStr(i+6,6,text,dig8x16);
+		  lcdPutStr(i+7,7,text,dig8x16);
+		  lcdPutStr(i+8,8,text,dig8x16);
+		  lcdPutStr(i+9,9,text,dig8x16);
+		  lcdPutStr(i+10,10,text,dig8x16);
+		  lcdPutStr(i+11,11,text,dig8x16);
+		  lcdPutStr(i+12,12,text,dig8x16);
+		  lcdPutStr(i+13,13,text,dig8x16);
+		  lcdPutStr(i+14,14,text,dig8x16);
+		  lcdPutStr(i+15,15,text,dig8x16);
+		  lcdPutStr(i+16,16,text,dig8x16);
+		  updateSetting(1);
+		  HAL_Delay(15);
 	  }
-	  for(uint16_t i=0; i < SCR_W; i++){
-		  lcdHLine(i, SCR_W, 10, 1);
-		  HAL_Delay(50);
-//		  lcdClearBufferLinear();
-	  }
+		  HAL_Delay(200);
 
     /* USER CODE END WHILE */
 
@@ -175,8 +196,7 @@ void SystemClock_Config(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM10){
 		HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
-//		lcdRefresh();
-		lcdRefreshLinear();
+		lcdRefresh();
 
 	}
 }
