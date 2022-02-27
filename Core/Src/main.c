@@ -102,13 +102,24 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim10);
   uint8_t unifiedDelay = 1;
   /* USER CODE END 2 */
-  char text[] = "PIK-POK IS A KING OF THE WORLD, BITCHE$$$!";
+//  char text[] = "PIK-POK IS A KING OF THE WORLD, BITCHE$$$!";
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
+//	  lcdClear();
+	  lcdClearBufferLinear();
+	  for(uint16_t i=0; i < SCR_W; i++){
+		  lcdHLine(0, i, 10, 1);
+		  HAL_Delay(50);
+//		  lcdClearBufferLinear();
+	  }
+	  for(uint16_t i=0; i < SCR_W; i++){
+		  lcdHLine(i, SCR_W, 10, 1);
+		  HAL_Delay(50);
+//		  lcdClearBufferLinear();
+	  }
 
     /* USER CODE END WHILE */
 
@@ -164,7 +175,9 @@ void SystemClock_Config(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM10){
 		HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
-		lcdRefresh();
+//		lcdRefresh();
+		lcdRefreshLinear();
+
 	}
 }
 
