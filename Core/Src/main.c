@@ -22,7 +22,7 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
-#include "digits8x16.h"
+#include "digits5x9.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -102,7 +102,10 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim10);
   uint8_t unifiedDelay = 1;
   /* USER CODE END 2 */
-  char text[] = "PIK-POK IS A KING OF THE WORLD, BITCHE$$$!";
+//  char text[] = "PIK-POK IS A KING OF THE WORLD, BITCHE$$$!";
+  char text[] = "Pik-Pok is mad at you!";
+//  char text[] = "<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//  char text[] = " ";
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -117,30 +120,31 @@ int main(void)
 //		  if((i-31)%50 == 0) row++;
 ////		  lcdClearBufferLinear();
 //	  }
-	  for(uint8_t i = 0; i < 48; i++){
+	  for(uint8_t i = 0; i < 25; i++){
 		  lcdClearBuffer();
 		  updateSetting(0);
-		  lcdPutStr(i+0,0,text,dig8x16);
-		  lcdPutStr(i+1,1,text,dig8x16);
-		  lcdPutStr(i+2,2,text,dig8x16);
-		  lcdPutStr(i+3,3,text,dig8x16);
-		  lcdPutStr(i+4,4,text,dig8x16);
-		  lcdPutStr(i+5,5,text,dig8x16);
-		  lcdPutStr(i+6,6,text,dig8x16);
-		  lcdPutStr(i+7,7,text,dig8x16);
-		  lcdPutStr(i+8,8,text,dig8x16);
-		  lcdPutStr(i+9,9,text,dig8x16);
-		  lcdPutStr(i+10,10,text,dig8x16);
-		  lcdPutStr(i+11,11,text,dig8x16);
-		  lcdPutStr(i+12,12,text,dig8x16);
-		  lcdPutStr(i+13,13,text,dig8x16);
-		  lcdPutStr(i+14,14,text,dig8x16);
-		  lcdPutStr(i+15,15,text,dig8x16);
-		  lcdPutStr(i+16,16,text,dig8x16);
+		  lcdPutStr(i,0,text,dig5x9);
+		  lcdPutStr(25-i,1,text,dig5x9);
+		  lcdPutStr(i,2,text,dig5x9);
+		  lcdPutStr(25-i,3,text,dig5x9);
+		  lcdPutStr(i,4,text,dig5x9);
+		  lcdPutStr(25-i,5,text,dig5x9);
 		  updateSetting(1);
-		  HAL_Delay(15);
+		  HAL_Delay(8);
 	  }
-		  HAL_Delay(200);
+	  for(uint8_t i = 25; i > 0; i--){
+		  lcdClearBuffer();
+		  updateSetting(0);
+		  lcdPutStr(i,0,text,dig5x9);
+		  lcdPutStr(25-i,1,text,dig5x9);
+		  lcdPutStr(i,2,text,dig5x9);
+		  lcdPutStr(25-i,3,text,dig5x9);
+		  lcdPutStr(i,4,text,dig5x9);
+		  lcdPutStr(25-i,5,text,dig5x9);
+		  updateSetting(1);
+		  HAL_Delay(8);
+	  }
+//		  HAL_Delay(200);
 
     /* USER CODE END WHILE */
 
