@@ -103,7 +103,8 @@ int main(void)
   uint8_t unifiedDelay = 1;
   /* USER CODE END 2 */
 //  char text[] = "PIK-POK IS A KING OF THE WORLD, BITCHE$$$!";
-  char text[] = "Pik-Pok is mad at you!";
+//  char text[] = "Pik-Pok is mad at you!";
+  char text[] = "Pik!";
 //  char text[] = "<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 //  char text[] = " ";
 
@@ -120,29 +121,29 @@ int main(void)
 //		  if((i-31)%50 == 0) row++;
 ////		  lcdClearBufferLinear();
 //	  }
-	  for(uint8_t i = 0; i < 25; i++){
+	  for(uint8_t i = 0; i < 120; i++){
 		  lcdClearBuffer();
 		  updateSetting(0);
 		  lcdPutStr(i,0,text,dig5x9);
-		  lcdPutStr(25-i,1,text,dig5x9);
-		  lcdPutStr(i,2,text,dig5x9);
-		  lcdPutStr(25-i,3,text,dig5x9);
-		  lcdPutStr(i,4,text,dig5x9);
-		  lcdPutStr(25-i,5,text,dig5x9);
+//		  lcdPutStr(25-i,1,text,dig5x9);
+//		  lcdPutStr(i,2,text,dig5x9);
+//		  lcdPutStr(25-i,3,text,dig5x9);
+//		  lcdPutStr(i,4,text,dig5x9);
+//		  lcdPutStr(25-i,5,text,dig5x9);
 		  updateSetting(1);
-		  HAL_Delay(8);
+		  HAL_Delay(18);
 	  }
-	  for(uint8_t i = 25; i > 0; i--){
+	  for(uint8_t i = 120; i > 0; i--){
 		  lcdClearBuffer();
 		  updateSetting(0);
 		  lcdPutStr(i,0,text,dig5x9);
-		  lcdPutStr(25-i,1,text,dig5x9);
-		  lcdPutStr(i,2,text,dig5x9);
-		  lcdPutStr(25-i,3,text,dig5x9);
-		  lcdPutStr(i,4,text,dig5x9);
-		  lcdPutStr(25-i,5,text,dig5x9);
+//		  lcdPutStr(25-i,1,text,dig5x9);
+//		  lcdPutStr(i,2,text,dig5x9);
+//		  lcdPutStr(25-i,3,text,dig5x9);
+//		  lcdPutStr(i,4,text,dig5x9);
+//		  lcdPutStr(25-i,5,text,dig5x9);
 		  updateSetting(1);
-		  HAL_Delay(8);
+		  HAL_Delay(18);
 	  }
 //		  HAL_Delay(200);
 

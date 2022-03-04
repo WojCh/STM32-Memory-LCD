@@ -91,7 +91,7 @@ enum {
 typedef struct {
 	uint8_t font_Width;       // Width of character
 	uint8_t font_Height;      // Height of character
-	uint8_t font_BPC;         // Bytes for one character
+	uint16_t font_BPC;         // Bytes for one character
 	uint8_t font_Scan;        // Font scan lines behavior
 	uint8_t font_MinChar;     // Code of the first known symbol
 	uint8_t font_MaxChar;     // Code of the last known symbol

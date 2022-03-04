@@ -120,6 +120,28 @@ void lcdPutPix(uint16_t x, uint8_t y, uint8_t val){
 	lcdBuffer[y*SCR_W/8 + xBlock] = finalVal;
 }
 
+//void lcdPutChar(uint16_t x, uint8_t y, char chr, const Font_TypeDef *font){
+//	// If the specified character code is out of bounds should substitute the code of the "unknown" character
+//	if ((chr < font->font_MinChar) || (chr > font->font_MaxChar)) {
+//		chr = font->font_UnknownChar;
+//	}
+//	uint8_t offset = x % 8;
+//	uint8_t xBlock = x >> 3;
+//	uint8_t bytesInLine = (font->font_BPC/font->font_Height);
+//	for(uint8_t j = 0; j < (font->font_Height); j++){
+//		uint16_t bufferLoc = (y+j)*SCR_W/8+xBlock;
+//		uint16_t characterLoc = (chr-(font->font_MinChar))*(font->font_BPC)+j*bytesInLine;
+//		uint8_t dataBlock = (font->font_Data[characterLoc]) >> offset;
+//		lcdBuffer[bufferLoc] &= ~dataBlock;
+//		dataBlock = (font->font_Data[characterLoc] & (0xFF >> (8 - offset)));
+//		uint8_t dataBlock2 = font->font_Data[characterLoc + 1];
+//		uint8_t dataBlock3 = font->font_Data[characterLoc + 2];
+//		lcdBuffer[bufferLoc + 1] &= ~((dataBlock << (8 - offset)) | (dataBlock2 >> offset));
+//		lcdBuffer[bufferLoc + 2] &= ~((dataBlock2 << (8 - offset)) | (dataBlock3 >> offset));
+//		lcdBuffer[bufferLoc + 3] &= ~(dataBlock3 << (8 - offset));
+//	}
+//
+//}
 void lcdPutChar(uint16_t x, uint8_t y, char chr, const Font_TypeDef *font){
 	// If the specified character code is out of bounds should substitute the code of the "unknown" character
 	if ((chr < font->font_MinChar) || (chr > font->font_MaxChar)) {
@@ -130,25 +152,16 @@ void lcdPutChar(uint16_t x, uint8_t y, char chr, const Font_TypeDef *font){
 	uint8_t bytesInLine = (font->font_BPC/font->font_Height);
 	for(uint8_t j = 0; j < (font->font_Height); j++){
 		uint16_t bufferLoc = (y+j)*SCR_W/8+xBlock;
-		uint16_t characterLoc = (chr-(font->font_MinChar))*(font->font_BPC)+j*bytesInLine;
+		uint32_t characterLoc = (chr-(font->font_MinChar))*(font->font_BPC)+j*bytesInLine;
 		uint8_t dataBlock = (font->font_Data[characterLoc]) >> offset;
 		lcdBuffer[bufferLoc] &= ~dataBlock;
-//		for(uint8_t i = 1; i < (font->font_Width)>>3; i++){
-//			uint8_t dataBlock = (font->font_Data[characterLoc+i-1]) & (0xFF >> offset);
-//			uint8_t dataBlock2 = (font->font_Data[characterLoc+i]) & (0xFF << (8 - offset));
-//			lcdBuffer[bufferLoc+i] &= ~(dataBlock | dataBlock2);
-//		}
-//		for(uint8_t i = 1; i < (font->font_Width-1)>>3; i++){
-//			dataBlock = (font->font_Data[characterLoc+i-1] & (0xFF >> (8 - offset)));
-//			uint8_t dataBlock2 = font->font_Data[characterLoc + i];
-//			lcdBuffer[bufferLoc + i] &= ~((dataBlock << (8 - offset)) | (dataBlock2 >> offset));
-//		}
 		dataBlock = (font->font_Data[characterLoc] & (0xFF >> (8 - offset)));
-		uint8_t dataBlock2 = font->font_Data[characterLoc + 1];
-		uint8_t dataBlock3 = font->font_Data[characterLoc + 2];
-		lcdBuffer[bufferLoc + 1] &= ~((dataBlock << (8 - offset)) | (dataBlock2 >> offset));
-		lcdBuffer[bufferLoc + 2] &= ~((dataBlock2 << (8 - offset)) | (dataBlock3 >> offset));
-		lcdBuffer[bufferLoc + 3] &= ~(dataBlock3 << (8 - offset));
+		for(uint8_t i = 1; i <= (font->font_Width)>>3; i++){
+			uint8_t newDataBlock = font->font_Data[characterLoc + i];
+			lcdBuffer[bufferLoc + i] &= ~((dataBlock << (8 - offset)) | (newDataBlock >> offset));
+			dataBlock = newDataBlock;
+		}
+		lcdBuffer[bufferLoc + ((font->font_Width)>>3) + 1] &= ~(dataBlock << (8-offset));
 	}
 
 }
