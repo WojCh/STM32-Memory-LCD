@@ -22,6 +22,7 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
+#include "gps.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -46,51 +47,31 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t znak[1];
-uint8_t txt[24];
-uint8_t symbol[5];
-typedef struct gpsObj{
-	uint8_t hour[2];
-	uint8_t minute[2];
-	uint8_t second[2];
-} gpsTime;
+
+gpsTime now = {"00", "00", "00"};
+
+uint8_t buffer[600];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-//void getGpsMsg(uint8_t *(buf[])){
-//	uint8_t msg[100];
-//	HAL_UART_Receive(&huart6, &msg, 100, 1000);
+
+//void getGpsMsg(struct gpsObj *obj){
+//	uint8_t a;
+//	uint8_t msg[166];
+//	while(a != '$'){
+//		HAL_UART_Receive(&huart6, &a, 1, 0);
+//	}
+//	HAL_UART_Receive(&huart6, &msg, 166, 0);
+//
 //	uint16_t index = 0;
-//	while(index < 100){
-//		if(msg[index] == '$'){
-//			memcpy(buf, msg[index+1], 5);
-////			buf[0] = msg[index+1];
-////			buf[1] = msg[index+2];
-////			buf[2] = msg[index+3];
-////			buf[3] = msg[index+4];
-////			buf[4] = msg[index+5];
-//			break;
-//		}
+//	while((strcmp(msg[index], "GNZDA") != 0) & (index < 166)){
 //		index++;
 //	}
+//	obj->hour[0] = msg[index+6];
+//	obj->hour[1] = msg[index+7];
 //}
-void getGpsMsg(struct gpsObj *obj){
-	uint8_t a;
-	uint8_t msg[166];
-	while(a != '$'){
-		HAL_UART_Receive(&huart6, &a, 1, 0);
-	}
-	HAL_UART_Receive(&huart6, &msg, 166, 0);
-
-	uint16_t index = 0;
-	while((strcmp(msg[index], "GNZDA") != 0) & (index < 166)){
-		index++;
-	}
-	obj->hour[0] = msg[index+6];
-	obj->hour[1] = msg[index+7];
-}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -140,94 +121,57 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   // Initialize Timer 10 - generating LCD refresh Interrupt
   HAL_TIM_Base_Start_IT(&htim10);
-  uint8_t unifiedDelay = 1;
-//  char text[] = "PIK-POK IS A KING OF THE WORLD, BITCHE$$$!";
-//  char text[] = "Pik-Pok is mad at you!";
+
   char text[] = "Pik!";
-//  char text[] = "<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-//  char text[] = " ";
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	  lcdClearBuffer();
+	  lcdRefresh();
   while (1)
   {
-//	  lcdClear();
-//	  lcdClearBuffer();
-//	  uint8_t row = 0;
-//	  for(uint8_t i=32; i < 128; i++){
-//		  lcdPutChar((i-32)*8, row, i, dig8x16);
-//		  HAL_Delay(25);
-//		  if((i-31)%50 == 0) row++;
-////		  lcdClearBufferLinear();
-//	  }
-	  uint8_t ppp[6];
-	  uint8_t qqq[9];
-//	  getGpsMsg(ppp);
-	  uint8_t msg[166];
-	  HAL_UART_Receive(&huart6, &msg, 166, 100);
-//	  getGpsMsg(struct gpsObj &gpsTime);
-	  uint16_t index = 0;
-	  while(index < 166){
-		  if((msg[index] == '$') & (index <= 166-83)){
-			  ppp[0] = msg[index+1];
-			  ppp[1] = msg[index+2];
-			  ppp[2] = msg[index+3];
-			  ppp[3] = msg[index+4];
-			  ppp[4] = msg[index+5];
-			  ppp[5] = 0;
-			//	  $GNZDA,191126.000,27,03,2022,00,00*40   [37B]
-			  if(strcmp(ppp, "GNZDA") == 0){
-//				  strncpy(qqq, msg[index+6],10);
-				  qqq[0] = msg[index+7];
-				  qqq[1] = msg[index+8];
-				  qqq[2] = ':';
-				  qqq[3] = msg[index+9];
-				  qqq[4] = msg[index+10];
-				  qqq[5] = ':';
-				  qqq[6] = msg[index+11];
-				  qqq[7] = msg[index+12];
-				  qqq[8] = 0;
-				  break;
-			  }
-		  }
-		index++;
-		}
 
+
+	  HAL_UART_Receive(&huart6, &buffer, 600, 1000);
+	  test(&buffer, &now);
+
+//	  getGpsMsg(struct gpsObj &gpsTime);
+//	  uint16_t index = 0;
+//	  while(index < 166){
+//		  if((msg[index] == '$') & (index <= 166-83)){
+//			  ppp[0] = msg[index+1];
+//			  ppp[1] = msg[index+2];
+//			  ppp[2] = msg[index+3];
+//			  ppp[3] = msg[index+4];
+//			  ppp[4] = msg[index+5];
+//			  ppp[5] = 0;
+//			//	  $GNZDA,191126.000,27,03,2022,00,00*40   [37B]
+//			  if(strcmp(ppp, "GNZDA") == 0){
+////				  strncpy(qqq, msg[index+6],10);
+//				  qqq[0] = msg[index+7];
+//				  qqq[1] = msg[index+8];
+//				  qqq[2] = ':';
+//				  qqq[3] = msg[index+9];
+//				  qqq[4] = msg[index+10];
+//				  qqq[5] = ':';
+//				  qqq[6] = msg[index+11];
+//				  qqq[7] = msg[index+12];
+//				  qqq[8] = 0;
+//				  break;
+//			  }
+//		  }
+//		index++;
+//		}
 	  lcdClearBuffer();
-	  updateSetting(0);
-	  lcdPutStr(0,0, ppp,dig5x9);
-	  lcdPutStr(0,1, qqq,dig5x9);
-	  updateSetting(1);
+//	  lcdPutStr(0,0, ppp,dig5x9);
+//	  lcdPutStr(0,1, qqq,dig5x9);
+	  lcdPutStr(0,0, now.hour ,dig5x9);
+	  lcdPutStr(0,1, now.minute ,dig5x9);
+	  lcdPutStr(0,2, now.second ,dig5x9);
 	  lcdRefresh();
 //	  HAL_Delay(1000);
-
-//	  for(uint8_t i = 0; i < 120; i++){
-//		  lcdClearBuffer();
-//		  updateSetting(0);
-//		  lcdPutStr(i,0,text,dig5x9);
-////		  lcdPutStr(25-i,1,text,dig5x9);
-////		  lcdPutStr(i,2,text,dig5x9);
-////		  lcdPutStr(25-i,3,text,dig5x9);
-////		  lcdPutStr(i,4,text,dig5x9);
-////		  lcdPutStr(25-i,5,text,dig5x9);
-//		  updateSetting(1);
-//		  HAL_Delay(18);
-//	  }
-//	  for(uint8_t i = 120; i > 0; i--){
-//		  lcdClearBuffer();
-//		  updateSetting(0);
-//		  lcdPutStr(i,0,text,dig5x9);
-////		  lcdPutStr(25-i,1,text,dig5x9);
-////		  lcdPutStr(i,2,text,dig5x9);
-////		  lcdPutStr(25-i,3,text,dig5x9);
-////		  lcdPutStr(i,4,text,dig5x9);
-////		  lcdPutStr(25-i,5,text,dig5x9);
-//		  updateSetting(1);
-//		  HAL_Delay(18);
-//	  }
-//		  HAL_Delay(200);
 
     /* USER CODE END WHILE */
 
@@ -292,6 +236,7 @@ char currChar, index;
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
 	if(huart->Instance == USART6){
+
 //		if(znak == '$'){
 //			HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
 //			HAL_UART_Receive_IT(&huart6, &symbol,5);
