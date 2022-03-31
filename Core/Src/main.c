@@ -167,9 +167,9 @@ int main(void)
 	  lcdClearBuffer();
 //	  lcdPutStr(0,0, ppp,dig5x9);
 //	  lcdPutStr(0,1, qqq,dig5x9);
-	  lcdPutStr(0,0, now.hour ,dig5x9);
-	  lcdPutStr(0,1, now.minute ,dig5x9);
-	  lcdPutStr(0,2, now.second ,dig5x9);
+	  lcdPutStr(0,0, now.timestr ,dig5x9);
+	  lcdPutStr(0,1, now.datestr ,dig5x9);
+	  lcdPutStr(0,2, now.chks ,dig5x9);
 	  lcdRefresh();
 //	  HAL_Delay(1000);
 
