@@ -57,6 +57,7 @@
 /* External variables --------------------------------------------------------*/
 extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim10;
+extern UART_HandleTypeDef huart6;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -85,7 +86,7 @@ void NMI_Handler(void)
 void HardFault_Handler(void)
 {
   /* USER CODE BEGIN HardFault_IRQn 0 */
-
+	Error_Handler();
   /* USER CODE END HardFault_IRQn 0 */
   while (1)
   {
@@ -214,7 +215,20 @@ void TIM1_UP_TIM10_IRQHandler(void)
   /* USER CODE END TIM1_UP_TIM10_IRQn 1 */
 }
 
+/**
+  * @brief This function handles USART6 global interrupt.
+  */
+void USART6_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART6_IRQn 0 */
+
+  /* USER CODE END USART6_IRQn 0 */
+  HAL_UART_IRQHandler(&huart6);
+  /* USER CODE BEGIN USART6_IRQn 1 */
+
+  /* USER CODE END USART6_IRQn 1 */
+}
+
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */
-

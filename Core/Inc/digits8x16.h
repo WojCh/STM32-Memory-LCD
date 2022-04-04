@@ -1,17 +1,17 @@
 #ifndef __DIGITS8x16_H
 #define __DIGITS8x16_H
-#include "lcd.h"
+//#include "lcd.h"
 
 #define dig8x16 &Digits8x16
 
 static const Font_TypeDef Digits8x16 = {
 		8,           // Font width
 		14,          // Font height
-		16,          // Bytes per character
+		14,          // Bytes per character
 		FONT_H,      // Vertical font scan lines
 		32,          // First character: '0'
-		132,          // Last character: '9'
-		48,          // Unknown character: '0'
+		128,          // Last character: '9'
+		35,          // Unknown character: '0'
 		{
 				0x00, //
 				0x00, //     #

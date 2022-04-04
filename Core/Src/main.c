@@ -22,11 +22,12 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
-#include "digits8x16.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "lcd.h"
+#include "font13.h"
+#include  "gps.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,12 +48,37 @@
 
 /* USER CODE BEGIN PV */
 
+gpsTime now = {"00", "00", "00"};
+gpsSentence testSentence;
+
+uint8_t buffer[600];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 
+//void getGpsMsg(struct gpsObj *obj){
+//	uint8_t a;
+//	uint8_t msg[166];
+//	while(a != '$'){
+//		HAL_UART_Receive(&huart6, &a, 1, 0);
+//	}
+//	HAL_UART_Receive(&huart6, &msg, 166, 0);
+//
+//	uint16_t index = 0;
+//	while((strcmp(msg[index], "GNZDA") != 0) & (index < 166)){
+//		index++;
+//	}
+//	obj->hour[0] = msg[index+6];
+//	obj->hour[1] = msg[index+7];
+//}
+void testingFunc(char s){
+	  lcdClearBuffer();
+
+	  lcdPutChar(180,0, s ,font13);
+	  lcdRefresh();
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -92,7 +118,9 @@ int main(void)
   MX_SPI1_Init();
   MX_TIM1_Init();
   MX_TIM10_Init();
+  MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
+//  HAL_UART_Receive_IT(&huart6, &znak, 1);
 
   //  Initialize VCOMIN pulse on CH1 (PIN PE9) for Sharp Memory LCD
   HAL_TIM_Base_Init(&htim1);
@@ -100,55 +128,45 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   // Initialize Timer 10 - generating LCD refresh Interrupt
   HAL_TIM_Base_Start_IT(&htim10);
-  uint8_t unifiedDelay = 1;
   /* USER CODE END 2 */
-  char text[] = "PIK-POK IS A KING OF THE WORLD, BITCHE$$$!";
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  gpsDevice gpsModule;
+  gpsModule = initGps(&huart6);
+	  lcdClearBuffer();
+	  lcdRefresh();
   while (1)
   {
-//	  lcdClearBuffer();
-//	  for(uint8_t j = 0; j < 240; j++){
-//		  for(uint16_t i = 0; i < 400; i++){
-//			  lcdPutPix(i,j, 1);
-////			  HAL_Delay(unifiedDelay);
-//		  }
-//		  for(uint16_t i = 0; i < 400; i++){
-//			  lcdPutPix(i,j, 0);
-//			  HAL_Delay(unifiedDelay);
-//		  }
-//	  }
-//	  char text[31] = "Pik-Pok is a king of the world!";
-//	  	  lcdClearBuffer();
 
-//		  char text[] = "PIK-POK IS A KING";
-//	  for(uint8_t i = 0; i < 42; i++){
-//	  lcdPutChar(i, 5, text[i], dig8x16);
-//	  HAL_Delay(10);
-//	  }
-	for(uint8_t i = 0; i <= 16; i++){
-  	  lcdClearBuffer();
-	  lcdPutStr(i,0, &text, dig8x16);
-	  lcdPutStr(16-i,3, &text, dig8x16);
-	  HAL_Delay(20);
-	}
-	for(uint8_t i = 16; i > 0; i--){
+
+//	  HAL_UART_Receive(&huart6, &buffer, 600, 1000);
+	  gpsModule.getData(&gpsModule);
+//	  test(&buffer, &now);
+//	  readSentence(&gpsBuffer, &testSentence);
+	  readSentence(&gpsModule.buffer, &testSentence);
+
+
 	  lcdClearBuffer();
-	  lcdPutStr(i,0, &text, dig8x16);
-	  lcdPutStr(16-i,3, &text, dig8x16);
-	  HAL_Delay(20);
-	}
-
-
-//	  for(uint8_t i = 0; i < 50; i++){
-//	  lcdPutChar(i, 0, i+32, dig8x16);
-//	  HAL_Delay(20);
-//	  }
-
-//	  lcdClear();
-//  	  HAL_Delay(100);
-//  	  lcdTest();
+//	  lcdPutStr(0,0, now.timestr ,font13);
+//	  lcdPutStr(0,1, now.datestr ,font13);
+//	  lcdPutStr(0,2, now.chks ,font13);
+	  char text[50] = { 0 };
+//	  $GNGGA,204244.000,,,,,0,00,25.5,,,,,,*7E
+	  sprintf(text, "MsgId: %s",  testSentence.msgId);
+	  if(testSentence.valid == '+'){
+		  lcdPutStr(0,0, text ,font13);
+		  for(uint8_t i = 0; i <= testSentence.wordNum; i++){
+			  sprintf(text, "Word no.%d: %s", i, testSentence.words[i]);
+			  lcdPutStr(0,i+1, text ,font13);
+			  // only 11 lines can be displayed with this font
+			  if(i >= 9) break;
+		  }
+		  lcdPutChar(180,0, testSentence.valid ,font13);
+	  } else {
+		  lcdPutStr(0,0, "Checksum invalid!!!" ,font13);
+	  }
+	  lcdRefresh();
+//	  HAL_Delay(1000);
 
     /* USER CODE END WHILE */
 
@@ -170,6 +188,7 @@ void SystemClock_Config(void)
   */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
@@ -185,6 +204,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
   /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
@@ -204,10 +224,25 @@ void SystemClock_Config(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM10){
 		HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
-		lcdRefresh();
+//		lcdRefresh();
+
 	}
 }
+char currChar, index;
 
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+
+	if(huart->Instance == USART6){
+
+//		if(znak == '$'){
+//			HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+//			HAL_UART_Receive_IT(&huart6, &symbol,5);
+//		} else {
+////			HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+//			HAL_UART_Receive_IT(&huart6, &znak,1);
+//		}
+	}
+}
 
 
 /* USER CODE END 4 */
@@ -221,6 +256,7 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
+	HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET);
   while (1)
   {
   }
@@ -243,4 +279,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-

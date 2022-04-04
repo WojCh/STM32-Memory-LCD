@@ -91,7 +91,7 @@ enum {
 typedef struct {
 	uint8_t font_Width;       // Width of character
 	uint8_t font_Height;      // Height of character
-	uint8_t font_BPC;         // Bytes for one character
+	uint16_t font_BPC;         // Bytes for one character
 	uint8_t font_Scan;        // Font scan lines behavior
 	uint8_t font_MinChar;     // Code of the first known symbol
 	uint8_t font_MaxChar;     // Code of the last known symbol
@@ -160,7 +160,6 @@ void lcdTest(void);
 uint8_t reverse_uint8(uint8_t re);
 void lcdRefresh(void);
 void lcdPutChar(uint16_t x, uint8_t y, char chr, const Font_TypeDef *font);
-
 
 
 
