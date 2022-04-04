@@ -22,12 +22,12 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
-#include "gps.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "digits5x9.h"
-#include "digits8x16.h"
+#include "lcd.h"
+#include "font13.h"
+#include  "gps.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,6 +49,7 @@
 /* USER CODE BEGIN PV */
 
 gpsTime now = {"00", "00", "00"};
+gpsSentence testSentence;
 
 uint8_t buffer[600];
 /* USER CODE END PV */
@@ -72,6 +73,12 @@ void SystemClock_Config(void);
 //	obj->hour[0] = msg[index+6];
 //	obj->hour[1] = msg[index+7];
 //}
+void testingFunc(char s){
+	  lcdClearBuffer();
+
+	  lcdPutChar(180,0, s ,font13);
+	  lcdRefresh();
+}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -121,55 +128,43 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   // Initialize Timer 10 - generating LCD refresh Interrupt
   HAL_TIM_Base_Start_IT(&htim10);
-
-  char text[] = "Pik!";
-
   /* USER CODE END 2 */
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  gpsDevice gpsModule;
+  gpsModule = initGps(&huart6);
 	  lcdClearBuffer();
 	  lcdRefresh();
   while (1)
   {
 
 
-	  HAL_UART_Receive(&huart6, &buffer, 600, 1000);
-	  test(&buffer, &now);
+//	  HAL_UART_Receive(&huart6, &buffer, 600, 1000);
+	  gpsModule.getData(&gpsModule);
+//	  test(&buffer, &now);
+//	  readSentence(&gpsBuffer, &testSentence);
+	  readSentence(&gpsModule.buffer, &testSentence);
 
-//	  getGpsMsg(struct gpsObj &gpsTime);
-//	  uint16_t index = 0;
-//	  while(index < 166){
-//		  if((msg[index] == '$') & (index <= 166-83)){
-//			  ppp[0] = msg[index+1];
-//			  ppp[1] = msg[index+2];
-//			  ppp[2] = msg[index+3];
-//			  ppp[3] = msg[index+4];
-//			  ppp[4] = msg[index+5];
-//			  ppp[5] = 0;
-//			//	  $GNZDA,191126.000,27,03,2022,00,00*40   [37B]
-//			  if(strcmp(ppp, "GNZDA") == 0){
-////				  strncpy(qqq, msg[index+6],10);
-//				  qqq[0] = msg[index+7];
-//				  qqq[1] = msg[index+8];
-//				  qqq[2] = ':';
-//				  qqq[3] = msg[index+9];
-//				  qqq[4] = msg[index+10];
-//				  qqq[5] = ':';
-//				  qqq[6] = msg[index+11];
-//				  qqq[7] = msg[index+12];
-//				  qqq[8] = 0;
-//				  break;
-//			  }
-//		  }
-//		index++;
-//		}
+
 	  lcdClearBuffer();
-//	  lcdPutStr(0,0, ppp,dig5x9);
-//	  lcdPutStr(0,1, qqq,dig5x9);
-	  lcdPutStr(0,0, now.timestr ,dig5x9);
-	  lcdPutStr(0,1, now.datestr ,dig5x9);
-	  lcdPutStr(0,2, now.chks ,dig5x9);
+//	  lcdPutStr(0,0, now.timestr ,font13);
+//	  lcdPutStr(0,1, now.datestr ,font13);
+//	  lcdPutStr(0,2, now.chks ,font13);
+	  char text[50] = { 0 };
+//	  $GNGGA,204244.000,,,,,0,00,25.5,,,,,,*7E
+	  sprintf(text, "MsgId: %s",  testSentence.msgId);
+	  if(testSentence.valid == '+'){
+		  lcdPutStr(0,0, text ,font13);
+		  for(uint8_t i = 0; i <= testSentence.wordNum; i++){
+			  sprintf(text, "Word no.%d: %s", i, testSentence.words[i]);
+			  lcdPutStr(0,i+1, text ,font13);
+			  // only 11 lines can be displayed with this font
+			  if(i >= 9) break;
+		  }
+		  lcdPutChar(180,0, testSentence.valid ,font13);
+	  } else {
+		  lcdPutStr(0,0, "Checksum invalid!!!" ,font13);
+	  }
 	  lcdRefresh();
 //	  HAL_Delay(1000);
 
@@ -193,6 +188,7 @@ void SystemClock_Config(void)
   */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
@@ -208,6 +204,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
   /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
@@ -259,6 +256,7 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
+	HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET);
   while (1)
   {
   }
@@ -281,4 +279,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-

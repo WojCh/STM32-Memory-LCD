@@ -1,7 +1,7 @@
 #ifndef __DIGITS5x9_H
 #define __DIGITS5x9_H
-#include "lcd.h"
-#include "main.h"
+//#include "lcd.h"
+//#include "main.h"
 
 
 #define dig5x9 &Digits5x9
@@ -10,7 +10,7 @@ static const Font_TypeDef Digits5x9 = {
 		17,           // Font width
 		39,           // Font height
 		117,           // Bytes per character
-		FONT_H,      // Vertical font scan lines
+//		FONT_H,      // Vertical font scan lines
 		32,          // First character: '-'
 		128,          // Last character: '9'
 		35,          // Unknown character: '0'

@@ -163,5 +163,4 @@ void lcdPutChar(uint16_t x, uint8_t y, char chr, const Font_TypeDef *font);
 
 
 
-
 #endif /* INC_LCD_H_ */

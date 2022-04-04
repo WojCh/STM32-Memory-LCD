@@ -1,6 +1,6 @@
 #ifndef __DIGITS8x16_H
 #define __DIGITS8x16_H
-#include "lcd.h"
+//#include "lcd.h"
 
 #define dig8x16 &Digits8x16
 

@@ -6,7 +6,7 @@
  */
 
 #include "lcd.h"
-#include "digits5x9.h"
+//#include "digits5x9.h"
 
 //#include "stm32f4xx_hal_conf.h"
 //#include "spi.h"
