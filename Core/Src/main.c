@@ -131,28 +131,25 @@ int main(void)
   /* USER CODE END 2 */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  gpsDevice gpsModule;
-  gpsModule = initGps(&huart6);
-	  lcdClearBuffer();
-	  lcdRefresh();
+  gpsDevice gpsModule = initGps(&huart6);
+  gpsStatus gpsState;
+
+  // Clear lcd
+  lcdClearBuffer();
+  lcdRefresh();
   while (1)
   {
-
-
-//	  HAL_UART_Receive(&huart6, &buffer, 600, 1000);
+	  // Get data from gpsModule
 	  gpsModule.getData(&gpsModule);
-//	  test(&buffer, &now);
-//	  readSentence(&gpsBuffer, &testSentence);
-	  readSentence(&gpsModule.buffer, &testSentence);
-
+	  // Parse sentence from module buffer
+	  readSentence(&gpsModule.buffer, &testSentence, "GNZDA");
+	  // Parse info to time
+	  gpsUpdateStatus(&gpsState, &testSentence);
 
 	  lcdClearBuffer();
-//	  lcdPutStr(0,0, now.timestr ,font13);
-//	  lcdPutStr(0,1, now.datestr ,font13);
-//	  lcdPutStr(0,2, now.chks ,font13);
 	  char text[50] = { 0 };
-//	  $GNGGA,204244.000,,,,,0,00,25.5,,,,,,*7E
-	  sprintf(text, "MsgId: %s",  testSentence.msgId);
+//	  sprintf(text, "MsgId: %s",  testSentence.msgId);
+	  sprintf(text, "MsgId: %s",  gpsState.time.second);
 	  if(testSentence.valid == '+'){
 		  lcdPutStr(0,0, text ,font13);
 		  for(uint8_t i = 0; i <= testSentence.wordNum; i++){

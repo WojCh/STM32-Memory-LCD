@@ -4,28 +4,37 @@
 #include "main.h"
 #include "usart.h"
 
+#define GPS_BUFFER_SIZE 600
+
 extern char gpsBuffer[];
 
 typedef struct gpsDevice{
 	UART_HandleTypeDef* uartPort;
-	char buffer[600];
+	char buffer[GPS_BUFFER_SIZE];
 	void (*getData)(struct gpsDevice*);
+//	uint8_t onOff;
 } gpsDevice;
 
 gpsDevice initGps(UART_HandleTypeDef* uartPort);
-
 
 typedef struct gpsTime{
 	uint8_t hour[3];
 	uint8_t minute[3];
 	uint8_t second[3];
-	uint8_t timestr[9];
 	uint8_t day[3];
 	uint8_t month[3];
 	uint8_t year[5];
-	uint8_t datestr[11];
-	uint8_t chks[3];
 } gpsTime;
+
+const enum gpsFields {GPS_TIME, GPS_POSITION, GPS_SATELLITE};
+
+typedef struct gpsStatus{
+	gpsTime time;
+} gpsStatus;
+
+//gpsStatus gpsState
+
+void gpsUpdateField(enum gpsFields);
 
 typedef struct gpsSentence{
 	char msgId[6];
