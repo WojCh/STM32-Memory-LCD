@@ -52,19 +52,21 @@ void readSentence(char* buffer, gpsSentence* sentence, char code[6]){
 		// Checksum control
 		char chksum = 0;
 		uint8_t j = 0;
-		char tcode = 'b';
+		printf("b ");
 		while((myStr[j] != '*') & (myStr[j] != NULL)){
-				tcode = 'c';
-			if(j < 84){
+			printf("c ");
+				if(j < 84){
+				printf("j: %d\n", j);
+				printf("mystr[j] %c\n", myStr[j]);
 				chksum ^= myStr[j];
-				tcode = 'd';
+				printf("d ");
 				j++;
-				tcode = 'e';
-			} else {
+				printf("e ");
+					} else {
 				break;
 			}
 		}
-		tcode = 'f';
+		printf("f\n");
 		char* chkPos = strchr(pos, '*')+1;
 		char readChkSum = hexCharToInt(chkPos);
 		if(readChkSum == chksum){
@@ -77,7 +79,7 @@ void readSentence(char* buffer, gpsSentence* sentence, char code[6]){
 				if(res==0){
 					memset(sentence->words[i], 0, sizeof(sentence->words[i]));
 				}
-				printf("iter: %d: %s, res: %d\n", i, sentence->words[i], res);
+//				printf("iter: %d: %s, res: %d\n", i, sentence->words[i], res);
 				wordLen = strlen(sentence->words[i]);
 				position = position + wordLen + 1;
 				i++;
