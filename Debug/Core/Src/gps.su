@@ -1,5 +1,7 @@
 ../Core/Src/gps.c:6:6:getDataFromUart	16	static
-../Core/Src/gps.c:11:11:initGps	624	static
-../Core/Src/gps.c:19:5:hexCharToInt	32	static
-../Core/Src/gps.c:42:6:readSentence	152	static
-../Core/Src/gps.c:93:6:gpsUpdateStatus	16	static
+../Core/Src/gps.c:11:11:initGps	664	static
+../Core/Src/gps.c:20:5:hexCharToInt	32	static
+../Core/Src/gps.c:43:6:readSentence	152	static
+../Core/Src/gps.c:94:6:gpsUpdateStatus	16	static
+../Core/Src/gps.c:99:6:gpsParseTime	528	static
+../Core/Src/gps.c:124:6:gpsParsePosition	528	static

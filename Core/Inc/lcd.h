@@ -25,7 +25,6 @@
 #include "spi.h"
 
 
-
 // Choose VCOM generation method
 //   0 - hardware VCOM generation, set when [EXTMODE = H]
 //       clock should be supplied to EXTCOMIN pin somehow

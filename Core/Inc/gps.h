@@ -8,14 +8,7 @@
 
 extern char gpsBuffer[];
 
-typedef struct gpsDevice{
-	UART_HandleTypeDef* uartPort;
-	char buffer[GPS_BUFFER_SIZE];
-	void (*getData)(struct gpsDevice*);
-//	uint8_t onOff;
-} gpsDevice;
-
-gpsDevice initGps(UART_HandleTypeDef* uartPort);
+const enum gpsField {GPS_TIME, GPS_POSITION, GPS_SATELLITE};
 
 typedef struct gpsTime{
 	uint8_t hour[3];
@@ -24,23 +17,44 @@ typedef struct gpsTime{
 	uint8_t day[3];
 	uint8_t month[3];
 	uint8_t year[5];
+	uint8_t int_hour;
+	uint8_t int_minute;
+	uint8_t int_second;
+	uint8_t int_day;
+	uint8_t int_month;
+	uint16_t int_year;
+	uint8_t isValid;
 } gpsTime;
 
-const enum gpsFields {GPS_TIME, GPS_POSITION, GPS_SATELLITE};
 
 typedef struct gpsStatus{
 	gpsTime time;
+//	gpsPosition position;
+//	gpsSatInfo satInfo;
 } gpsStatus;
-
-//gpsStatus gpsState
-
-void gpsUpdateField(enum gpsFields);
 
 typedef struct gpsSentence{
 	char msgId[6];
 	char words[25][20];
 	uint8_t wordNum;
-	char valid;
+	uint8_t valid;
 } gpsSentence;
+
+
+typedef struct gpsDevice{
+	UART_HandleTypeDef* uartPort;
+	char buffer[GPS_BUFFER_SIZE];
+	void (*getData)(struct gpsDevice*);
+	void (*updateStatus)(struct gpsDevice*);
+	gpsStatus status;
+//	uint8_t onOff;
+} gpsDevice;
+
+gpsDevice initGps(UART_HandleTypeDef* uartPort);
+
+void gpsUpdateStatus(gpsDevice* gpsModule);
+
+void gpsParseTime(gpsStatus* status, char* buffer);
+
 
 #endif /* INC_LCD_H_ */

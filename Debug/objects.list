@@ -1,5 +1,6 @@
 "./Core/Src/gpio.o"
 "./Core/Src/gps.o"
+"./Core/Src/gpsTest.o"
 "./Core/Src/lcd.o"
 "./Core/Src/main.o"
 "./Core/Src/spi.o"

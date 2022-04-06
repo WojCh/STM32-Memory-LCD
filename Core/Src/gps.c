@@ -7,12 +7,13 @@ void getDataFromUart(gpsDevice* gps){
 	  HAL_UART_Receive(&huart6, &gps->buffer, GPS_BUFFER_SIZE, 1000);
 //	  HAL_UART_Receive(&huart6, &gpsModule.buffer, 600, 1000);
 }
-
+// Initialization of gpsDefice struct
 gpsDevice initGps(UART_HandleTypeDef* uartPort){
 	gpsDevice gpsModule;
 	gpsModule.uartPort = uartPort;
 	strncpy(&gpsModule.buffer, 0, GPS_BUFFER_SIZE);
 	gpsModule.getData = &getDataFromUart;
+	gpsModule.updateStatus = &gpsUpdateStatus;
 	return(gpsModule);
 }
 
@@ -41,7 +42,6 @@ int hexCharToInt(char* value){
 //	char code[6] = "GNGGA";
 void readSentence(char* buffer, gpsSentence* sentence, char code[6]){
 	// word terminator
-	char term[] = ",";
 	// beginning of the sentence
 	char* pos = strstr(buffer, code);
 	if(pos != NULL){					// if found
@@ -68,12 +68,16 @@ void readSentence(char* buffer, gpsSentence* sentence, char code[6]){
 		char* chkPos = strchr(pos, '*')+1;
 		char readChkSum = hexCharToInt(chkPos);
 		if(readChkSum == chksum){
-			sentence->valid = '+';
+			sentence->valid = 1;
 			int wordLen = 0;
 			char* position = myStr;
 			int i = 0;
 			while((*position != 10) & (i < 24)){
-				sscanf(position, "%[^,\r*]", sentence->words[i]);
+				int res = sscanf(position, "%[^,\r*]", sentence->words[i]);
+				if(res==0){
+					memset(sentence->words[i], 0, sizeof(sentence->words[i]));
+				}
+				printf("iter: %d: %s, res: %d\n", i, sentence->words[i], res);
 				wordLen = strlen(sentence->words[i]);
 				position = position + wordLen + 1;
 				i++;
@@ -81,21 +85,49 @@ void readSentence(char* buffer, gpsSentence* sentence, char code[6]){
 			sentence->wordNum = i-1;
 			strncpy(&sentence->msgId, sentence->words[0], 5);
 		} else {
-			sentence->valid = 'x';
+			sentence->valid = 0;
 		}
+
 	}
 }
 
-//void gpsUpdateField(enum gpsFields){
-//
-//}
+void gpsUpdateStatus(gpsDevice* gpsModule){
+	gpsParseTime(&gpsModule->status, &gpsModule->buffer);
+	gpsParsePosition(&gpsModule->status, &gpsModule->buffer);
+}
 
-void gpsUpdateStatus(gpsStatus* gpsState, gpsSentence* sentence){
-	if(strncmp(sentence->msgId, "GNZDA", 6)==0){
+void gpsParseTime(gpsStatus* status, char* buffer){
+	gpsSentence sentence;
+	readSentence(buffer, &sentence, "GNZDA");
+// 		Check correctness
+//		Add return value to indicate need for re-reading data
+	if((strncmp(sentence.msgId, "GNZDA", 6)==0) & sentence.valid){
+//		Set valid flag
+			memset(&status->time.isValid, 1, sizeof(char));
+//		Set time fields
+			strncpy(&status->time.hour, (sentence.words[1]), 2);
+			memset(&status->time.hour[2], NULL, sizeof(char));
+			strncpy(&status->time.minute, (sentence.words[1])+2, 2);
+			memset(&status->time.minute[2], NULL, sizeof(char));
+			strncpy(&status->time.second, (sentence.words[1])+4, 2);
+			memset(&status->time.second[2], NULL, sizeof(char));
+//		Set date fields
+			strncpy(&status->time.day, (sentence.words[2]), 2);
+			memset(&status->time.day[2], NULL, sizeof(char));
+			strncpy(&status->time.month, (sentence.words[3]), 2);
+			memset(&status->time.month[2], NULL, sizeof(char));
+			strncpy(&status->time.year, (sentence.words[4]), 4);
+			memset(&status->time.year[4], NULL, sizeof(char));
+		}
+}
 
-		strncpy(&gpsState->time.second, (sentence->words[1])+4, 2);
-		memset(&gpsState->time.second+2, NULL, 1);
-	}
+void gpsParsePosition(gpsStatus* status, char* buffer){
+	gpsSentence sentence;
+		readSentence(buffer, &sentence, "GNRMC");
+	// 		Check correctness
+		if((strncmp(sentence.msgId, "GNRMC", 6)==0) & sentence.valid){
+
+		}
 }
 
 

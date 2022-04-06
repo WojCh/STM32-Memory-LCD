@@ -25,6 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
 #include "lcd.h"
 #include "font13.h"
 #include  "gps.h"
@@ -83,7 +84,10 @@ void testingFunc(char s){
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+int __io_putchar(int ch){
+	ITM_SendChar(ch);
+	return(ch);
+}
 /* USER CODE END 0 */
 
 /**
@@ -142,28 +146,23 @@ int main(void)
 	  // Get data from gpsModule
 	  gpsModule.getData(&gpsModule);
 	  // Parse sentence from module buffer
-	  readSentence(&gpsModule.buffer, &testSentence, "GNZDA");
+//	  readSentence(&gpsModule.buffer, &testSentence, "GNZDA");
 	  // Parse info to time
-	  gpsUpdateStatus(&gpsState, &testSentence);
-
+	  gpsModule.updateStatus(&gpsModule);
 	  lcdClearBuffer();
-	  char text[50] = { 0 };
-//	  sprintf(text, "MsgId: %s",  testSentence.msgId);
-	  sprintf(text, "MsgId: %s",  gpsState.time.second);
-	  if(testSentence.valid == '+'){
-		  lcdPutStr(0,0, text ,font13);
-		  for(uint8_t i = 0; i <= testSentence.wordNum; i++){
-			  sprintf(text, "Word no.%d: %s", i, testSentence.words[i]);
-			  lcdPutStr(0,i+1, text ,font13);
-			  // only 11 lines can be displayed with this font
-			  if(i >= 9) break;
-		  }
-		  lcdPutChar(180,0, testSentence.valid ,font13);
+	  char timeText[50] = { 0 };
+	  char dateText[50] = { 0 };
+	  sprintf(timeText, "Time:%s:%s:%s", gpsModule.status.time.hour, gpsModule.status.time.minute, gpsModule.status.time.second);
+	  sprintf(dateText, "Date:%s-%s-%s", gpsModule.status.time.day, gpsModule.status.time.month, gpsModule.status.time.year);
+	  if(gpsModule.status.time.isValid == 1){
+		  lcdPutStr(0,0, timeText ,font13);
+		  lcdPutStr(200,0, dateText ,font13);
+//		  }
 	  } else {
 		  lcdPutStr(0,0, "Checksum invalid!!!" ,font13);
 	  }
+	  gpsTestSentence(&gpsModule, "GNRMC");
 	  lcdRefresh();
-//	  HAL_Delay(1000);
 
     /* USER CODE END WHILE */
 
