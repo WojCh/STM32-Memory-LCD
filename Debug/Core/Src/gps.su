@@ -3,4 +3,4 @@
 ../Core/Src/gps.c:20:6:test	168	static
 ../Core/Src/gps.c:72:5:hexCharToInt	32	static
 ../Core/Src/gps.c:90:6:readSentence	152	static
-../Core/Src/gps.c:146:6:test3	160	static
+../Core/Src/gps.c:148:6:test3	160	static

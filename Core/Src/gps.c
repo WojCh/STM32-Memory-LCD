@@ -112,7 +112,9 @@ void readSentence(char* buffer, gpsSentence* sentence){
 		while((myStr[j] != '*') & (myStr[j] != NULL)){
 				tcode = 'c';
 			if(j < 84){
+				HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET);
 				chksum ^= myStr[j];
+				HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
 				tcode = 'd';
 				j++;
 				tcode = 'e';

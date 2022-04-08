@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "i2c.h"
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
@@ -28,6 +29,7 @@
 #include "lcd.h"
 #include "font13.h"
 #include  "gps.h"
+#include "bmp180.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,27 +60,6 @@ uint8_t buffer[600];
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 
-//void getGpsMsg(struct gpsObj *obj){
-//	uint8_t a;
-//	uint8_t msg[166];
-//	while(a != '$'){
-//		HAL_UART_Receive(&huart6, &a, 1, 0);
-//	}
-//	HAL_UART_Receive(&huart6, &msg, 166, 0);
-//
-//	uint16_t index = 0;
-//	while((strcmp(msg[index], "GNZDA") != 0) & (index < 166)){
-//		index++;
-//	}
-//	obj->hour[0] = msg[index+6];
-//	obj->hour[1] = msg[index+7];
-//}
-void testingFunc(char s){
-	  lcdClearBuffer();
-
-	  lcdPutChar(180,0, s ,font13);
-	  lcdRefresh();
-}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -119,6 +100,7 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM10_Init();
   MX_USART6_UART_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 //  HAL_UART_Receive_IT(&huart6, &znak, 1);
 
@@ -129,44 +111,34 @@ int main(void)
   // Initialize Timer 10 - generating LCD refresh Interrupt
   HAL_TIM_Base_Start_IT(&htim10);
   /* USER CODE END 2 */
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   gpsDevice gpsModule;
   gpsModule = initGps(&huart6);
-	  lcdClearBuffer();
-	  lcdRefresh();
+
+  bmp_t bmp180module;
+//  bmp_t bmp;
+  bmp_init(&bmp180module);
+//  bmp_init (&bmp);
+  lcdClearBuffer();
+  lcdRefresh();
   while (1)
   {
 
+	  baroDataSet bmpData = getBmpData(&bmp180module);
 
-//	  HAL_UART_Receive(&huart6, &buffer, 600, 1000);
-	  gpsModule.getData(&gpsModule);
-//	  test(&buffer, &now);
-//	  readSentence(&gpsBuffer, &testSentence);
-	  readSentence(&gpsModule.buffer, &testSentence);
-
-
+	  char temp[50] = {0};
+	  char pres[50] = {0};
+	  char alti[50] = {0};
+	  sprintf(&temp, "Temperature: %4.2f degC", bmpData.temperature);
+	  sprintf(&pres, "Pressure: %d Pa", bmpData.pressure);
+	  sprintf(&alti, "Altitude: %6.2f m", bmpData.altitude);
 	  lcdClearBuffer();
-//	  lcdPutStr(0,0, now.timestr ,font13);
-//	  lcdPutStr(0,1, now.datestr ,font13);
-//	  lcdPutStr(0,2, now.chks ,font13);
-	  char text[50] = { 0 };
-//	  $GNGGA,204244.000,,,,,0,00,25.5,,,,,,*7E
-	  sprintf(text, "MsgId: %s",  testSentence.msgId);
-	  if(testSentence.valid == '+'){
-		  lcdPutStr(0,0, text ,font13);
-		  for(uint8_t i = 0; i <= testSentence.wordNum; i++){
-			  sprintf(text, "Word no.%d: %s", i, testSentence.words[i]);
-			  lcdPutStr(0,i+1, text ,font13);
-			  // only 11 lines can be displayed with this font
-			  if(i >= 9) break;
-		  }
-		  lcdPutChar(180,0, testSentence.valid ,font13);
-	  } else {
-		  lcdPutStr(0,0, "Checksum invalid!!!" ,font13);
-	  }
+	  lcdPutStr(0, 0, temp, font13);
+	  lcdPutStr(0, 1, pres, font13);
+	  lcdPutStr(0, 2, alti, font13);
 	  lcdRefresh();
-//	  HAL_Delay(1000);
 
     /* USER CODE END WHILE */
 
