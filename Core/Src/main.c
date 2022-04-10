@@ -26,9 +26,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
 #include "lcd.h"
 #include "font13.h"
-#include  "gps.h"
+#include "gps.h"
 #include "bmp180.h"
 #include "buttons.h"
 
@@ -66,7 +67,10 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+int __io_putchar(int ch){
+	ITM_SendChar(ch);
+	return(ch);
+}
 /* USER CODE END 0 */
 
 /**
@@ -103,6 +107,7 @@ int main(void)
   MX_TIM10_Init();
   MX_USART6_UART_Init();
   MX_I2C1_Init();
+  MX_TIM11_Init();
   /* USER CODE BEGIN 2 */
 //  HAL_UART_Receive_IT(&huart6, &znak, 1);
 
@@ -123,11 +128,13 @@ int main(void)
 //  bmp_t bmp;
   bmp_init(&bmp180module);
 //  bmp_init (&bmp);
+
+  btns.BA_handler = &pressedA_one;
+  btns.BB_handler = &changeMode;
   lcdClearBuffer();
   lcdRefresh();
   while (1)
   {
-	  uint8_t butBState = 'o';
 	  baroDataSet bmpData = getBmpData(&bmp180module);
 
 	  char temp[50] = {0};
@@ -136,17 +143,8 @@ int main(void)
 	  sprintf(&temp, "Temperature: %4.2f degC", bmpData.temperature);
 	  sprintf(&pres, "Pressure: %d Pa", bmpData.pressure);
 	  sprintf(&alti, "Altitude: %6.2f m", bmpData.altitude);
-	  btns.B2 = HAL_GPIO_ReadPin(B2_GPIO_Port, B2_Pin) == 0;
-	  btns.B3 = HAL_GPIO_ReadPin(B3_GPIO_Port, B3_Pin) == 0;
-	  btns.B1 = HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin) == 0;
-	  btns.BA = HAL_GPIO_ReadPin(BA_GPIO_Port, BA_Pin) == 0;
-	  btns.BB = HAL_GPIO_ReadPin(BB_GPIO_Port, BB_Pin) == 0;
-	  btns.BC = HAL_GPIO_ReadPin(BC_GPIO_Port, BC_Pin) == 0;
-	  if(HAL_GPIO_ReadPin(BB_GPIO_Port, BB_Pin) == 0){
-		  butBState = 'x';
-	  } else {
-		  butBState = 'o';
-	  }
+
+
 	  lcdClearBuffer();
 	  lcdPutStr(0, 0, temp, font13);
 	  lcdPutStr(0, 1, pres, font13);
@@ -226,8 +224,28 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 
 	}
 }
-char currChar, index;
-
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+	if(GPIO_Pin == BA_Pin){
+		btns.BA = HAL_GPIO_ReadPin(BA_GPIO_Port, BA_Pin) == 0;
+		btns.BA_handler();
+	}
+	if(GPIO_Pin == BB_Pin){
+		btns.BB = HAL_GPIO_ReadPin(BB_GPIO_Port, BB_Pin) == 0;
+		btns.BB_handler();
+	}
+	if(GPIO_Pin == BC_Pin){
+		btns.BC = HAL_GPIO_ReadPin(BC_GPIO_Port, BC_Pin) == 0;
+	}
+	if(GPIO_Pin == B1_Pin){
+		btns.B1 = HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin) == 0;
+	}
+	if(GPIO_Pin == B2_Pin){
+		btns.B2 = HAL_GPIO_ReadPin(B2_GPIO_Port, B2_Pin) == 0;
+	}
+	if(GPIO_Pin == B3_Pin){
+		btns.B3 = HAL_GPIO_ReadPin(B3_GPIO_Port, B3_Pin) == 0;
+	}
+}
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
 	if(huart->Instance == USART6){

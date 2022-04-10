@@ -1,0 +1,3 @@
+../Core/Src/buttons.c:6:6:pressedA_one	8	static
+../Core/Src/buttons.c:9:6:pressedA_two	8	static
+../Core/Src/buttons.c:15:6:changeMode	4	static
