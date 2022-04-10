@@ -138,6 +138,19 @@ int main(void)
 	  lcdPutStr(0, 0, temp, font13);
 	  lcdPutStr(0, 1, pres, font13);
 	  lcdPutStr(0, 2, alti, font13);
+
+	  lcdPutStr(0,5, "B3:", font13);
+	  lcdPutStr(0,6, "B2:", font13);
+	  lcdPutStr(0,7, "B1:", font13);
+	  lcdPutStr(300,5, "BC:", font13);
+	  lcdPutStr(300,6, "BB:", font13);
+	  lcdPutStr(300,7, "BA:", font13);
+	  lcdPutChar(45, 110, 'o', font13);
+	  lcdPutChar(45, 132, 'o', font13);
+	  lcdPutChar(45, 154, 'o', font13);
+	  lcdPutChar(345, 110, 'o', font13);
+	  lcdPutChar(345, 132, 'o', font13);
+	  lcdPutChar(345, 154, 'o', font13);
 	  lcdRefresh();
 
     /* USER CODE END WHILE */
