@@ -30,6 +30,8 @@
 #include "font13.h"
 #include  "gps.h"
 #include "bmp180.h"
+#include "buttons.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -125,7 +127,7 @@ int main(void)
   lcdRefresh();
   while (1)
   {
-
+	  uint8_t butBState = 'o';
 	  baroDataSet bmpData = getBmpData(&bmp180module);
 
 	  char temp[50] = {0};
@@ -134,23 +136,34 @@ int main(void)
 	  sprintf(&temp, "Temperature: %4.2f degC", bmpData.temperature);
 	  sprintf(&pres, "Pressure: %d Pa", bmpData.pressure);
 	  sprintf(&alti, "Altitude: %6.2f m", bmpData.altitude);
+	  btns.B2 = HAL_GPIO_ReadPin(B2_GPIO_Port, B2_Pin) == 0;
+	  btns.B3 = HAL_GPIO_ReadPin(B3_GPIO_Port, B3_Pin) == 0;
+	  btns.B1 = HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin) == 0;
+	  btns.BA = HAL_GPIO_ReadPin(BA_GPIO_Port, BA_Pin) == 0;
+	  btns.BB = HAL_GPIO_ReadPin(BB_GPIO_Port, BB_Pin) == 0;
+	  btns.BC = HAL_GPIO_ReadPin(BC_GPIO_Port, BC_Pin) == 0;
+	  if(HAL_GPIO_ReadPin(BB_GPIO_Port, BB_Pin) == 0){
+		  butBState = 'x';
+	  } else {
+		  butBState = 'o';
+	  }
 	  lcdClearBuffer();
 	  lcdPutStr(0, 0, temp, font13);
 	  lcdPutStr(0, 1, pres, font13);
 	  lcdPutStr(0, 2, alti, font13);
 
 	  lcdPutStr(0,5, "B3:", font13);
+	  lcdPutChar(45, 110, ('x'-'o')*btns.B3 + 'o', font13);
 	  lcdPutStr(0,6, "B2:", font13);
+	  lcdPutChar(45, 132, btns.B2 + 'o', font13);
 	  lcdPutStr(0,7, "B1:", font13);
+	  lcdPutChar(45, 154, btns.B1 + 'o', font13);
 	  lcdPutStr(300,5, "BC:", font13);
+	  lcdPutChar(345, 110, btns.BC + 'o', font13);
 	  lcdPutStr(300,6, "BB:", font13);
+	  lcdPutChar(345, 132, btns.BB + 'o', font13);
 	  lcdPutStr(300,7, "BA:", font13);
-	  lcdPutChar(45, 110, 'o', font13);
-	  lcdPutChar(45, 132, 'o', font13);
-	  lcdPutChar(45, 154, 'o', font13);
-	  lcdPutChar(345, 110, 'o', font13);
-	  lcdPutChar(345, 132, 'o', font13);
-	  lcdPutChar(345, 154, 'o', font13);
+	  lcdPutChar(345, 154, btns.BA + 'o', font13);
 	  lcdRefresh();
 
     /* USER CODE END WHILE */

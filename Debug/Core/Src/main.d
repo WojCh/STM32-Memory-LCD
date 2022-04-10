@@ -33,7 +33,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/i2c.h ../Core/Inc/main.h ../Core/Inc/spi.h ../Core/Inc/tim.h \
  ../Core/Inc/usart.h ../Core/Inc/gpio.h ../Core/Inc/lcd.h \
  ../Core/Inc/spi.h ../Core/Inc/font13.h ../Core/Inc/lcd.h \
- ../Core/Inc/gps.h ../Core/Inc/usart.h ../Core/Inc/bmp180.h
+ ../Core/Inc/gps.h ../Core/Inc/usart.h ../Core/Inc/bmp180.h \
+ ../Core/Inc/buttons.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -79,3 +80,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/gps.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/bmp180.h:
+../Core/Inc/buttons.h:
