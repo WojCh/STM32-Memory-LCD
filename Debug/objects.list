@@ -1,5 +1,6 @@
 "./Core/Src/bmp180.o"
 "./Core/Src/buttons.o"
+"./Core/Src/customTimer.o"
 "./Core/Src/gpio.o"
 "./Core/Src/gps.o"
 "./Core/Src/i2c.o"

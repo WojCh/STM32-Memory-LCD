@@ -1,3 +1,5 @@
-../Core/Src/buttons.c:6:6:pressedA_one	8	static
-../Core/Src/buttons.c:9:6:pressedA_two	8	static
-../Core/Src/buttons.c:15:6:changeMode	4	static
+../Core/Src/buttons.c:10:6:initButtons	24	static
+../Core/Src/buttons.c:42:6:setPressSetting	16	static
+../Core/Src/buttons.c:47:9:readButton	16	static
+../Core/Src/buttons.c:51:6:scanButton	24	static
+../Core/Src/buttons.c:129:6:scanButtons	24	static
