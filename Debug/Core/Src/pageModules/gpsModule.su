@@ -1,0 +1,2 @@
+../Core/Src/pageModules/gpsModule.c:12:6:showGpsDesc	40	static
+../Core/Src/pageModules/gpsModule.c:19:6:showGpsScreen	4	static

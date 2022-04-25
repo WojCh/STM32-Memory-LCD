@@ -226,6 +226,9 @@ int32_t get_pressure(bmp_t bmp)
 	return p;
 }
 
+float BMP_PRESS_CONST_SEA_LEVEL = 101325;
+float fixedAltitude = 130.0;
+
 /*!
 * @brief:    - Calc true altitude.
 * @param[in] - struct of type bmp_t
@@ -244,16 +247,31 @@ float get_altitude (bmp_t * bmp)
 
 	return altitude;
 }
+float get_slp (bmp_t * bmp)
+{
+	float slp = 0;
+
+	slp = bmp->data.press/pow((1.0f - fixedAltitude/BMP_PRESS_CONST_COEFICIENT), 5.255);
+
+	return slp;
+}
+
+
+
+bmp_t bmp180module;
+baroDataSet bmpData;
 
 baroDataSet getBmpData(bmp_t* bmp180){
 	bmp180->uncomp.temp = get_ut ();
 	bmp180->data.temp = get_temp(bmp180);
 	bmp180->uncomp.press = get_up(bmp180->oss);
 	bmp180->data.press = get_pressure(*bmp180);
+	bmp180->data.slp = get_slp(bmp180);
 	bmp180->data.altitude = get_altitude(bmp180);
 	baroDataSet result;
 	result.altitude = bmp180->data.altitude;
 	result.pressure = bmp180->data.press;
 	result.temperature = bmp180->data.temp;
+	result.slpress = bmp180->data.slp;
 	return result;
 }

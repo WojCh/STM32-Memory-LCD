@@ -24,12 +24,24 @@ void initButtons(Button* btns[6]){
 		btns[i]->longSingleHandled = 0;
 		btns[i]->releaseHandled = 0;
 		// handlers
-		btns[i]->singlePressHandler = NULL;
-		btns[i]->singleLongPressHandler = NULL;
-		btns[i]->continuousShortPressHandler = NULL;
-		btns[i]->continuousLongPressHandler = NULL;
-		btns[i]->releaseHandler = NULL;
+		btns[i]->onSinglePressHandler = NULL;
+		btns[i]->onSingleLongPressHandler = NULL;
+		btns[i]->onContinuousShortPressHandler = NULL;
+		btns[i]->onContinuousLongPressHandler = NULL;
+		btns[i]->onReleaseHandler = NULL;
 //		btns[i]-> = NULL;
+		i++;
+	}
+}
+
+void resetButtonHandlers(void){
+	uint8_t i = 0;
+	while(i < 6){
+		btnsPtrs[i]->onSinglePressHandler = NULL;
+		btnsPtrs[i]->onSingleLongPressHandler = NULL;
+		btnsPtrs[i]->onContinuousShortPressHandler = NULL;
+		btnsPtrs[i]->onContinuousLongPressHandler = NULL;
+		btnsPtrs[i]->onReleaseHandler = NULL;
 		i++;
 	}
 }
@@ -38,7 +50,7 @@ char buttonHandlers[50] = {0};
 char buttonHandler2[50] = {0};
 
 // settings for timer cycles needed for a long threshold and freq of pulse on long press
-struct PressSetting pressSetting = {10, 1};
+struct PressSetting pressSetting = {8, 2};
 void setPressSetting(uint16_t shortPress, uint16_t longPressPulse){
 	pressSetting.shortTreshold = shortPress;
 	pressSetting.longPulseTreshold = longPressPulse;
@@ -61,16 +73,16 @@ void scanButton(Button* btn){
 			if(btn->shortContinuous >= 10000) btn->shortContinuous = pressSetting.shortTreshold;
 			// short continuous press handler
 			// ... 																<------ continuous press handler
-			if(btn->continuousShortPressHandler != NULL){
-				btn->continuousShortPressHandler(NULL);
+			if(btn->onContinuousShortPressHandler != NULL){
+				btn->onContinuousShortPressHandler(NULL);
 			}
 			// press longer then threshold
 			if(btn->shortContinuous >= pressSetting.shortTreshold){
 				// single long press handler
 				if(btn->longSingleHandled == 0){
 					// stuff to do once when long pressed						<------ single hold handler
-					if(btn->singleLongPressHandler != NULL){
-						btn->singleLongPressHandler(NULL);
+					if(btn->onSingleLongPressHandler != NULL){
+						btn->onSingleLongPressHandler(NULL);
 					}
 					btn->longSingleOn++;
 					// set handled flag up
@@ -78,8 +90,8 @@ void scanButton(Button* btn){
 				}
 				if(btn->shortContinuous%pressSetting.longPulseTreshold == 0){
 					//continuous long action handler							<------ continuous hold handler
-					if(btn->continuousLongPressHandler != NULL){
-						btn->continuousLongPressHandler(NULL);
+					if(btn->onContinuousLongPressHandler != NULL){
+						btn->onContinuousLongPressHandler(NULL);
 					}
 					btn->longContinuous++;
 					if(btn->longContinuous >= 1000) btn->longContinuous = 1;
@@ -104,8 +116,8 @@ void scanButton(Button* btn){
 			// handle single press
 			if(btn->shortSingleHandled == 0){
 				// to do after press											<------ single press handler
-				if(btn->singlePressHandler != NULL){
-					btn->singlePressHandler(NULL);
+				if(btn->onSinglePressHandler != NULL){
+					btn->onSinglePressHandler(NULL);
 				}
 				btn->shortSingleOn++;
 				// set single press handled flag
@@ -115,8 +127,8 @@ void scanButton(Button* btn){
 			// released
 			if(btn->releaseHandled == 0){
 				// handle button release										<------ single release handler
-				if(btn->releaseHandler != NULL){
-					btn->releaseHandler(NULL);
+				if(btn->onReleaseHandler != NULL){
+					btn->onReleaseHandler(NULL);
 				}
 				btn->shortSingleOff++;
 				// set handled flag

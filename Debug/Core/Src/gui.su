@@ -1,0 +1,7 @@
+../Core/Src/gui.c:39:6:showMainMenu	40	static
+../Core/Src/gui.c:61:6:prevPos	4	static
+../Core/Src/gui.c:68:6:nextPos	4	static
+../Core/Src/gui.c:75:6:select	8	static
+../Core/Src/gui.c:81:6:returnToMenu	8	static
+../Core/Src/gui.c:86:6:setMenuClbs	4	static
+../Core/Src/gui.c:96:6:showMenu	8	static

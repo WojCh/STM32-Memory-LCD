@@ -1,0 +1,8 @@
+../Core/Src/pageModules/baroModule.c:15:6:setDefaultClbcks	4	static
+../Core/Src/pageModules/baroModule.c:21:6:baroSetup	8	static
+../Core/Src/pageModules/baroModule.c:24:6:baroMain	392	static
+../Core/Src/pageModules/baroModule.c:47:6:showBaroDesc	40	static
+../Core/Src/pageModules/baroModule.c:54:6:changeBaroMode	4	static
+../Core/Src/pageModules/baroModule.c:63:6:addBaro	4	static
+../Core/Src/pageModules/baroModule.c:70:6:remBaro	4	static
+../Core/Src/pageModules/baroModule.c:78:6:showBaroScreen	392	static

@@ -33,11 +33,13 @@ struct PressSetting {
 };
 
 typedef struct Button{
+	// settings
 	GPIO_TypeDef* port;
 	uint16_t pin;
+	// status
 	uint8_t prevStatus:1;
 	uint8_t currStatus:1;
-//	void (*readCurrStatus)(void);
+	// flags
 	uint8_t shortSingleOn;
 	uint8_t shortSingleOff;
 	uint8_t longSingleOn;
@@ -46,11 +48,12 @@ typedef struct Button{
 	uint8_t shortSingleHandled;
 	uint8_t longSingleHandled;
 	uint8_t releaseHandled;
-	void* (*singlePressHandler)(void*);
-	void* (*singleLongPressHandler)(void*);
-	void* (*continuousShortPressHandler)(void*);
-	void* (*continuousLongPressHandler)(void*);
-	void* (*releaseHandler)(void*);
+	// handlers
+	void* (*onSinglePressHandler)(void*);
+	void* (*onSingleLongPressHandler)(void*);
+	void* (*onContinuousShortPressHandler)(void*);
+	void* (*onContinuousLongPressHandler)(void*);
+	void* (*onReleaseHandler)(void*);
 } Button;
 
 extern Button btn_BA, btn_BB, btn_BC, btn_B1, btn_B2, btn_B3;

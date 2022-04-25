@@ -10,7 +10,7 @@ static const Font_TypeDef Digits5x9 = {
 		17,           // Font width
 		39,           // Font height
 		117,           // Bytes per character
-//		FONT_H,      // Vertical font scan lines
+		FONT_H,      // Vertical font scan lines
 		32,          // First character: '-'
 		128,          // Last character: '9'
 		35,          // Unknown character: '0'

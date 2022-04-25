@@ -58,7 +58,7 @@
 
 // Pressure measurment :
 #define BMP_SET_PRESS_CONV		            	(0x34)
-#define BMP_PRESS_CONST_SEA_LEVEL 	    		(98800.0f) // pressure in Pa
+//#define BMP_PRESS_CONST_SEA_LEVEL 	    		(98800.0f) // pressure in Pa
 //#define BMP_PRESS_CONST_SEA_LEVEL 	    		(101325.0f) // pressure in Pa
 #define BMP_PRESS_CONST_COEFICIENT 	    		(44330.0f)
 
@@ -66,7 +66,8 @@
 #define BMP_MIN_ALT_THRESHOLD				(-500)	// m. relating to sea level)
 #define BMP_MAX_ALT_THRESHOLD				(9000U)	// m. relating to sea level)
 
-
+extern float BMP_PRESS_CONST_SEA_LEVEL;
+extern float fixedAltitude;
 
 struct bmp_calib_param_t
 {
@@ -90,6 +91,7 @@ struct measure_data_t
 	/* for uncompensated values do not use below fields: */
 	int32_t B5;
 	float altitude;
+	float slp;
 };
 
 typedef enum
@@ -182,7 +184,11 @@ typedef struct baroDataSet{
 	float temperature;
 	uint32_t pressure;
 	float altitude;
+	float slpress;
 } baroDataSet;
+
+extern bmp_t bmp180module;
+extern baroDataSet bmpData;
 
 baroDataSet getBmpData(bmp_t* bmp180);
 

@@ -33,6 +33,7 @@
 #include "bmp180.h"
 #include "buttons.h"
 #include "customTimer.h"
+#include "gui.h"
 
 /* USER CODE END Includes */
 
@@ -127,69 +128,53 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   // Initialize Timer 10 - generating LCD refresh Interrupt
   HAL_TIM_Base_Start_IT(&htim10);
-  /* USER CODE END 2 */
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
   gpsDevice gpsModule;
   gpsModule = initGps(&huart6);
 
-  bmp_t bmp180module;
-//  bmp_t bmp;
+//  bmp_t bmp180module;
+  // bmp180module defined inside of c file
   bmp_init(&bmp180module);
-//  bmp_init (&bmp);
-
-  btns.BC_handler = &increment;
-  btns.BB_handler = &doSomeTiming;
-  btns.BA_handler = &decrement;
 
   initButtons(btnsPtrs);
-  btn_BA.continuousLongPressHandler = &decrement;
-  btn_BC.continuousLongPressHandler = &increment;
-  btn_BB.singleLongPressHandler = &resetCnt;
+  btn_BA.onSinglePressHandler = &decrement;
+  btn_BA.onContinuousLongPressHandler = &decrement;
+  btn_BC.onSinglePressHandler = &increment;
+  btn_BC.onContinuousLongPressHandler = &increment;
+  btn_BB.onSingleLongPressHandler = &resetCnt;
 
   initTimer();
   setTimeout(1);
   startClock();
+  /* USER CODE END 2 */
 
-
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
   lcdClearBuffer();
   lcdRefresh();
   while (1)
   {
-	  baroDataSet bmpData = getBmpData(&bmp180module);
+	  // functions executed along with the menu
+	  bmpData = getBmpData(&bmp180module);
 
-	  char temp[50] = {0};
-	  char pres[50] = {0};
-	  char alti[50] = {0};
+//	  char temp[50] = {0};
+//	  char pres[50] = {0};
+//	  char alti[50] = {0};
 	  char guiPos[50] ={0};
-	  sprintf(&temp, "Temperature: %4.2f degC", bmpData.temperature);
-	  sprintf(&pres, "Pressure: %d Pa", bmpData.pressure);
-	  sprintf(&alti, "Altitude: %6.2f m", bmpData.altitude);
+//	  sprintf(&temp, "Temperature: %4.2f degC", bmpData.temperature);
+//	  sprintf(&pres, "Pressure: %d Pa", bmpData.pressure);
+//	  sprintf(&alti, "Altitude: %6.2f m", bmpData.altitude);
 	  sprintf(&guiPos, "Position: %d", posCounter);
-
+	  //
 	  lcdClearBuffer();
-	  lcdPutStr(0, 0, temp, font13);
-	  lcdPutStr(0, 1, pres, font13);
-	  lcdPutStr(0, 2, alti, font13);
-	  lcdPutStr(0, 3, guiPos, font13);
-	  lcdPutStr(0, 4, buttonA, font13);
-	  lcdPutStr(0, 8, prevActionA, font13);
-	  lcdPutStr(0, 9, buttonHandlers, font13);
-	  lcdPutStr(0, 10, buttonHandler2, font13);
+//	  lcdPutStr(0, 7, temp, font13);
+//	  lcdPutStr(0, 8, pres, font13);
+//	  lcdPutStr(0, 9, alti, font13);
+	  lcdPutStr(0, 10, guiPos, font13);
+	  // functions executed through GUI
+	  showMenu();
 
-	  lcdPutStr(0,5, "B3:", font13);
-	  lcdPutChar(45, 110, ('x'-'o')*btns.B3 + 'o', font13);
-	  lcdPutStr(0,6, "B2:", font13);
-	  lcdPutChar(45, 132, btns.B2 + 'o', font13);
-	  lcdPutStr(0,7, "B1:", font13);
-	  lcdPutChar(45, 154, btns.B1 + 'o', font13);
-	  lcdPutStr(300,5, "BC:", font13);
-	  lcdPutChar(345, 110, btns.BC + 'o', font13);
-	  lcdPutStr(300,6, "BB:", font13);
-	  lcdPutChar(345, 132, btns.BB + 'o', font13);
-	  lcdPutStr(300,7, "BA:", font13);
-	  lcdPutChar(345, 154, btns.BA + 'o', font13);
+
 	  lcdRefresh();
 
     /* USER CODE END WHILE */
@@ -261,33 +246,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 		scanButtons(btnsPtrs);
 	}
 }
-//void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-//	if(GPIO_Pin == BA_Pin){
-//		btns.BA = HAL_GPIO_ReadPin(BA_GPIO_Port, BA_Pin) == 0;
-////		check if assigned
-//		btns.BA_handler();
-//	}
-//	if(GPIO_Pin == BB_Pin){
-//		btns.BB = HAL_GPIO_ReadPin(BB_GPIO_Port, BB_Pin) == 0;
-//		btns.BB_handler();
-//	}
-//	if(GPIO_Pin == BC_Pin){
-//		btns.BC = HAL_GPIO_ReadPin(BC_GPIO_Port, BC_Pin) == 0;
-//		btns.BC_handler();
-//	}
-//	if(GPIO_Pin == B1_Pin){
-//		btns.B1 = HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin) == 0;
-//		btns.B1_handler();
-//	}
-//	if(GPIO_Pin == B2_Pin){
-//		btns.B2 = HAL_GPIO_ReadPin(B2_GPIO_Port, B2_Pin) == 0;
-//		btns.B2_handler();
-//	}
-//	if(GPIO_Pin == B3_Pin){
-//		btns.B3 = HAL_GPIO_ReadPin(B3_GPIO_Port, B3_Pin) == 0;
-//		btns.B3_handler();
-//	}
-//}
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
 	if(huart->Instance == USART6){

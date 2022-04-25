@@ -1,0 +1,2 @@
+../Core/Src/pageModules/timeModule.c:15:6:showTimeDesc	40	static
+../Core/Src/pageModules/timeModule.c:22:6:showTimeScreen	88	static
