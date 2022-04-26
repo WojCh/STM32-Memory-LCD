@@ -12,11 +12,16 @@
 // fixed alt = 0/fixed baro = 1 mode
 uint8_t baroMode = 0;
 
-void setDefaultClbcks(void){
+static void setDefaultClbcks(void){
 	btn_B2.onSinglePressHandler = &returnToMenu;
 	btn_BB.onSingleLongPressHandler = &changeBaroMode;
 	btn_BC.onContinuousShortPressHandler = &addBaro;
 	btn_BA.onContinuousShortPressHandler = &remBaro;
+}
+void baroDescription(void){
+	char tempStr[30] = {0};
+	sprintf(&tempStr, "Baro will be shown");
+	lcdPutStr(0, 9, tempStr, font13);
 }
 void baroSetup(void){
 	setDefaultClbcks();
@@ -42,13 +47,7 @@ void baroMain(void){
 	lcdPutStr(0, 3, str3, dig5x9);
 }
 
-const struct Module baroModule = {"Barometer", &baroSetup, &baroMain};
 
-void showBaroDesc(void){
-	char tempStr[30] = {0};
-	sprintf(&tempStr, "Baro will be shown");
-	lcdPutStr(0, 9, tempStr, font13);
-}
 
 
 void changeBaroMode(void){
@@ -75,28 +74,33 @@ void remBaro(void){
 		}
 }
 
-void showBaroScreen(void){
-	btn_B2.onSinglePressHandler = &returnToMenu;
-	btn_BB.onSingleLongPressHandler = &changeBaroMode;
-	btn_BC.onContinuousShortPressHandler = &addBaro;
-	btn_BA.onContinuousShortPressHandler = &remBaro;
-
-	char str1[50] = {0};
-	char str2[50] = {0};
-	char str3[50] = {0};
-	char str4[50] = {0};
-	char temp[50] = {0};
-	char pres[50] = {0};
-	char alti[50] = {0};
-	sprintf(&str1, "%4.2f degC %04.2f hPa", bmpData.temperature, ((float)bmpData.pressure/100));
-	if(baroMode == 0){
-		sprintf(&str2, "%6.2f hPa@asl.", bmpData.slpress/100);
-		sprintf(&str3, "Fix. Alt: %.0f m.asl", fixedAltitude);
-	} else {
-		sprintf(&str2, "%6.2f m.asl.", bmpData.altitude);
-		sprintf(&str3, "Fix. Baro: %6.2f hPa", (BMP_PRESS_CONST_SEA_LEVEL/100));
-	}
-	lcdPutStr(0, 0, str1, dig5x9);
-	lcdPutStr(0, 2, str2, dig5x9);
-	lcdPutStr(0, 3, str3, dig5x9);
-}
+//void showBaroDesc(void){
+//	char tempStr[30] = {0};
+//	sprintf(&tempStr, "Baro will be shown");
+//	lcdPutStr(0, 9, tempStr, font13);
+//}
+//void showBaroScreen(void){
+//	btn_B2.onSinglePressHandler = &returnToMenu;
+//	btn_BB.onSingleLongPressHandler = &changeBaroMode;
+//	btn_BC.onContinuousShortPressHandler = &addBaro;
+//	btn_BA.onContinuousShortPressHandler = &remBaro;
+//
+//	char str1[50] = {0};
+//	char str2[50] = {0};
+//	char str3[50] = {0};
+//	char str4[50] = {0};
+//	char temp[50] = {0};
+//	char pres[50] = {0};
+//	char alti[50] = {0};
+//	sprintf(&str1, "%4.2f degC %04.2f hPa", bmpData.temperature, ((float)bmpData.pressure/100));
+//	if(baroMode == 0){
+//		sprintf(&str2, "%6.2f hPa@asl.", bmpData.slpress/100);
+//		sprintf(&str3, "Fix. Alt: %.0f m.asl", fixedAltitude);
+//	} else {
+//		sprintf(&str2, "%6.2f m.asl.", bmpData.altitude);
+//		sprintf(&str3, "Fix. Baro: %6.2f hPa", (BMP_PRESS_CONST_SEA_LEVEL/100));
+//	}
+//	lcdPutStr(0, 0, str1, dig5x9);
+//	lcdPutStr(0, 2, str2, dig5x9);
+//	lcdPutStr(0, 3, str3, dig5x9);
+//}

@@ -26,6 +26,8 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/font13.h ../Core/Inc/lcd.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
@@ -34,7 +36,10 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/font13.h ../Core/Inc/lcd.h \
  ../Core/Inc/buttons.h ../Core/Inc/gpio.h ../Core/Inc/bmp180.h \
  ../Core/Inc/../Src/pageModules/baroModule.h ../Core/Inc/bmp180.h \
  ../Core/Inc/buttons.h ../Core/Inc/../Src/pageModules/timeModule.h \
- ../Core/Inc/../Src/pageModules/gpsModule.h
+ ../Core/Inc/rtc.h ../Core/Inc/main.h \
+ ../Core/Inc/../Src/pageModules/gpsModule.h \
+ ../Core/Inc/../Src/pageModules/homeModule.h \
+ ../Core/Inc/../Src/pageModules/settingsModule.h
 ../Core/Inc/font13.h:
 ../Core/Inc/lcd.h:
 ../Core/Inc/main.h:
@@ -65,6 +70,8 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/font13.h ../Core/Inc/lcd.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
@@ -79,4 +86,8 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/font13.h ../Core/Inc/lcd.h \
 ../Core/Inc/bmp180.h:
 ../Core/Inc/buttons.h:
 ../Core/Inc/../Src/pageModules/timeModule.h:
+../Core/Inc/rtc.h:
+../Core/Inc/main.h:
 ../Core/Inc/../Src/pageModules/gpsModule.h:
+../Core/Inc/../Src/pageModules/homeModule.h:
+../Core/Inc/../Src/pageModules/settingsModule.h:

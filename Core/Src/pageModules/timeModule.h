@@ -10,9 +10,12 @@
 
 #include "buttons.h"
 #include "gui.h"
+#include "rtc.h"
+#include "main.h"
 
-void showTimeDesc(void);
-void showTimeScreen(void);
+void timeDescription(void);
+void timeSetup(void);
+void timeMain(void);
 
 
 #endif /* SRC_PAGEMODULES_TIMEMODULE_H_ */

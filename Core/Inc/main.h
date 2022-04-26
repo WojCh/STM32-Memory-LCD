@@ -42,7 +42,8 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-
+	extern RTC_TimeTypeDef RtcTime;
+	extern RTC_DateTypeDef RtcDate;
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/

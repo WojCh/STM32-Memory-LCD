@@ -11,7 +11,11 @@
 #include "buttons.h"
 #include "gui.h"
 
-void showGpsDesc(void);
-void showGpsScreen(void);
+static void setDefaultClbcks(void);
+
+void gpsDescription(void);
+void gpsSetup(void);
+void gpsMain(void);
+
 
 #endif /* SRC_PAGEMODULES_GPSMODULE_H_ */

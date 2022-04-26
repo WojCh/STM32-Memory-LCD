@@ -3,49 +3,53 @@
  *
  *  Created on: 24 kwi 2022
  *      Author: wojch
+ *
+ *      Add modules:
+ *      1. Astro module
+ *      2. Surfing module
+ *      3. Gyro module
+ *      4. BT module
+ *      5. WIFI module
+ *
+ *
  */
 
-#define MENU_ITEM_NUM 4
+#define MENU_ITEM_NUM 5
 #include "font13.h"
 #include "digits5x9.h"
 #include "gui.h"
 
-struct MenuOption{
-	// label for menu item
-	char title[30];
-	// function executed when option highlighted
-	void (*tempAction)(void);
-	// function executed after option selected
-	void (*func)(void);
-};
+const struct Module homeModule = {"Home", &homeDescription, &homeSetup, &homeMain};
+const struct Module timeModule = {"Time and Date", &timeDescription, &timeSetup, &timeMain};
+const struct Module baroModule = {"Atmospherical data", &baroDescription, &baroSetup, &baroMain};
+const struct Module gpsModule = {"Global Positioning System", &gpsDescription, &gpsSetup, &gpsMain};
+const struct Module settingsModule = {"Settings", &settingsDescription, &settingsSetup, &settingsMain};
 
-//const struct MenuOption menu1 = {"Time and Date", &showTimeDesc, &showTimeScreen};
-//const struct MenuOption menu2 = {"Barometer", &showBaroDesc, &showBaroScreen};
-//const struct MenuOption menu3 = {"Global Positioning System", &showGpsDesc, &showGpsScreen};
-//const struct MenuOption menu4 = {"BBB", &showBaroDesc, baroModule.moduleMain};
-const struct Module menu1 = {"Time and Date", &showTimeDesc, &showTimeScreen};
-const struct Module menu2 = {"Barometer", &showBaroDesc, &showBaroScreen};
-const struct Module menu3 = {"Global Positioning System", &showGpsDesc, &showGpsScreen};
-struct Module menuItems[MENU_ITEM_NUM] = {menu1, menu2, menu3};
+struct Module menuItems[MENU_ITEM_NUM] = {homeModule, timeModule, baroModule, gpsModule, settingsModule};
 
 // default screens and displays/values
 char pointerChar = '>';
 static uint8_t position = 0;
-void (*showMenuDescPtr)(void) = menu1.moduleSetup;
-void (*screenToShowPtr)(void) = menu1.moduleMain;
-void (*showScreenPtr)(void) = &showMainMenu;
-//void (*showScreenPtr)(void) = &showBaroScreen;
+void (*moduleDescPtr)(void) = homeModule.description;
+void (*moduleMainPtr)(void) = homeModule.main;
+void (*moduleSetupPtr)(void) = timeSetup;
+void (*currentModulePtr)(void) = timeMain;
+//void (*moduleSetupPtr)(void) = mainMenuSetup;
+//void (*currentModulePtr)(void) = &showMainMenu;
+uint8_t* isModuleSet = 0;
 
-void showMainMenu(void){
+void mainMenuSetup(void){
 	setMenuClbs();
-	if(showMenuDescPtr != NULL) showMenuDescPtr();
+}
+void showMainMenu(void){
+	if(moduleDescPtr != NULL) moduleDescPtr();
 	char tempStr[30] = {0};
 	for(uint8_t i = 0; i < MENU_ITEM_NUM; i++){
 		if(position == i){
 			sprintf(&tempStr, "%c%s", pointerChar, menuItems[i].name);
-			showMenuDescPtr = menuItems[i].moduleSetup;
-//			showScreenPtr = menuItems[i].func;
-			screenToShowPtr = menuItems[i].moduleMain;
+			moduleDescPtr = menuItems[i].description;
+			moduleSetupPtr = menuItems[i].setup;
+			moduleMainPtr = menuItems[i].main;
 		} else {
 			sprintf(&tempStr, " %s", menuItems[i].name);
 		}
@@ -56,8 +60,11 @@ void showMainMenu(void){
 		sprintf(&tempStr, "%d", position);
 		lcdPutStr(380, 0, tempStr, font13);
 	}
-//	lcdRefresh();
+	  char guiPos[50] ={0};
+	  sprintf(&guiPos, "%02d:%02d:%02d   %4.1f*C   %02d-%02d-20%02d", RtcTime.Hours, RtcTime.Minutes, RtcTime.Seconds, bmpData.temperature, RtcDate.Date, RtcDate.Month, RtcDate.Year);
+	  lcdPutStr(0, 10, guiPos, font13);
 }
+
 void prevPos(void){
 	if(position>0){
 		position--;
@@ -75,12 +82,15 @@ void nextPos(void){
 void select(void){
 //	lcdClearBuffer();
 	resetButtonHandlers();
-	showScreenPtr = screenToShowPtr;
+	isModuleSet = 0;
+	currentModulePtr = moduleMainPtr;
 }
 
 void returnToMenu(void){
 	resetButtonHandlers();
-	showScreenPtr = &showMainMenu;
+	isModuleSet = 0;
+	moduleSetupPtr = mainMenuSetup;
+	currentModulePtr = &showMainMenu;
 }
 
 void setMenuClbs(void){
@@ -94,7 +104,11 @@ void setMenuClbs(void){
 }
 
 void showMenu(void){
-	if(showScreenPtr != NULL) showScreenPtr();
+	if(isModuleSet == 0){
+		moduleSetupPtr();
+		isModuleSet = 1;
+	}
+	if(currentModulePtr != NULL) currentModulePtr();
 	lcdRefresh();
 //	while(1){
 //	}

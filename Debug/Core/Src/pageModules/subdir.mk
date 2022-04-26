@@ -7,16 +7,22 @@
 C_SRCS += \
 ../Core/Src/pageModules/baroModule.c \
 ../Core/Src/pageModules/gpsModule.c \
+../Core/Src/pageModules/homeModule.c \
+../Core/Src/pageModules/settingsModule.c \
 ../Core/Src/pageModules/timeModule.c 
 
 OBJS += \
 ./Core/Src/pageModules/baroModule.o \
 ./Core/Src/pageModules/gpsModule.o \
+./Core/Src/pageModules/homeModule.o \
+./Core/Src/pageModules/settingsModule.o \
 ./Core/Src/pageModules/timeModule.o 
 
 C_DEPS += \
 ./Core/Src/pageModules/baroModule.d \
 ./Core/Src/pageModules/gpsModule.d \
+./Core/Src/pageModules/homeModule.d \
+./Core/Src/pageModules/settingsModule.d \
 ./Core/Src/pageModules/timeModule.d 
 
 
@@ -27,7 +33,7 @@ Core/Src/pageModules/%.o Core/Src/pageModules/%.su: ../Core/Src/pageModules/%.c 
 clean: clean-Core-2f-Src-2f-pageModules
 
 clean-Core-2f-Src-2f-pageModules:
-	-$(RM) ./Core/Src/pageModules/baroModule.d ./Core/Src/pageModules/baroModule.o ./Core/Src/pageModules/baroModule.su ./Core/Src/pageModules/gpsModule.d ./Core/Src/pageModules/gpsModule.o ./Core/Src/pageModules/gpsModule.su ./Core/Src/pageModules/timeModule.d ./Core/Src/pageModules/timeModule.o ./Core/Src/pageModules/timeModule.su
+	-$(RM) ./Core/Src/pageModules/baroModule.d ./Core/Src/pageModules/baroModule.o ./Core/Src/pageModules/baroModule.su ./Core/Src/pageModules/gpsModule.d ./Core/Src/pageModules/gpsModule.o ./Core/Src/pageModules/gpsModule.su ./Core/Src/pageModules/homeModule.d ./Core/Src/pageModules/homeModule.o ./Core/Src/pageModules/homeModule.su ./Core/Src/pageModules/settingsModule.d ./Core/Src/pageModules/settingsModule.o ./Core/Src/pageModules/settingsModule.su ./Core/Src/pageModules/timeModule.d ./Core/Src/pageModules/timeModule.o ./Core/Src/pageModules/timeModule.su
 
 .PHONY: clean-Core-2f-Src-2f-pageModules
 

@@ -9,13 +9,23 @@
 #include "font13.h"
 #include "digits5x9.h"
 
-void showGpsDesc(void){
-	char tempStr[30] = {0};
-	sprintf(&tempStr, "GPS will be shown");
-	lcdPutStr(0, 4, tempStr, font13);
+static void setDefaultClbcks(void){
+	btn_B2.onSinglePressHandler = &returnToMenu;
 }
 
+void gpsDescription(void){
+	char tempStr[30] = {0};
+	sprintf(&tempStr, "GPS will be shown");
+	lcdPutStr(0, 9, tempStr, font13);
+}
 
-void showGpsScreen(void){
-	btn_B2.onSinglePressHandler = &returnToMenu;
+void gpsSetup(void){
+	setDefaultClbcks();
+
+}
+
+void gpsMain(void){
+	char tempStr[30] = {0};
+	sprintf(&tempStr, "GPS will be shown");
+	lcdPutStr(0, 0, tempStr, font13);
 }

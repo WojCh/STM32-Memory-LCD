@@ -12,11 +12,9 @@
 #include "buttons.h"
 #include "gui.h"
 
-extern const struct Module baroModule;
 
-void setDefaultClbcks(void);
+void baroDescription(void);
 void baroSetup(void);
-
 void baroMain(void);
 
 void changeBaroMode(void);

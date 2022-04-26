@@ -1,2 +1,4 @@
-../Core/Src/pageModules/timeModule.c:15:6:showTimeDesc	40	static
-../Core/Src/pageModules/timeModule.c:22:6:showTimeScreen	88	static
+../Core/Src/pageModules/timeModule.c:12:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/timeModule.c:16:6:timeDescription	40	static
+../Core/Src/pageModules/timeModule.c:22:6:timeSetup	8	static
+../Core/Src/pageModules/timeModule.c:27:6:timeMain	80	static

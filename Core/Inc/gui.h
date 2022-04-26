@@ -15,18 +15,23 @@
 #include "../Src/pageModules/baroModule.h"
 #include "../Src/pageModules/timeModule.h"
 #include "../Src/pageModules/gpsModule.h"
+#include "../Src/pageModules/homeModule.h"
+#include "../Src/pageModules/settingsModule.h"
 
-struct Module{
+const struct Module{
 	// name of the module
-	char name[30];
+	const char name[30];
 	// setup function
-	void (*moduleSetup)(void*);
+	const void (*description)(void);
+	// setup function
+	const void (*setup)(void);
 	// main
-	void (*moduleMain)(void*);
+	const void (*main)(void);
 };
 
 extern char menuStr[][30];
 
+void mainMenuSetup(void);
 void showMainMenu(void);
 void returnToMenu(void);
 

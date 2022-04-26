@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "i2c.h"
+#include "rtc.h"
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
@@ -54,11 +55,10 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-	  char buttonA[50] ={0};
-	  char prevActionA[50] ={0};
 
 	int posCounter = 100;
-
+	RTC_TimeTypeDef RtcTime;
+	RTC_DateTypeDef RtcDate;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -119,6 +119,7 @@ int main(void)
   MX_USART6_UART_Init();
   MX_I2C1_Init();
   MX_TIM11_Init();
+  MX_RTC_Init();
   /* USER CODE BEGIN 2 */
 //  HAL_UART_Receive_IT(&huart6, &znak, 1);
 
@@ -137,11 +138,6 @@ int main(void)
   bmp_init(&bmp180module);
 
   initButtons(btnsPtrs);
-  btn_BA.onSinglePressHandler = &decrement;
-  btn_BA.onContinuousLongPressHandler = &decrement;
-  btn_BC.onSinglePressHandler = &increment;
-  btn_BC.onContinuousLongPressHandler = &increment;
-  btn_BB.onSingleLongPressHandler = &resetCnt;
 
   initTimer();
   setTimeout(1);
@@ -155,25 +151,14 @@ int main(void)
   while (1)
   {
 	  // functions executed along with the menu
-	  bmpData = getBmpData(&bmp180module);
+		bmpData = getBmpData(&bmp180module);
+		HAL_RTC_GetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN);
+		HAL_RTC_GetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN);
 
-//	  char temp[50] = {0};
-//	  char pres[50] = {0};
-//	  char alti[50] = {0};
-	  char guiPos[50] ={0};
-//	  sprintf(&temp, "Temperature: %4.2f degC", bmpData.temperature);
-//	  sprintf(&pres, "Pressure: %d Pa", bmpData.pressure);
-//	  sprintf(&alti, "Altitude: %6.2f m", bmpData.altitude);
-	  sprintf(&guiPos, "Position: %d", posCounter);
-	  //
 	  lcdClearBuffer();
-//	  lcdPutStr(0, 7, temp, font13);
-//	  lcdPutStr(0, 8, pres, font13);
-//	  lcdPutStr(0, 9, alti, font13);
-	  lcdPutStr(0, 10, guiPos, font13);
+
 	  // functions executed through GUI
 	  showMenu();
-
 
 	  lcdRefresh();
 
@@ -201,8 +186,9 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 4;
@@ -248,16 +234,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
-
 	if(huart->Instance == USART6){
 
-//		if(znak == '$'){
-//			HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-//			HAL_UART_Receive_IT(&huart6, &symbol,5);
-//		} else {
-////			HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-//			HAL_UART_Receive_IT(&huart6, &znak,1);
-//		}
 	}
 }
 

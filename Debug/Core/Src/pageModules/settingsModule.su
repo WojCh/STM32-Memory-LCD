@@ -1,0 +1,4 @@
+../Core/Src/pageModules/settingsModule.c:12:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/settingsModule.c:16:6:settingsDescription	40	static
+../Core/Src/pageModules/settingsModule.c:22:6:settingsSetup	8	static
+../Core/Src/pageModules/settingsModule.c:26:6:settingsMain	40	static
