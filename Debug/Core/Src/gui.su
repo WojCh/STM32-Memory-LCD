@@ -1,8 +1,8 @@
-../Core/Src/gui.c:32:6:mainMenuSetup	8	static
-../Core/Src/gui.c:35:6:showMainMenu	152	static
-../Core/Src/gui.c:59:6:prevPos	4	static
-../Core/Src/gui.c:66:6:nextPos	4	static
-../Core/Src/gui.c:73:6:select	8	static
-../Core/Src/gui.c:80:6:returnToMenu	8	static
-../Core/Src/gui.c:87:6:setMenuClbs	4	static
-../Core/Src/gui.c:97:6:showMenu	8	static
+../Core/Src/gui.c:41:6:mainMenuSetup	8	static
+../Core/Src/gui.c:44:6:showMainMenu	152	static
+../Core/Src/gui.c:68:6:prevPos	4	static
+../Core/Src/gui.c:75:6:nextPos	4	static
+../Core/Src/gui.c:82:6:select	8	static
+../Core/Src/gui.c:89:6:returnToMenu	8	static
+../Core/Src/gui.c:96:6:setMenuClbs	4	static
+../Core/Src/gui.c:106:6:showMenu	8	static
