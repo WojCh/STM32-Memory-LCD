@@ -1,4 +1,13 @@
-../Core/Src/pageModules/timeModule.c:35:13:setDefaultClbcks	4	static
-../Core/Src/pageModules/timeModule.c:40:6:timeDescription	4	static
-../Core/Src/pageModules/timeModule.c:49:6:timeSetup	8	static
-../Core/Src/pageModules/timeModule.c:54:6:timeMain	72	static
+../Core/Src/pageModules/timeModule.c:36:6:prevPage	4	static
+../Core/Src/pageModules/timeModule.c:43:6:nextPage	4	static
+../Core/Src/pageModules/timeModule.c:51:6:showPage1	72	static
+../Core/Src/pageModules/timeModule.c:62:6:showPage2	40	static
+../Core/Src/pageModules/timeModule.c:67:6:showPage3	40	static
+../Core/Src/pageModules/timeModule.c:72:6:showPage4	40	static
+../Core/Src/pageModules/timeModule.c:77:6:showPage5	40	static
+../Core/Src/pageModules/timeModule.c:82:6:showPage6	40	static
+../Core/Src/pageModules/timeModule.c:88:6:showPage	16	static
+../Core/Src/pageModules/timeModule.c:111:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/timeModule.c:119:6:timeDescription	4	static
+../Core/Src/pageModules/timeModule.c:128:6:timeSetup	8	static
+../Core/Src/pageModules/timeModule.c:133:6:timeMain	8	static

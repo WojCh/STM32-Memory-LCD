@@ -14,9 +14,9 @@ static void setDefaultClbcks(void){
 }
 
 void homeDescription(void){
-	char tempStr[30] = {0};
-	sprintf(&tempStr, "HOME will be shown");
-	lcdPutStr(0, 9, tempStr, font13);
+//	char tempStr[30] = {0};
+//	sprintf(&tempStr, "HOME will be shown");
+//	lcdPutStr(0, 9, tempStr, font13);
 }
 
 void homeSetup(void){

@@ -21,9 +21,9 @@ static void setDefaultClbcks(void){
 
 // function executed from menu level
 void baroDescription(void){
-	char tempStr[30] = {0};
-	sprintf(&tempStr, "Baro will be shown");
-	lcdPutStr(0, 9, tempStr, font13);
+//	char tempStr[30] = {0};
+//	sprintf(&tempStr, "Baro will be shown");
+//	lcdPutStr(0, 9, tempStr, font13);
 }
 // function executed once on module load
 void baroSetup(void){
