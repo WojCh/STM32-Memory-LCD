@@ -99,6 +99,14 @@ typedef struct {
 	uint8_t font_Data[];      // Font data
 } Font_TypeDef;
 
+// Structure describing an Icon
+typedef struct {
+	uint8_t icon_Width;     // Width of character
+	uint8_t icon_Height;    // Height of character
+	uint16_t icon_BPC;      	// Bytes
+	uint8_t icon_Scan;      // Font scan lines behavior
+	uint8_t icon_Data[];    // Font data
+} Icon_TypeDef;
 
 // Public variables
 extern uint16_t scr_width;

@@ -39,8 +39,9 @@ Core/Src/pageModules/baroModule.o: ../Core/Src/pageModules/baroModule.c \
  ../Core/Inc/../Src/pageModules/timeModule.h ../Core/Inc/rtc.h \
  ../Core/Inc/main.h ../Core/Inc/../Src/pageModules/gpsModule.h \
  ../Core/Inc/../Src/pageModules/homeModule.h \
- ../Core/Inc/../Src/pageModules/settingsModule.h ../Core/Inc/font13.h \
- ../Core/Inc/lcd.h ../Core/Inc/spi.h ../Core/Inc/digits5x9.h
+ ../Core/Inc/../Src/pageModules/settingsModule.h \
+ ../Core/Inc/icons/icons_small.h ../Core/Inc/lcd.h ../Core/Inc/spi.h \
+ ../Core/Inc/font13.h ../Core/Inc/lcd.h ../Core/Inc/digits5x9.h
 ../Core/Src/pageModules/baroModule.h:
 ../Core/Inc/bmp180.h:
 ../Core/Inc/buttons.h:
@@ -89,7 +90,9 @@ Core/Src/pageModules/baroModule.o: ../Core/Src/pageModules/baroModule.c \
 ../Core/Inc/../Src/pageModules/gpsModule.h:
 ../Core/Inc/../Src/pageModules/homeModule.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:
-../Core/Inc/font13.h:
+../Core/Inc/icons/icons_small.h:
 ../Core/Inc/lcd.h:
 ../Core/Inc/spi.h:
+../Core/Inc/font13.h:
+../Core/Inc/lcd.h:
 ../Core/Inc/digits5x9.h:

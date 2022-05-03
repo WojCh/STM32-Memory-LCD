@@ -18,14 +18,19 @@ static void setDefaultClbcks(void){
 	btn_BC.onContinuousShortPressHandler = &addBaro;
 	btn_BA.onContinuousShortPressHandler = &remBaro;
 }
+
+// function executed from menu level
 void baroDescription(void){
 	char tempStr[30] = {0};
 	sprintf(&tempStr, "Baro will be shown");
 	lcdPutStr(0, 9, tempStr, font13);
 }
+// function executed once on module load
 void baroSetup(void){
 	setDefaultClbcks();
 }
+
+// main function
 void baroMain(void){
 	char str1[50] = {0};
 	char str2[50] = {0};
@@ -43,8 +48,8 @@ void baroMain(void){
 		sprintf(&str3, "Fix. Baro: %6.2f hPa", (BMP_PRESS_CONST_SEA_LEVEL/100));
 	}
 	lcdPutStr(0, 0, str1, dig5x9);
-	lcdPutStr(0, 2, str2, dig5x9);
-	lcdPutStr(0, 3, str3, dig5x9);
+	lcdPutStr(0, 2*25, str2, dig5x9);
+	lcdPutStr(0, 3*25, str3, dig5x9);
 }
 
 

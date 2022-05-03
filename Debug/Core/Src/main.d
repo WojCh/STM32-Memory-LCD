@@ -43,7 +43,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/../Src/pageModules/timeModule.h \
  ../Core/Inc/../Src/pageModules/gpsModule.h \
  ../Core/Inc/../Src/pageModules/homeModule.h \
- ../Core/Inc/../Src/pageModules/settingsModule.h
+ ../Core/Inc/../Src/pageModules/settingsModule.h \
+ ../Core/Inc/icons/icons_small.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -104,3 +105,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/../Src/pageModules/gpsModule.h:
 ../Core/Inc/../Src/pageModules/homeModule.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:
+../Core/Inc/icons/icons_small.h:

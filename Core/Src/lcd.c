@@ -11,14 +11,7 @@
 //#include "stm32f4xx_hal_conf.h"
 //#include "spi.h"
 
-uint8_t printCmd1[2] = {0x80, 0b00001111};
-uint8_t printCmd2[2] = {0x80, 0b10000000};
-uint8_t printCmd3[2] = {0x80, 0b01000000};
-uint8_t printCmd4[2] = {0x80, 0b11000000};
-uint8_t printCmd5[2] = {0x80, 0b00100000};
-uint8_t printCmd6[2] = {0x80, 0b01100000};
 uint8_t dummyBytes[2] = {0x00, 0x00};
-uint8_t data[50] = {0xAA, 0xFF, 0x55, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF};
 uint8_t clearCmd[2] = {0x20, 0x00};
 
 void lcdClear(void){
@@ -43,6 +36,14 @@ uint8_t reverse_uint8(uint8_t re){
 
 
 void lcdTest(){
+	uint8_t printCmd1[2] = {0x80, 0b00001111};
+	uint8_t printCmd2[2] = {0x80, 0b10000000};
+	uint8_t printCmd3[2] = {0x80, 0b01000000};
+	uint8_t printCmd4[2] = {0x80, 0b11000000};
+	uint8_t printCmd5[2] = {0x80, 0b00100000};
+	uint8_t printCmd6[2] = {0x80, 0b01100000};
+	uint8_t data[50] = {0xAA, 0xFF, 0x55, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF};
+
 	uint8_t lineAddress1[2];
 	lineAddress1[0] = 0x80;
 
@@ -156,19 +157,55 @@ void lcdPutChar(uint16_t x, uint8_t y, char chr, const Font_TypeDef *font){
 		uint8_t dataBlock = (font->font_Data[characterLoc]) >> offset;
 		lcdBuffer[bufferLoc] &= ~dataBlock;
 		dataBlock = (font->font_Data[characterLoc] & (0xFF >> (8 - offset)));
-		for(uint8_t i = 1; i <= (font->font_Width)>>3; i++){
+		for(uint8_t i = 1; i < (font->font_Width + 7)>>3; i++){
 			uint8_t newDataBlock = font->font_Data[characterLoc + i];
 			lcdBuffer[bufferLoc + i] &= ~((dataBlock << (8 - offset)) | (newDataBlock >> offset));
 			dataBlock = newDataBlock;
 		}
-		lcdBuffer[bufferLoc + ((font->font_Width)>>3) + 1] &= ~(dataBlock << (8-offset));
+
+		lcdBuffer[bufferLoc + ((font->font_Width+7)>>3)] &= ~(dataBlock << (8-offset));
+//		if((x + font->font_Width)%8 != 0 ){
+//			lcdBuffer[bufferLoc + ((font->font_Width+7)>>3)] &= ~(dataBlock << (8-offset));
+//		}
+//		else {
+//			lcdBuffer[bufferLoc + ((font->font_Width)>>3)] &= ~(dataBlock << (8-offset));
+//		}
+//		lcdRefresh();
+	}
+
+}
+void lcdPutIcon(uint16_t x, uint8_t y, const Icon_TypeDef *icon){
+	uint8_t icon_Width = icon->icon_Width;
+	uint8_t icon_Height = icon->icon_Height;
+	uint8_t* icon_Data = &icon->icon_Data;
+	uint8_t offset = x % 8;
+	uint8_t xBlock = x >> 3;
+	uint8_t bytesInLine = (icon->icon_BPC/icon_Height);
+	for(uint8_t j = 0; j < (icon_Height); j++){
+		uint16_t bufferLoc = (y+j)*SCR_W/8+xBlock;
+		uint8_t dataBlock = icon_Data[j*bytesInLine] >> offset;
+		lcdBuffer[bufferLoc] &= ~dataBlock;
+		dataBlock = (icon_Data[j*bytesInLine] & (0xFF >> (8 - offset)));
+			for(uint8_t i = 1; i <= (icon_Width)>>3; i++){
+				uint8_t newDataBlock = icon_Data[j*bytesInLine + i];
+				lcdBuffer[bufferLoc + i] &= ~((dataBlock << (8 - offset)) | (newDataBlock >> offset));
+				dataBlock = newDataBlock;
+			}
+//		if(offset != 0){
+//			lcdBuffer[bufferLoc + ((icon_Width)>>3)] &= ~(dataBlock << (8-offset));
+//		}
+		lcdBuffer[bufferLoc + ((icon_Width+7)>>3)] &= ~(dataBlock << (8-offset));
+
 	}
 
 }
 
 void lcdPutStr(uint16_t x, uint8_t y, const char *chr, const Font_TypeDef *font){
 	for(uint8_t i = 0; i < strlen(chr); i++){
-		  lcdPutChar(x+font->font_Width*i, y*font->font_Height, chr[i], font);
+		// version with y meaning lcd row
+		  lcdPutChar(x+font->font_Width*i, y, chr[i], font);
+		  // version with Y meaning line number
+//		  lcdPutChar(x+font->font_Width*i, y*font->font_Height, chr[i], font);
 //		  HAL_Delay(1);
 		  }
 }

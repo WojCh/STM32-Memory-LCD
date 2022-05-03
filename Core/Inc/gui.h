@@ -17,6 +17,8 @@
 #include "../Src/pageModules/gpsModule.h"
 #include "../Src/pageModules/homeModule.h"
 #include "../Src/pageModules/settingsModule.h"
+#include "icons/icons_small.h"
+
 
 const struct Module{
 	// name of the module
@@ -27,6 +29,7 @@ const struct Module{
 	const void (*setup)(void);
 	// main
 	const void (*main)(void);
+	const Icon_TypeDef* icon;
 };
 
 extern char menuStr[][30];

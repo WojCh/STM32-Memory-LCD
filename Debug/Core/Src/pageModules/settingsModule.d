@@ -40,8 +40,9 @@ Core/Src/pageModules/settingsModule.o: \
  ../Core/Inc/rtc.h ../Core/Inc/main.h \
  ../Core/Inc/../Src/pageModules/gpsModule.h \
  ../Core/Inc/../Src/pageModules/homeModule.h \
- ../Core/Inc/../Src/pageModules/settingsModule.h ../Core/Inc/font13.h \
- ../Core/Inc/lcd.h ../Core/Inc/spi.h ../Core/Inc/digits5x9.h
+ ../Core/Inc/../Src/pageModules/settingsModule.h \
+ ../Core/Inc/icons/icons_small.h ../Core/Inc/lcd.h ../Core/Inc/spi.h \
+ ../Core/Inc/font13.h ../Core/Inc/lcd.h ../Core/Inc/digits5x9.h
 ../Core/Src/pageModules/settingsModule.h:
 ../Core/Inc/buttons.h:
 ../Core/Inc/main.h:
@@ -90,7 +91,9 @@ Core/Src/pageModules/settingsModule.o: \
 ../Core/Inc/../Src/pageModules/gpsModule.h:
 ../Core/Inc/../Src/pageModules/homeModule.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:
-../Core/Inc/font13.h:
+../Core/Inc/icons/icons_small.h:
 ../Core/Inc/lcd.h:
 ../Core/Inc/spi.h:
+../Core/Inc/font13.h:
+../Core/Inc/lcd.h:
 ../Core/Inc/digits5x9.h:
