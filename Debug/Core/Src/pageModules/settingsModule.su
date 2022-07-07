@@ -1,4 +1,13 @@
-../Core/Src/pageModules/settingsModule.c:12:13:setDefaultClbcks	4	static
-../Core/Src/pageModules/settingsModule.c:16:6:settingsDescription	4	static
-../Core/Src/pageModules/settingsModule.c:22:6:settingsSetup	8	static
-../Core/Src/pageModules/settingsModule.c:26:6:settingsMain	40	static
+../Core/Src/pageModules/settingsModule.c:22:6:prevPage	4	static
+../Core/Src/pageModules/settingsModule.c:29:6:nextPage	4	static
+../Core/Src/pageModules/settingsModule.c:37:6:showPage1	72	static
+../Core/Src/pageModules/settingsModule.c:48:6:showPage2	40	static
+../Core/Src/pageModules/settingsModule.c:53:6:showPage3	40	static
+../Core/Src/pageModules/settingsModule.c:58:6:showPage4	40	static
+../Core/Src/pageModules/settingsModule.c:63:6:showPage5	40	static
+../Core/Src/pageModules/settingsModule.c:68:6:showPage6	40	static
+../Core/Src/pageModules/settingsModule.c:74:6:showPage	16	static
+../Core/Src/pageModules/settingsModule.c:97:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/settingsModule.c:104:6:settingsDescription	4	static
+../Core/Src/pageModules/settingsModule.c:110:6:settingsSetup	8	static
+../Core/Src/pageModules/settingsModule.c:114:6:settingsMain	40	static
