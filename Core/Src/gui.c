@@ -47,8 +47,10 @@ char pointerChar = '>';
 static uint8_t position = 1;
 void (*moduleDescPtr)(void) = homeModule.description;
 void (*moduleMainPtr)(void) = homeModule.main;
-void (*moduleSetupPtr)(void) = timeSetup;
-void (*currentModulePtr)(void) = timeMain;
+void (*moduleSetupPtr)(void) = homeSetup;
+void (*currentModulePtr)(void) = homeMain;
+//void (*moduleSetupPtr)(void) = timeSetup;
+//void (*currentModulePtr)(void) = timeMain;
 // default main menu
 //void (*moduleSetupPtr)(void) = mainMenuSetup;
 //void (*currentModulePtr)(void) = showMainMenu2;
@@ -132,6 +134,13 @@ void prevPos(void){
 		position=MENU_ITEM_NUM-1;
 	}
 }
+
+void nextScreen(void){
+	moduleDescPtr = menuItems[position].description;
+	moduleSetupPtr = menuItems[position].setup;
+	moduleMainPtr = menuItems[position].main;
+}
+
 void nextPos(void){
 	if(position<(MENU_ITEM_NUM-1)){
 		position++;

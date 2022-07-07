@@ -13,6 +13,9 @@
 #include "rtc.h"
 #include "main.h"
 
+#include "bmp180.h"
+
+
 void timeDescription(void);
 void timeSetup(void);
 void timeMain(void);
