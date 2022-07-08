@@ -39,6 +39,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/bmp180.h ../Core/Inc/buttons.h ../Core/Inc/gpio.h \
  ../Core/Inc/customTimer.h ../Core/Inc/tim.h ../Core/Inc/gui.h \
  ../Core/Inc/buttons.h ../Core/Inc/bmp180.h \
+ ../Core/Inc/../Src/pageModules/menuModule.h \
  ../Core/Inc/../Src/pageModules/baroModule.h \
  ../Core/Inc/../Src/pageModules/timeModule.h \
  ../Core/Inc/../Src/pageModules/gpsModule.h \
@@ -100,6 +101,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/gui.h:
 ../Core/Inc/buttons.h:
 ../Core/Inc/bmp180.h:
+../Core/Inc/../Src/pageModules/menuModule.h:
 ../Core/Inc/../Src/pageModules/baroModule.h:
 ../Core/Inc/../Src/pageModules/timeModule.h:
 ../Core/Inc/../Src/pageModules/gpsModule.h:

@@ -74,6 +74,9 @@ typedef struct buttons{
 	void (*B2_handler)(void);
 	void (*B3_handler)(void);
 }buttons;
+void initButtons(Button* btns[6]);
+void resetButtonHandlers(void);
+void scanButtons(Button* btns[6]);
 
 extern buttons btns;
 

@@ -168,6 +168,9 @@ void lcdTest(void);
 uint8_t reverse_uint8(uint8_t re);
 void lcdRefresh(void);
 void lcdPutChar(uint16_t x, uint8_t y, char chr, const Font_TypeDef *font);
+void lcdPutIcon(uint16_t x, uint8_t y, const Icon_TypeDef *icon);
+void lcdPutStr(uint16_t x, uint8_t y, const char *chr, const Font_TypeDef *font);
+void lcdClearBuffer(void);
 
 
 

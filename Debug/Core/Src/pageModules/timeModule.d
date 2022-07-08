@@ -34,8 +34,9 @@ Core/Src/pageModules/timeModule.o: ../Core/Src/pageModules/timeModule.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Core/Inc/gpio.h ../Core/Inc/gui.h ../Core/Inc/buttons.h \
- ../Core/Inc/bmp180.h ../Core/Inc/../Src/pageModules/baroModule.h \
- ../Core/Inc/bmp180.h ../Core/Inc/../Src/pageModules/timeModule.h \
+ ../Core/Inc/bmp180.h ../Core/Inc/../Src/pageModules/menuModule.h \
+ ../Core/Inc/../Src/pageModules/baroModule.h ../Core/Inc/bmp180.h \
+ ../Core/Inc/../Src/pageModules/timeModule.h \
  ../Core/Inc/../Src/pageModules/gpsModule.h \
  ../Core/Inc/../Src/pageModules/homeModule.h \
  ../Core/Inc/../Src/pageModules/settingsModule.h ../Core/Inc/rtc.h \
@@ -85,6 +86,7 @@ Core/Src/pageModules/timeModule.o: ../Core/Src/pageModules/timeModule.c \
 ../Core/Inc/gui.h:
 ../Core/Inc/buttons.h:
 ../Core/Inc/bmp180.h:
+../Core/Inc/../Src/pageModules/menuModule.h:
 ../Core/Inc/../Src/pageModules/baroModule.h:
 ../Core/Inc/bmp180.h:
 ../Core/Inc/../Src/pageModules/timeModule.h:

@@ -1,4 +1,4 @@
 ../Core/Src/pageModules/timeModule.c:29:13:setDefaultClbcks	4	static
-../Core/Src/pageModules/timeModule.c:35:6:timeDescription	4	static
-../Core/Src/pageModules/timeModule.c:44:6:timeSetup	8	static
-../Core/Src/pageModules/timeModule.c:49:6:timeMain	40	static
+../Core/Src/pageModules/timeModule.c:36:6:timeDescription	4	static
+../Core/Src/pageModules/timeModule.c:45:6:timeSetup	8	static
+../Core/Src/pageModules/timeModule.c:50:6:timeMain	40	static

@@ -1,4 +1,5 @@
-Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/font13.h ../Core/Inc/lcd.h \
+Core/Src/pageModules/menuModule.o: ../Core/Src/pageModules/menuModule.c \
+ ../Core/Src/pageModules/menuModule.h ../Core/Inc/buttons.h \
  ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -32,20 +33,19 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/font13.h ../Core/Inc/lcd.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/spi.h ../Core/Inc/digits5x9.h ../Core/Inc/font_larabie.h \
- ../Core/Inc/font_paradroid_18.h ../Core/Inc/gui.h ../Core/Inc/buttons.h \
- ../Core/Inc/gpio.h ../Core/Inc/bmp180.h \
- ../Core/Inc/../Src/pageModules/menuModule.h ../Core/Inc/buttons.h \
+ ../Core/Inc/gpio.h ../Core/Inc/gui.h ../Core/Inc/buttons.h \
+ ../Core/Inc/bmp180.h ../Core/Inc/../Src/pageModules/menuModule.h \
  ../Core/Inc/../Src/pageModules/baroModule.h ../Core/Inc/bmp180.h \
  ../Core/Inc/../Src/pageModules/timeModule.h ../Core/Inc/rtc.h \
  ../Core/Inc/main.h ../Core/Inc/../Src/pageModules/gpsModule.h \
  ../Core/Inc/../Src/pageModules/homeModule.h \
  ../Core/Inc/../Src/pageModules/settingsModule.h \
- ../Core/Inc/icons/icons_small.h ../Core/Inc/lcd.h \
- ../Core/Inc/fonts/ocrFont.h ../Core/Inc/fonts/zekton14.h \
- ../Core/Inc/icons/icons_small.h
-../Core/Inc/font13.h:
-../Core/Inc/lcd.h:
+ ../Core/Inc/icons/icons_small.h ../Core/Inc/lcd.h ../Core/Inc/spi.h \
+ ../Core/Inc/font13.h ../Core/Inc/lcd.h ../Core/Inc/digits5x9.h \
+ ../Core/Inc/fonts/zekton24.h ../Core/Inc/fonts/zekton84.h \
+ ../Core/Inc/fonts/zekton45.h ../Core/Inc/fonts/zekton14.h
+../Core/Src/pageModules/menuModule.h:
+../Core/Inc/buttons.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -80,16 +80,11 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/font13.h ../Core/Inc/lcd.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-../Core/Inc/spi.h:
-../Core/Inc/digits5x9.h:
-../Core/Inc/font_larabie.h:
-../Core/Inc/font_paradroid_18.h:
+../Core/Inc/gpio.h:
 ../Core/Inc/gui.h:
 ../Core/Inc/buttons.h:
-../Core/Inc/gpio.h:
 ../Core/Inc/bmp180.h:
 ../Core/Inc/../Src/pageModules/menuModule.h:
-../Core/Inc/buttons.h:
 ../Core/Inc/../Src/pageModules/baroModule.h:
 ../Core/Inc/bmp180.h:
 ../Core/Inc/../Src/pageModules/timeModule.h:
@@ -100,6 +95,11 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/font13.h ../Core/Inc/lcd.h \
 ../Core/Inc/../Src/pageModules/settingsModule.h:
 ../Core/Inc/icons/icons_small.h:
 ../Core/Inc/lcd.h:
-../Core/Inc/fonts/ocrFont.h:
+../Core/Inc/spi.h:
+../Core/Inc/font13.h:
+../Core/Inc/lcd.h:
+../Core/Inc/digits5x9.h:
+../Core/Inc/fonts/zekton24.h:
+../Core/Inc/fonts/zekton84.h:
+../Core/Inc/fonts/zekton45.h:
 ../Core/Inc/fonts/zekton14.h:
-../Core/Inc/icons/icons_small.h:

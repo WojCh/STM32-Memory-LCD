@@ -19,6 +19,7 @@
 "./Core/Src/pageModules/baroModule.o"
 "./Core/Src/pageModules/gpsModule.o"
 "./Core/Src/pageModules/homeModule.o"
+"./Core/Src/pageModules/menuModule.o"
 "./Core/Src/pageModules/settingsModule.o"
 "./Core/Src/pageModules/timeModule.o"
 "./Core/Startup/startup_stm32f429zitx.o"

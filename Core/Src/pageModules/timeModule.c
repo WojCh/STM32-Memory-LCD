@@ -28,6 +28,7 @@
 
 static void setDefaultClbcks(void){
 	btn_B2.onSinglePressHandler = &returnToMenu;
+	btn_B3.onSinglePressHandler = &resetPos;
 //	btn_BB.onSinglePressHandler = &showOptions;
 
 }

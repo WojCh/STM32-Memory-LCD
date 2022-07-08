@@ -8,10 +8,13 @@
 #ifndef INC_GUI_H_
 #define INC_GUI_H_
 
+#define MENU_ITEM_NUM 5
+
 //#include "main.h"
 //#include "font13.h"
 #include "buttons.h"
 #include "bmp180.h"
+#include "../Src/pageModules/menuModule.h"
 #include "../Src/pageModules/baroModule.h"
 #include "../Src/pageModules/timeModule.h"
 #include "../Src/pageModules/gpsModule.h"
@@ -32,10 +35,24 @@ const struct Module{
 	const Icon_TypeDef* icon;
 };
 
+extern struct Module menuItems[MENU_ITEM_NUM];
 extern char menuStr[][30];
 
-void mainMenuSetup(void);
-void showMainMenu(void);
+extern uint8_t position;
+extern void (*moduleDescPtr)(void);
+extern void (*moduleMainPtr)(void);
+extern void (*moduleSetupPtr)(void);
+extern void (*currentModulePtr)(void);
+
+void prevPos(void);
+void nextPos(void);
+void nextScreen(void);
+void prevScreen(void);
+void resetPos(void);
+void applySelectedScreen(void);
+void selectScreen(void);
 void returnToMenu(void);
+void showMenu(void);
+
 
 #endif /* INC_GUI_H_ */

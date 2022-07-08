@@ -15,14 +15,10 @@
 
 // internal functions setting changing visible module in main menu
 void nextScreenInt(void){
-	nextPos();
 	nextScreen();
-	select();
 }
 void prevScreenInt(void){
-	nextPos();
-	nextScreen();
-	select();
+	prevScreen();
 }
 
 static void setDefaultClbcks(void){
