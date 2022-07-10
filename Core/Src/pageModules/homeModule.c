@@ -3,6 +3,8 @@
  *
  *  Created on: 25 kwi 2022
  *      Author: wojch
+ *
+ *      module displaying watchfaces
  */
 
 #include "homeModule.h"
@@ -22,10 +24,9 @@ void prevScreenInt(void){
 }
 
 static void setDefaultClbcks(void){
-//	btn_B2.onSinglePressHandler = &returnToMenu;
-	btn_B2.onSingleLongPressHandler = &returnToMenu;
-	btn_BA.onSinglePressHandler = &nextScreenInt;
-	btn_B1.onSinglePressHandler = &prevScreenInt;
+	btn_B3.onSingleLongPressHandler = &returnToMenu;
+	btn_BA.onSinglePressHandler = &nextScreen;
+//	btn_B1.onSinglePressHandler = &prevScreenInt;
 }
 
 void homeDescription(void){

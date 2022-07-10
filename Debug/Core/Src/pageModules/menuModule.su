@@ -1,5 +1,5 @@
-../Core/Src/pageModules/menuModule.c:33:6:resetMenuPos	4	static
-../Core/Src/pageModules/menuModule.c:37:13:setDefaultClbcks	4	static
-../Core/Src/pageModules/menuModule.c:48:6:menuDescription	4	static
-../Core/Src/pageModules/menuModule.c:54:6:menuSetup	8	static
-../Core/Src/pageModules/menuModule.c:59:6:menuMain	168	static
+../Core/Src/pageModules/menuModule.c:17:6:resetMenuPos	4	static
+../Core/Src/pageModules/menuModule.c:21:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/menuModule.c:32:6:menuDescription	4	static
+../Core/Src/pageModules/menuModule.c:38:6:menuSetup	8	static
+../Core/Src/pageModules/menuModule.c:43:6:menuMain	168	static

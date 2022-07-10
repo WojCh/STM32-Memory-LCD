@@ -14,7 +14,12 @@
 #include "main.h"
 
 #include "bmp180.h"
+#include "stw.h"
 
+void startStopwatch();
+void stopStopwatch();
+void resetStopwatch();
+void saveStopwatch();
 
 void timeDescription(void);
 void timeSetup(void);

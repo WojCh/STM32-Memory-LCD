@@ -14,22 +14,6 @@
 #include "fonts/zekton45.h"
 #include "fonts/zekton14.h"
 
-//uint8_t position = 0;
-//void prevMenuPos(void){
-//	if(position>0){
-//		position--;
-//	} else {
-//		position=MENU_ITEM_NUM-1;
-//	}
-//}
-//
-//void nextMenuPos(void){
-//	if(position<(MENU_ITEM_NUM-1)){
-//		position++;
-//	} else {
-//		position=0;
-//	}
-//}
 void resetMenuPos(void){
 		position=0;
 }

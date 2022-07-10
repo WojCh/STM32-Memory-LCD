@@ -1,6 +1,6 @@
-../Core/Src/pageModules/homeModule.c:17:6:nextScreenInt	8	static
-../Core/Src/pageModules/homeModule.c:20:6:prevScreenInt	8	static
-../Core/Src/pageModules/homeModule.c:24:13:setDefaultClbcks	4	static
-../Core/Src/pageModules/homeModule.c:31:6:homeDescription	4	static
-../Core/Src/pageModules/homeModule.c:37:6:homeSetup	8	static
-../Core/Src/pageModules/homeModule.c:42:6:homeMain	240	static
+../Core/Src/pageModules/homeModule.c:19:6:nextScreenInt	8	static
+../Core/Src/pageModules/homeModule.c:22:6:prevScreenInt	8	static
+../Core/Src/pageModules/homeModule.c:26:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/homeModule.c:32:6:homeDescription	4	static
+../Core/Src/pageModules/homeModule.c:38:6:homeSetup	8	static
+../Core/Src/pageModules/homeModule.c:43:6:homeMain	240	static

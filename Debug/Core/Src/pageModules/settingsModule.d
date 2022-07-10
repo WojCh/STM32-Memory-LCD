@@ -38,7 +38,8 @@ Core/Src/pageModules/settingsModule.o: \
  ../Core/Inc/bmp180.h ../Core/Inc/../Src/pageModules/menuModule.h \
  ../Core/Inc/../Src/pageModules/baroModule.h ../Core/Inc/bmp180.h \
  ../Core/Inc/../Src/pageModules/timeModule.h ../Core/Inc/rtc.h \
- ../Core/Inc/main.h ../Core/Inc/../Src/pageModules/gpsModule.h \
+ ../Core/Inc/main.h ../Core/Inc/stw.h \
+ ../Core/Inc/../Src/pageModules/gpsModule.h \
  ../Core/Inc/../Src/pageModules/homeModule.h \
  ../Core/Inc/../Src/pageModules/settingsModule.h \
  ../Core/Inc/icons/icons_small.h ../Core/Inc/lcd.h ../Core/Inc/spi.h \
@@ -93,6 +94,7 @@ Core/Src/pageModules/settingsModule.o: \
 ../Core/Inc/../Src/pageModules/timeModule.h:
 ../Core/Inc/rtc.h:
 ../Core/Inc/main.h:
+../Core/Inc/stw.h:
 ../Core/Inc/../Src/pageModules/gpsModule.h:
 ../Core/Inc/../Src/pageModules/homeModule.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:

@@ -52,7 +52,7 @@ void resetPos(void);
 void applySelectedScreen(void);
 void selectScreen(void);
 void returnToMenu(void);
-void showMenu(void);
+void showGui(void);
 
 
 #endif /* INC_GUI_H_ */

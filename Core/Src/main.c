@@ -65,15 +65,6 @@
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 
-void increment(void){
-	posCounter++;
-}
-void resetCnt(void){
-	posCounter = 100;
-}
-void decrement(void){
-	posCounter--;
-}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -158,7 +149,7 @@ int main(void)
 	  lcdClearBuffer();
 
 	  // functions executed through GUI
-	  showMenu();
+	  showGui();
 
 	  lcdRefresh();
 
@@ -218,17 +209,14 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	// APB2 168MHz -> after PSCL 100Hz
 	if(htim->Instance == TIM10){
-		HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
-//		lcdRefresh();
+		if(stwS.state){
+			HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
+			stwTick();
+		}
 	}
 	if(htim->Instance == TIM11){
-//		scanButton(&btn_BA);
-//		scanButton(&btn_BB);
-//		scanButton(&btn_BC);
-//		scanButton(&btn_B1);
-//		scanButton(&btn_B2);
-//		scanButton(&btn_B3);
 		scanButtons(btnsPtrs);
 	}
 }

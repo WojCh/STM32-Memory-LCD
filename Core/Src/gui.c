@@ -14,15 +14,7 @@
  *
  */
 
-#define MENU_ITEM_NUM 5
-#include "font13.h"
-#include "digits5x9.h"
-#include "font_larabie.h"
-#include "font_paradroid_18.h"
 #include "gui.h"
-#include "fonts/ocrFont.h"
-#include "fonts/zekton14.h"
-#include "icons/icons_small.h"
 
 const struct Module menuModule = {"Menu", &menuDescription, &menuSetup, &menuMain, NULL};
 const struct Module homeModule = {"Home", &homeDescription, &homeSetup, &homeMain, homeIcon};
@@ -40,7 +32,7 @@ void (*moduleMainPtr)(void) = homeModule.main;
 void (*moduleSetupPtr)(void) = homeSetup;
 void (*currentModulePtr)(void) = homeMain;
 
-uint8_t* isModuleSet = 0;
+uint8_t isModuleSet = 0;
 
 void prevPos(void){
 	if(position>0){
@@ -92,7 +84,7 @@ void returnToMenu(void){
 	currentModulePtr =menuModule.main;
 }
 
-void showMenu(void){
+void showGui(void){
 	if(isModuleSet == 0){
 		moduleSetupPtr();
 		isModuleSet = 1;
