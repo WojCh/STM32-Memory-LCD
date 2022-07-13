@@ -74,28 +74,21 @@ void timeDescription(void){
 //	lcdPutStr(4,5, tempStr, font13);
 }
 
-struct stopwatch_t{
-	uint8_t hours;
-	uint8_t min;
-	uint8_t sec;
-	uint8_t csec;
-};
 struct stopwatch_t stw_val = {0, 0, 0, 0};
 
-struct stopwatch_t convBuffer = {0, 0, 0, 0};
 struct stopwatch_t convertTicks(uint32_t ticks){
 	struct stopwatch_t bff = {
-		stwS.cnt/(100*60*60),
-		stwS.cnt%(100*60*60)/(60*100),
-		stwS.cnt%(60*100)/(100),
-		stwS.cnt%100
+		ticks/(100*60*60),
+		ticks%(100*60*60)/(60*100),
+		ticks%(60*100)/(100),
+		ticks%100
 	};
 	return bff;
 }
-uint8_t* stwString(struct stopwatch_t stw){
-	char str[20] = {0};
-	sprintf(&str, "%dh%02d'%02d.%02d\"", stw.hours, stw.min, stw.sec, stw.csec);
-	return &str;
+
+uint8_t* stwString(struct stopwatch_t stw, char* str){
+	sprintf(str, "%dh%02d'%02d.%02d\"", stw.hours, stw.min, stw.sec, stw.csec);
+	return str;
 }
 void updateStopwatch(void){
 	stw_val.hours = stwS.cnt/(100*60*60);
@@ -128,13 +121,29 @@ void timeMain(void){
 
 	updateStopwatch();
 	char tempStr2[30] = {0};
-	sprintf(&tempStr2, "%01dh", stw_val.hours);
-	lcdPutStr(0, 50, tempStr2, zektonSmallFont);
+	if(stw_val.hours != 0){
+		sprintf(&tempStr2, "%01dh", stw_val.hours);
+	}
+	lcdPutStr(20, 95, tempStr2, zektonSmallFont);
 	sprintf(&tempStr2, "%02d'%02d.%02d\"", stw_val.min, stw_val.sec, stw_val.csec);
-	lcdPutStr(0, 76, tempStr2, zecton45font);
-	for(uint8_t i = 0; i < 7; i++){
-		sprintf(&tempStr2, "%d. %d\"", i, stwT.stwArray[i]%(60*100)/100);
-		lcdPutStr(0, 125+i*16, tempStr2, zecton12font);
+	lcdPutStr(380-(*(zecton45font.font_Width)*strlen(tempStr2)), 76, tempStr2, zecton45font);
+//	for(uint8_t i = 0; i < 7; i++){
+	for(uint8_t i = 0; i < stwT.position; i++){
+
+//		sprintf(&tempStr2, "%d. %d\"", i, stwT.stwArray[i]%(60*100)/100);
+//		sprintf(&tempStr2, "%d. %s", i, stwString(convertTicks(stwT.stwArray[i])));
+		if(stwT.stwArray[i] != 0){
+			sprintf(&tempStr2, "Lap %d:", i+1);
+			lcdPutStr(0, 130+i*16, tempStr2, zecton12font);
+			if(i>0){
+				lcdPutStr(55, 130+i*16, stwString(convertTicks(stwT.stwArray[i]-stwT.stwArray[i-1]), &tempStr2), zecton12font);
+			} else {
+				lcdPutStr(55, 130+i*16, stwString(convertTicks(stwT.stwArray[i]), &tempStr2), zecton12font);
+			}
+			sprintf(&tempStr2, "Split:");
+			lcdPutStr(165, 130+i*16, tempStr2, zecton12font);
+			lcdPutStr(225, 130+i*16, stwString(convertTicks(stwT.stwArray[i]), &tempStr2), zecton12font);
+		}
 	}
 
 //	sprintf(&tempStr2, "%d", stwS.cnt);

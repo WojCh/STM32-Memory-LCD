@@ -17,6 +17,13 @@ typedef struct stw_t{
 
 extern stw_struct stwS;
 
+struct stopwatch_t{
+	uint8_t hours;
+	uint8_t min;
+	uint8_t sec;
+	uint8_t csec;
+};
+
 // split/laptime array
 typedef struct stwTable{
 	uint32_t stwArray[10];

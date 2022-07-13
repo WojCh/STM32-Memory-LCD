@@ -4,8 +4,8 @@
 ../Core/Src/pageModules/timeModule.c:48:6:saveStopwatch	8	static
 ../Core/Src/pageModules/timeModule.c:52:13:setDefaultClbcks	4	static
 ../Core/Src/pageModules/timeModule.c:68:6:timeDescription	4	static
-../Core/Src/pageModules/timeModule.c:86:20:convertTicks	24	static
-../Core/Src/pageModules/timeModule.c:95:10:stwString	56	static
-../Core/Src/pageModules/timeModule.c:100:6:updateStopwatch	4	static
-../Core/Src/pageModules/timeModule.c:107:6:timeSetup	8	static
-../Core/Src/pageModules/timeModule.c:113:6:timeMain	96	static
+../Core/Src/pageModules/timeModule.c:79:20:convertTicks	24	static
+../Core/Src/pageModules/timeModule.c:89:10:stwString	24	static
+../Core/Src/pageModules/timeModule.c:93:6:updateStopwatch	4	static
+../Core/Src/pageModules/timeModule.c:100:6:timeSetup	8	static
+../Core/Src/pageModules/timeModule.c:106:6:timeMain	112	static
