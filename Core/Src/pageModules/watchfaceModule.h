@@ -13,7 +13,6 @@
 
 static void setDefaultClbcks(void);
 
-void faceDescription(void);
 void faceSetup(void);
 void faceMain(void);
 

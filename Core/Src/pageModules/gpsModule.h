@@ -13,7 +13,6 @@
 
 static void setDefaultClbcks(void);
 
-void gpsDescription(void);
 void gpsSetup(void);
 void gpsMain(void);
 

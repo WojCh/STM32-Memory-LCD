@@ -15,7 +15,6 @@
 
 static void setDefaultClbcks(void);
 
-void settingsDescription(void);
 void settingsSetup(void);
 void settingsMain(void);
 

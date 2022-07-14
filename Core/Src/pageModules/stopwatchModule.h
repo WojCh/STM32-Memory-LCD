@@ -21,7 +21,6 @@ void stopStopwatch();
 void resetStopwatch();
 void saveStopwatch();
 
-void stwDescription(void);
 void stwSetup(void);
 void stwMain(void);
 

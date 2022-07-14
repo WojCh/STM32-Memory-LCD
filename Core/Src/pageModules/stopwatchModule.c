@@ -63,16 +63,6 @@ static void setDefaultClbcks(void){
 	}
 }
 
-// functions to execute while menu item highlighted
-void stwDescription(void){
-//	char tempStr[30] = {0};
-//	sprintf(&tempStr, "Time will be 24h45.2min");
-//	lcdPutStr(0,132, tempStr, smallestFont);
-//	lcdPutStr(4,140, tempStr, smallestFont);
-//	lcdPutStr(7,180, tempStr, ocrFont);
-//	lcdPutStr(4,5, tempStr, font13);
-}
-
 struct stopwatch_t stw_val = {0, 0, 0, 0};
 
 struct stopwatch_t convertTicks(uint32_t ticks){

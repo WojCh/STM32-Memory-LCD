@@ -29,11 +29,6 @@ static void setDefaultClbcks(void){
 	btn_B1.onSinglePressHandler = &prevPos;
 }
 
-void menuDescription(void){
-//	char tempStr[30] = {0};
-//	sprintf(&tempStr, "HOME will be shown");
-//	lcdPutStr(0, 9, tempStr, font13);
-}
 
 void menuSetup(void){
 	setDefaultClbcks();
@@ -41,7 +36,7 @@ void menuSetup(void){
 }
 
 void menuMain(void){
-	if(moduleDescPtr != NULL) moduleDescPtr();
+//	if(moduleDescPtr != NULL) moduleDescPtr();
 		uint8_t fontWidth = *zecton12font.font_Width;
 		char leftStr[30] = {0};
 		char rightStr[30] = {0};
@@ -62,7 +57,7 @@ void menuMain(void){
 			if(menuItems[position+1].icon != NULL) lcdPutIcon(330 - menuItems[position+1].icon->icon_Width/2, 90, menuItems[position+1].icon);
 		}
 		sprintf(&centStr, "%s", menuItems[position].name);
-		moduleDescPtr = menuItems[position].description;
+//		moduleDescPtr = menuItems[position].description;
 		moduleSetupPtr = menuItems[position].setup;
 		moduleMainPtr = menuItems[position].main;
 		lcdPutStr(200 - (fontWidth * strlen(menuItems[position].name)/2), 180, centStr, zecton12font);

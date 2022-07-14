@@ -15,12 +15,6 @@ static void setDefaultClbcks(void){
 	btn_BC.onSinglePressHandler = &prevScreen;
 }
 
-void gpsDescription(void){
-//	char tempStr[30] = {0};
-//	sprintf(&tempStr, "GPS will be shown");
-//	lcdPutStr(0, 9, tempStr, font13);
-}
-
 void gpsSetup(void){
 	setDefaultClbcks();
 

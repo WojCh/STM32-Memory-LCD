@@ -13,7 +13,6 @@
 
 static void setDefaultClbcks(void);
 
-void menuDescription(void);
 void menuSetup(void);
 void menuMain(void);
 

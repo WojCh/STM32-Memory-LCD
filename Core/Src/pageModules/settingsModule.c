@@ -103,11 +103,6 @@ static void setDefaultClbcks(void){
 //	btn_BB.onSinglePressHandler = &showOptions;
 }
 
-void settingsDescription(void){
-//	char tempStr[30] = {0};
-//	sprintf(&tempStr, "Settings will be shown");
-//	lcdPutStr(0, 9, tempStr, font13);
-}
 
 void settingsSetup(void){
 	setDefaultClbcks();

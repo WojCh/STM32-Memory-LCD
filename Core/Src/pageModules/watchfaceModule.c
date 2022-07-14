@@ -16,30 +16,21 @@
 #include "fonts/zekton84.h"
 #include <fonts/zekton45.h>
 
-// internal functions setting changing visible module in main menu
-void nextScreenInt(void){
-	nextScreen();
-}
-void prevScreenInt(void){
-	prevScreen();
-}
-
 static void setDefaultClbcks(void){
-	btn_B3.onSinglePressHandler = &hideCntxMenu;
+	// module callbacks
 	btn_B2.onSinglePressHandler = &showCntxMenu;
 	btn_BA.onSinglePressHandler = &nextScreen;
-//	btn_B1.onSinglePressHandler = &prevScreenInt;
+	btn_BC.onSinglePressHandler = &prevScreen;
 }
 
-void faceDescription(void){
-//	char tempStr[30] = {0};
-//	sprintf(&tempStr, "HOME will be shown");
-//	lcdPutStr(0, 9, tempStr, font13);
-}
+struct ContextActions action1 = {"Next", &nextScreen};
+struct ContextActions action2 = {"Previous", &prevScreen};
+struct ContextActions* cntxActions[2] = {&action1, &action1};
 
 void faceSetup(void){
 	setDefaultClbcks();
-
+//	setupCntxMenu(&setDefaultClbcks);
+	setupCntxMenu(&setDefaultClbcks, cntxActions, 2);
 }
 
 void faceMain(void){

@@ -16,18 +16,17 @@
 
 #include "gui.h"
 
-const struct Module menuModule = {"Menu", &menuDescription, &menuSetup, &menuMain, NULL};
-const struct Module faceModule = {"Watchface", &faceDescription, &faceSetup, &faceMain, homeIcon};
-const struct Module stwModule = {"Stopwatch", &stwDescription, &stwSetup, &stwMain, timeIcon};
-const struct Module baroModule = {"Atmo", &baroDescription, &baroSetup, &baroMain, atmoIcon};
-const struct Module gpsModule = {"GPS", &gpsDescription, &gpsSetup, &gpsMain, gpsIcon};
-const struct Module settingsModule = {"Settings", &settingsDescription, &settingsSetup, &settingsMain, settingsIcon};
+const struct Module menuModule = {"Menu", &menuSetup, &menuMain, NULL};
+const struct Module faceModule = {"Watchface", &faceSetup, &faceMain, homeIcon};
+const struct Module stwModule = {"Stopwatch", &stwSetup, &stwMain, timeIcon};
+const struct Module baroModule = {"Atmo", &baroSetup, &baroMain, atmoIcon};
+const struct Module gpsModule = {"GPS", &gpsSetup, &gpsMain, gpsIcon};
+const struct Module settingsModule = {"Settings", &settingsSetup, &settingsMain, settingsIcon};
 
 struct Module menuItems[MENU_ITEM_NUM] = {faceModule, stwModule, baroModule, gpsModule, settingsModule};
 
 // default screens and displays/values
 uint8_t position = 0;
-void (*moduleDescPtr)(void) = faceModule.description;
 void (*moduleMainPtr)(void) = faceModule.main;
 void (*moduleSetupPtr)(void) = faceSetup;
 void (*currentModulePtr)(void) = faceMain;
@@ -64,7 +63,7 @@ void resetPos(void){
 }
 
 void applySelectedScreen(void){
-	moduleDescPtr = menuItems[position].description;
+//	moduleDescPtr = menuItems[position].description;
 	moduleSetupPtr = menuItems[position].setup;
 	moduleMainPtr = menuItems[position].main;
 	selectScreen();

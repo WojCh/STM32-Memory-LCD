@@ -12,8 +12,6 @@
 #include "buttons.h"
 #include "gui.h"
 
-
-void baroDescription(void);
 void baroSetup(void);
 void baroMain(void);
 
