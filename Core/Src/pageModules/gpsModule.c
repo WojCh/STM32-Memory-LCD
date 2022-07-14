@@ -10,7 +10,9 @@
 #include "digits5x9.h"
 
 static void setDefaultClbcks(void){
-	btn_B2.onSinglePressHandler = &returnToMenu;
+//	btn_B2.onSinglePressHandler = &returnToMenu;
+	btn_BA.onSinglePressHandler = &nextScreen;
+	btn_BC.onSinglePressHandler = &prevScreen;
 }
 
 void gpsDescription(void){

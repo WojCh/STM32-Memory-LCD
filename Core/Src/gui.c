@@ -17,20 +17,20 @@
 #include "gui.h"
 
 const struct Module menuModule = {"Menu", &menuDescription, &menuSetup, &menuMain, NULL};
-const struct Module homeModule = {"Home", &homeDescription, &homeSetup, &homeMain, homeIcon};
-const struct Module timeModule = {"Time", &timeDescription, &timeSetup, &timeMain, timeIcon};
+const struct Module faceModule = {"Watchface", &faceDescription, &faceSetup, &faceMain, homeIcon};
+const struct Module stwModule = {"Stopwatch", &stwDescription, &stwSetup, &stwMain, timeIcon};
 const struct Module baroModule = {"Atmo", &baroDescription, &baroSetup, &baroMain, atmoIcon};
 const struct Module gpsModule = {"GPS", &gpsDescription, &gpsSetup, &gpsMain, gpsIcon};
 const struct Module settingsModule = {"Settings", &settingsDescription, &settingsSetup, &settingsMain, settingsIcon};
 
-struct Module menuItems[MENU_ITEM_NUM] = {homeModule, timeModule, baroModule, gpsModule, settingsModule};
+struct Module menuItems[MENU_ITEM_NUM] = {faceModule, stwModule, baroModule, gpsModule, settingsModule};
 
 // default screens and displays/values
 uint8_t position = 0;
-void (*moduleDescPtr)(void) = homeModule.description;
-void (*moduleMainPtr)(void) = homeModule.main;
-void (*moduleSetupPtr)(void) = homeSetup;
-void (*currentModulePtr)(void) = homeMain;
+void (*moduleDescPtr)(void) = faceModule.description;
+void (*moduleMainPtr)(void) = faceModule.main;
+void (*moduleSetupPtr)(void) = faceSetup;
+void (*currentModulePtr)(void) = faceMain;
 
 uint8_t isModuleSet = 0;
 
@@ -77,11 +77,17 @@ void selectScreen(void){
 	currentModulePtr = moduleMainPtr;
 }
 
+// function showing menu with module selector
 void returnToMenu(void){
 	resetButtonHandlers();
 	isModuleSet = 0;
 	moduleSetupPtr = menuModule.setup;
 	currentModulePtr =menuModule.main;
+}
+
+// function to display alert message over current gui
+void showAlert(){
+
 }
 
 void showGui(void){
@@ -91,7 +97,5 @@ void showGui(void){
 	}
 	if(currentModulePtr != NULL) currentModulePtr();
 	lcdRefresh();
-//	while(1){
-//	}
 }
 

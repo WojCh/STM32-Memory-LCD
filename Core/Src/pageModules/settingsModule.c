@@ -95,9 +95,11 @@ void showPage(uint8_t pageNum){
 }
 
 static void setDefaultClbcks(void){
-	btn_B2.onSinglePressHandler = &returnToMenu;
-	btn_B1.onSinglePressHandler = &prevPage;
-	btn_BA.onSinglePressHandler = &nextPage;
+//	btn_B2.onSinglePressHandler = &returnToMenu;
+	btn_BA.onSinglePressHandler = &nextScreen;
+	btn_BC.onSinglePressHandler = &prevScreen;
+	btn_B3.onSinglePressHandler = &prevPage;
+	btn_B1.onSinglePressHandler = &nextPage;
 //	btn_BB.onSinglePressHandler = &showOptions;
 }
 

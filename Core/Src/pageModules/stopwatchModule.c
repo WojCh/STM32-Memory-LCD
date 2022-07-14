@@ -14,8 +14,6 @@
 
  */
 
-#include "timeModule.h"
-
 #include "font13.h"
 #include "digits5x9.h"
 #include "digits_larabie.h"
@@ -30,6 +28,7 @@
 #include "fonts/zekton24.h"
 
 #include <fonts/zekton45.h>
+#include "stopwatchModule.h"
 
 void startStopwatch(){
 	stwStart();
@@ -50,7 +49,7 @@ void saveStopwatch(){
 }
 
 static void setDefaultClbcks(void){
-	btn_B3.onSingleLongPressHandler = &returnToMenu;
+//	btn_B3.onSingleLongPressHandler = &returnToMenu;
 	btn_B3.onSinglePressHandler = &resetPos;
 	btn_BA.onSinglePressHandler = &nextScreen;
 	btn_BC.onSinglePressHandler = &prevScreen;
@@ -65,7 +64,7 @@ static void setDefaultClbcks(void){
 }
 
 // functions to execute while menu item highlighted
-void timeDescription(void){
+void stwDescription(void){
 //	char tempStr[30] = {0};
 //	sprintf(&tempStr, "Time will be 24h45.2min");
 //	lcdPutStr(0,132, tempStr, smallestFont);
@@ -97,13 +96,13 @@ void updateStopwatch(void){
 	stw_val.csec = stwS.cnt%100;
 }
 
-void timeSetup(void){
+void stwSetup(void){
 	setDefaultClbcks();
 }
 
 
 // functions to execute when menu item entered
-void timeMain(void){
+void stwMain(void){
 	char tempStr[4] = {0};
 	char funcArr[6][4] = {"STW", "TMR", "WRT", "TRK", "LFT", "SLT"};
 	for(uint8_t i = 0; i < 6; i++){
@@ -127,9 +126,7 @@ void timeMain(void){
 	lcdPutStr(20, 95, tempStr2, zektonSmallFont);
 	sprintf(&tempStr2, "%02d'%02d.%02d\"", stw_val.min, stw_val.sec, stw_val.csec);
 	lcdPutStr(380-(*(zecton45font.font_Width)*strlen(tempStr2)), 76, tempStr2, zecton45font);
-//	for(uint8_t i = 0; i < 7; i++){
-	for(uint8_t i = 0; i < stwT.position; i++){
-
+	for(uint8_t i = 0; i < 7; i++){
 //		sprintf(&tempStr2, "%d. %d\"", i, stwT.stwArray[i]%(60*100)/100);
 //		sprintf(&tempStr2, "%d. %s", i, stwString(convertTicks(stwT.stwArray[i])));
 		if(stwT.stwArray[i] != 0){

@@ -8,6 +8,6 @@
 ../Core/Src/pageModules/settingsModule.c:68:6:showPage6	40	static
 ../Core/Src/pageModules/settingsModule.c:74:6:showPage	16	static
 ../Core/Src/pageModules/settingsModule.c:97:13:setDefaultClbcks	4	static
-../Core/Src/pageModules/settingsModule.c:104:6:settingsDescription	4	static
-../Core/Src/pageModules/settingsModule.c:110:6:settingsSetup	8	static
-../Core/Src/pageModules/settingsModule.c:114:6:settingsMain	40	static
+../Core/Src/pageModules/settingsModule.c:106:6:settingsDescription	4	static
+../Core/Src/pageModules/settingsModule.c:112:6:settingsSetup	8	static
+../Core/Src/pageModules/settingsModule.c:116:6:settingsMain	40	static

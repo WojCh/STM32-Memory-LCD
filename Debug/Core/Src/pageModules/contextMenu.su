@@ -1,0 +1,3 @@
+../Core/Src/pageModules/contextMenu.c:14:6:showCntxMenu	4	static
+../Core/Src/pageModules/contextMenu.c:17:6:hideCntxMenu	4	static
+../Core/Src/pageModules/contextMenu.c:20:6:enableCntxMenu	40	static

@@ -5,5 +5,6 @@
 ../Core/Src/gui.c:61:6:resetPos	8	static
 ../Core/Src/gui.c:66:6:applySelectedScreen	8	static
 ../Core/Src/gui.c:73:6:selectScreen	8	static
-../Core/Src/gui.c:80:6:returnToMenu	8	static
-../Core/Src/gui.c:87:6:showGui	8	static
+../Core/Src/gui.c:81:6:returnToMenu	8	static
+../Core/Src/gui.c:89:6:showAlert	4	static
+../Core/Src/gui.c:93:6:showGui	8	static

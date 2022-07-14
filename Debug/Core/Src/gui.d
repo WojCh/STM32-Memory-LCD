@@ -35,10 +35,10 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/gui.h ../Core/Inc/buttons.h \
  ../Core/Inc/gpio.h ../Core/Inc/bmp180.h \
  ../Core/Inc/../Src/pageModules/menuModule.h ../Core/Inc/buttons.h \
  ../Core/Inc/../Src/pageModules/baroModule.h ../Core/Inc/bmp180.h \
- ../Core/Inc/../Src/pageModules/timeModule.h ../Core/Inc/rtc.h \
+ ../Core/Inc/../Src/pageModules/stopwatchModule.h ../Core/Inc/rtc.h \
  ../Core/Inc/main.h ../Core/Inc/stw.h \
  ../Core/Inc/../Src/pageModules/gpsModule.h \
- ../Core/Inc/../Src/pageModules/homeModule.h \
+ ../Core/Inc/../Src/pageModules/watchfaceModule.h \
  ../Core/Inc/../Src/pageModules/settingsModule.h \
  ../Core/Inc/icons/icons_small.h ../Core/Inc/lcd.h ../Core/Inc/spi.h
 ../Core/Inc/gui.h:
@@ -83,12 +83,12 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/gui.h ../Core/Inc/buttons.h \
 ../Core/Inc/buttons.h:
 ../Core/Inc/../Src/pageModules/baroModule.h:
 ../Core/Inc/bmp180.h:
-../Core/Inc/../Src/pageModules/timeModule.h:
+../Core/Inc/../Src/pageModules/stopwatchModule.h:
 ../Core/Inc/rtc.h:
 ../Core/Inc/main.h:
 ../Core/Inc/stw.h:
 ../Core/Inc/../Src/pageModules/gpsModule.h:
-../Core/Inc/../Src/pageModules/homeModule.h:
+../Core/Inc/../Src/pageModules/watchfaceModule.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:
 ../Core/Inc/icons/icons_small.h:
 ../Core/Inc/lcd.h:

@@ -13,10 +13,12 @@
 uint8_t baroMode = 0;
 
 static void setDefaultClbcks(void){
-	btn_B2.onSinglePressHandler = &returnToMenu;
+//	btn_B2.onSinglePressHandler = &returnToMenu;
+	btn_BA.onSinglePressHandler = &nextScreen;
+	btn_BC.onSinglePressHandler = &prevScreen;
 	btn_BB.onSingleLongPressHandler = &changeBaroMode;
-	btn_BC.onContinuousShortPressHandler = &addBaro;
-	btn_BA.onContinuousShortPressHandler = &remBaro;
+	btn_B3.onContinuousShortPressHandler = &addBaro;
+	btn_B1.onContinuousShortPressHandler = &remBaro;
 }
 
 // function executed from menu level

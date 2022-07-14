@@ -1,12 +1,12 @@
 /*
- * timeModule.h
+ * stopwatchModule.h
  *
  *  Created on: 25 kwi 2022
  *      Author: wojch
  */
 
-#ifndef SRC_PAGEMODULES_TIMEMODULE_H_
-#define SRC_PAGEMODULES_TIMEMODULE_H_
+#ifndef SRC_PAGEMODULES_STOPWATCHMODULE_H_
+#define SRC_PAGEMODULES_STOPWATCHMODULE_H_
 
 #include "buttons.h"
 #include "gui.h"
@@ -21,9 +21,9 @@ void stopStopwatch();
 void resetStopwatch();
 void saveStopwatch();
 
-void timeDescription(void);
-void timeSetup(void);
-void timeMain(void);
+void stwDescription(void);
+void stwSetup(void);
+void stwMain(void);
 
 
-#endif /* SRC_PAGEMODULES_TIMEMODULE_H_ */
+#endif /* SRC_PAGEMODULES_STOPWATCHMODULE_H_ */

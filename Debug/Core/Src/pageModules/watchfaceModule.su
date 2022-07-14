@@ -1,0 +1,6 @@
+../Core/Src/pageModules/watchfaceModule.c:20:6:nextScreenInt	8	static
+../Core/Src/pageModules/watchfaceModule.c:23:6:prevScreenInt	8	static
+../Core/Src/pageModules/watchfaceModule.c:27:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/watchfaceModule.c:34:6:faceDescription	4	static
+../Core/Src/pageModules/watchfaceModule.c:40:6:faceSetup	8	static
+../Core/Src/pageModules/watchfaceModule.c:45:6:faceMain	240	static

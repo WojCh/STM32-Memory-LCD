@@ -16,9 +16,9 @@
 #include "bmp180.h"
 #include "../Src/pageModules/menuModule.h"
 #include "../Src/pageModules/baroModule.h"
-#include "../Src/pageModules/timeModule.h"
+#include "../Src/pageModules/stopwatchModule.h"
 #include "../Src/pageModules/gpsModule.h"
-#include "../Src/pageModules/homeModule.h"
+#include "../Src/pageModules/watchfaceModule.h"
 #include "../Src/pageModules/settingsModule.h"
 #include "icons/icons_small.h"
 

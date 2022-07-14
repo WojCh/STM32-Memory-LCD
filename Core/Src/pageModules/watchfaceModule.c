@@ -1,14 +1,15 @@
 /*
- * homeModule.c
+ * watchfaceModule.c
  *
  *  Created on: 25 kwi 2022
  *      Author: wojch
  *
  *      module displaying watchfaces
  */
+#include "watchfaceModule.h"
+#include "contextMenu.h"
 
-#include "homeModule.h"
-
+// fonts
 #include "font13.h"
 #include "digits5x9.h"
 #include "fonts/zekton24.h"
@@ -24,31 +25,30 @@ void prevScreenInt(void){
 }
 
 static void setDefaultClbcks(void){
-	btn_B3.onSingleLongPressHandler = &returnToMenu;
+	btn_B3.onSinglePressHandler = &hideCntxMenu;
+	btn_B2.onSinglePressHandler = &showCntxMenu;
 	btn_BA.onSinglePressHandler = &nextScreen;
 //	btn_B1.onSinglePressHandler = &prevScreenInt;
 }
 
-void homeDescription(void){
+void faceDescription(void){
 //	char tempStr[30] = {0};
 //	sprintf(&tempStr, "HOME will be shown");
 //	lcdPutStr(0, 9, tempStr, font13);
 }
 
-void homeSetup(void){
+void faceSetup(void){
 	setDefaultClbcks();
 
 }
 
-void homeMain(void){
+void faceMain(void){
 //	char tempStr[30] = {0};
 //	sprintf(&tempStr, "HOME will be shown");
 //	lcdPutStr(0, 0, tempStr, font13);
 
-
 	char temperature[30] = {0};
 	sprintf(&temperature, "%4.1f`C", bmpData.temperature);
-//	uint16_t ppos =
 	lcdPutStr(35+(*(zektonSmallFont.font_Width)*(13-strlen(temperature))), 14, temperature, zektonSmallFont);
 	char baroStr[30] = {0};
 	sprintf(&baroStr, "%04.1f hPa", ((float)bmpData.pressure/100));
@@ -70,4 +70,6 @@ void homeMain(void){
 	char weekStr[30] = {0};
 	sprintf(&weekStr, "wednesday");
 	lcdPutStr(35+(*(zektonSmallFont.font_Width)*(13-strlen(weekStr))), 200, weekStr, zektonSmallFont);
+
+	enableCntxMenu();
 }
