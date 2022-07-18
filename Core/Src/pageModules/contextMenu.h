@@ -18,7 +18,7 @@ const struct ContextAction{
 	// action pointer
 	const void (*main)(void);
 };
-extern struct ContextAction* ContextActions[3];
+extern struct ContextAction* ContextActions[];
 
 
 void showCntxMenu(void);

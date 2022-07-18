@@ -74,10 +74,10 @@ void hideCntxMenu(void){
 void enableCntxMenu(void){
 	if(isCntxOpen){
 //		clear rect
-		lcdRect(0, 200, 10, 230, 0);
+		lcdRect(0, 200, 5, 8+(*zektonSmallFont.font_Height)*(actionsNum-1)+28, 0);
 //		draw frame
 		lcdHLine(0, 200, 6, 1);
-		lcdHLine(0, 200, 231, 1);
+		lcdHLine(0, 200, 8+(*zektonSmallFont.font_Height)*(actionsNum-1)+28, 1);
 //		create list
 		char item[30] = {0};
 		for(uint8_t i = 0; i < actionsNum; i++){
