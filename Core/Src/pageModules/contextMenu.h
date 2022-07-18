@@ -12,12 +12,14 @@
 
 static uint8_t isCntxOpen = 0;
 
-struct ContextActions{
+const struct ContextAction{
 	// name of the menu
 	const char name[30];
 	// action pointer
 	const void (*main)(void);
 };
+extern struct ContextAction* ContextActions[3];
+
 
 void showCntxMenu(void);
 void hideCntxMenu(void);

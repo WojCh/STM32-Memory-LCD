@@ -36,7 +36,7 @@ const struct Module{
 };
 
 extern struct Module menuItems[MENU_ITEM_NUM];
-extern char menuStr[][30];
+//extern char menuStr[][30];
 
 extern uint8_t position;
 //extern void (*moduleDescPtr)(void);

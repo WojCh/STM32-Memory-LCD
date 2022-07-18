@@ -1,3 +1,4 @@
 ../Core/Src/pageModules/watchfaceModule.c:19:13:setDefaultClbcks	4	static
-../Core/Src/pageModules/watchfaceModule.c:30:6:faceSetup	8	static
-../Core/Src/pageModules/watchfaceModule.c:36:6:faceMain	240	static
+../Core/Src/pageModules/watchfaceModule.c:26:13:setTimeScreen	16	static
+../Core/Src/pageModules/watchfaceModule.c:53:6:faceSetup	8	static
+../Core/Src/pageModules/watchfaceModule.c:59:6:faceMain	240	static

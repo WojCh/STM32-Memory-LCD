@@ -56,7 +56,7 @@
 
 /* USER CODE BEGIN PV */
 
-	int posCounter = 100;
+//	int posCounter = 100;
 	RTC_TimeTypeDef RtcTime;
 	RTC_DateTypeDef RtcDate;
 /* USER CODE END PV */
