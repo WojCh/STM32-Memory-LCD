@@ -23,7 +23,7 @@
 #ifndef __FONT_zecton4846_H
 #define __FONT_zecton4846_H
 
-#define zecton45font &zecton4846
+#define zekton45font &zecton4846
 
 static const Font_TypeDef zecton4846 = {
 		34,           // Font width

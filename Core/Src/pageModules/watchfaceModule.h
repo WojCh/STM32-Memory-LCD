@@ -13,9 +13,7 @@
 #include "submodules/numberInputScreen.h"
 
 static void setDefaultClbcks(void);
-
 void faceSetup(void);
 void faceMain(void);
-
 
 #endif /* SRC_PAGEMODULES_WATCHFACEMODULE_H_ */

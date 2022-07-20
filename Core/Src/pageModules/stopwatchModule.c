@@ -93,43 +93,43 @@ void stwSetup(void){
 
 // functions to execute when menu item entered
 void stwMain(void){
-	char tempStr[4] = {0};
-	char funcArr[6][4] = {"STW", "TMR", "WRT", "TRK", "LFT", "SLT"};
-	for(uint8_t i = 0; i < 6; i++){
-		sprintf(&tempStr, funcArr[i]);
-		if(i == 0){
-			lcdPutStr(10+50*i, 10, tempStr, zecton12bfont);
-		} else {
-			lcdPutStr(10+50*i, 10, tempStr, zecton12font);
-		}
-	}
+//	char tempStr[4] = {0};
+//	char funcArr[6][4] = {"STW", "TMR", "WRT", "TRK", "LFT", "SLT"};
+//	for(uint8_t i = 0; i < 6; i++){
+//		sprintf(&tempStr, funcArr[i]);
+//		if(i == 0){
+//			lcdPutStr(10+50*i, 10, tempStr, zekton12font_bold);
+//		} else {
+//			lcdPutStr(10+50*i, 10, tempStr, zekton12font);
+//		}
+//	}
 
 	char guiPos[6] = {0};
 	sprintf(&guiPos, "%02d:%02d", RtcTime.Hours, RtcTime.Minutes);
-	lcdPutStr(400 - 10 - (*zecton12font.font_Width) * strlen(guiPos), 10, guiPos, zecton12font);
+	lcdPutStr(400 - 10 - (*zekton24font.font_Width) * strlen(guiPos), 10, guiPos, zekton24font);
 
 	updateStopwatch();
 	char tempStr2[30] = {0};
 	if(stw_val.hours != 0){
 		sprintf(&tempStr2, "%01dh", stw_val.hours);
 	}
-	lcdPutStr(20, 95, tempStr2, zektonSmallFont);
+	lcdPutStr(20, 95, tempStr2, zekton24font);
 	sprintf(&tempStr2, "%02d'%02d.%02d\"", stw_val.min, stw_val.sec, stw_val.csec);
-	lcdPutStr(380-(*(zecton45font.font_Width)*strlen(tempStr2)), 76, tempStr2, zecton45font);
+	lcdPutStr(380-(*(zekton45font.font_Width)*strlen(tempStr2)), 76, tempStr2, zekton45font);
 	for(uint8_t i = 0; i < 7; i++){
 //		sprintf(&tempStr2, "%d. %d\"", i, stwT.stwArray[i]%(60*100)/100);
 //		sprintf(&tempStr2, "%d. %s", i, stwString(convertTicks(stwT.stwArray[i])));
 		if(stwT.stwArray[i] != 0){
 			sprintf(&tempStr2, "Lap %d:", i+1);
-			lcdPutStr(0, 130+i*16, tempStr2, zecton12font);
+			lcdPutStr(0, 130+i*16, tempStr2, zekton12font);
 			if(i>0){
-				lcdPutStr(55, 130+i*16, stwString(convertTicks(stwT.stwArray[i]-stwT.stwArray[i-1]), &tempStr2), zecton12font);
+				lcdPutStr(55, 130+i*16, stwString(convertTicks(stwT.stwArray[i]-stwT.stwArray[i-1]), &tempStr2), zekton12font);
 			} else {
-				lcdPutStr(55, 130+i*16, stwString(convertTicks(stwT.stwArray[i]), &tempStr2), zecton12font);
+				lcdPutStr(55, 130+i*16, stwString(convertTicks(stwT.stwArray[i]), &tempStr2), zekton12font);
 			}
 			sprintf(&tempStr2, "Split:");
-			lcdPutStr(165, 130+i*16, tempStr2, zecton12font);
-			lcdPutStr(225, 130+i*16, stwString(convertTicks(stwT.stwArray[i]), &tempStr2), zecton12font);
+			lcdPutStr(165, 130+i*16, tempStr2, zekton12font);
+			lcdPutStr(225, 130+i*16, stwString(convertTicks(stwT.stwArray[i]), &tempStr2), zekton12font);
 		}
 	}
 

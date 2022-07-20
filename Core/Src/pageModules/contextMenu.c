@@ -72,18 +72,18 @@ void hideCntxMenu(void){
 void enableCntxMenu(void){
 	if(isCntxOpen){
 //		clear rect
-		lcdRect(0, 200, 5, 8+(*zektonSmallFont.font_Height)*(actionsNum-1)+28, 0);
+		lcdRect(0, 200, 5, 8+(*zekton24font.font_Height)*(actionsNum-1)+28, 0);
 //		draw frame
 		lcdHLine(0, 200, 6, 1);
-		lcdHLine(0, 200, 8+(*zektonSmallFont.font_Height)*(actionsNum-1)+28, 1);
+		lcdHLine(0, 200, 8+(*zekton24font.font_Height)*(actionsNum-1)+28, 1);
 //		create list
 		char item[30] = {0};
 		for(uint8_t i = 0; i < actionsNum; i++){
 			sprintf(&item, ContextActions[i]->name);
-			lcdPutStr(5, 10+(*zektonSmallFont.font_Height)*i, item, zektonSmallFont);
+			lcdPutStr(5, 10+(*zekton24font.font_Height)*i, item, zekton24font);
 		}
 //		indicate selection
-		lcdRect(0, 200, 8+(*zektonSmallFont.font_Height)*cntxPosition, 33+(*zektonSmallFont.font_Height)*cntxPosition, 2);
+		lcdRect(0, 200, 8+(*zekton24font.font_Height)*cntxPosition, 33+(*zekton24font.font_Height)*cntxPosition, 2);
 
 	}
 }

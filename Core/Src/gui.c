@@ -16,12 +16,12 @@
 
 #include "gui.h"
 
-const struct Module menuModule = {"Menu", &menuSetup, &menuMain, NULL};
-const struct Module faceModule = {"Watchface", &faceSetup, &faceMain, homeIcon};
-const struct Module stwModule = {"Stopwatch", &stwSetup, &stwMain, timeIcon};
-const struct Module baroModule = {"Atmo", &baroSetup, &baroMain, atmoIcon};
-const struct Module gpsModule = {"GPS", &gpsSetup, &gpsMain, gpsIcon};
-const struct Module settingsModule = {"Settings", &settingsSetup, &settingsMain, settingsIcon};
+const struct Module menuModule = {"Menu", &menuSetup, &menuMain};
+const struct Module faceModule = {"Watchface", &faceSetup, &faceMain};
+const struct Module stwModule = {"Stopwatch", &stwSetup, &stwMain};
+const struct Module baroModule = {"Atmo", &baroSetup, &baroMain};
+const struct Module gpsModule = {"GPS", &gpsSetup, &gpsMain};
+const struct Module settingsModule = {"Settings", &settingsSetup, &settingsMain};
 
 struct Module menuItems[MENU_ITEM_NUM] = {faceModule, stwModule, baroModule, gpsModule, settingsModule};
 

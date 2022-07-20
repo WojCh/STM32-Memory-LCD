@@ -23,7 +23,7 @@
 #ifndef __FONT_zecton2422_H
 #define __FONT_zecton2422_H
 
-#define zektonSmallFont &zecton2427
+#define zekton24font &zecton2427
 
 static const Font_TypeDef zecton2427 = {
 		20,           // Font width

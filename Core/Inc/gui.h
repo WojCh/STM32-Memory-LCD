@@ -26,20 +26,15 @@
 const struct Module{
 	// name of the module
 	const char name[30];
-//	// setup function
-//	const void (*description)(void);
 	// setup function
 	const void (*setup)(void);
 	// main
 	const void (*main)(void);
-	const Icon_TypeDef* icon;
 };
 
 extern struct Module menuItems[MENU_ITEM_NUM];
-//extern char menuStr[][30];
 
 extern uint8_t position;
-//extern void (*moduleDescPtr)(void);
 extern void (*moduleMainPtr)(void);
 extern void (*moduleSetupPtr)(void);
 extern void (*currentModulePtr)(void);

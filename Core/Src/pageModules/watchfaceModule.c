@@ -23,56 +23,8 @@ static void setDefaultClbcks(void){
 	btn_BC.onSinglePressHandler = &prevScreen;
 }
 
-//void setTimeScreenSetup(void){
-//
-////	exit edit mode
-//	btn_B3.onSinglePressHandler = &applySelectedScreen;
-////	cursor left
-//	btn_B2.onSinglePressHandler = &applySelectedScreen;
-////	accept
-//	btn_B1.onSinglePressHandler = &applySelectedScreen;
-////	reduce
-//	btn_BA.onSinglePressHandler = &applySelectedScreen;
-////	cursor right
-//	btn_BB.onSinglePressHandler = &applySelectedScreen;
-////	increase
-//	btn_BC.onSinglePressHandler = &applySelectedScreen;
-//}
-//void setTimeScreen(void){
-//	char fracStr[30] = {0};
-//	char timeStr[30] = {0};
-//	char timeStr2[30] = {0};
-//	sprintf(&timeStr, "%02d", RtcTime.Hours);
-//	sprintf(&timeStr2, "%02d", RtcTime.Minutes);
-//	sprintf(&fracStr, "%02d", RtcTime.Seconds);
-//	lcdPutStr(20, 76, timeStr, zecton84font);
-//	lcdPutStr(170, 76, timeStr2, zecton84font);
-//	lcdPutStr(315, 76, fracStr, zecton45font);
-//}
-//const struct Module setTimeModule = {"Set time", &setTimeScreenSetup, &setTimeScreen, NULL};
-
-
 static void setTimeAction(void){
 	guiApplyView(&numberInputModule);
-//	lcdRect(150, 300, 10, 230, 2);
-//	RtcTime.Hours = 12;
-//	RtcTime.Minutes = 34;
-//	RtcTime.Seconds = 56;
-//	RtcTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
-//	RtcTime.StoreOperation = RTC_STOREOPERATION_RESET;
-//	if (HAL_RTC_SetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN) != HAL_OK)
-//	{
-//	Error_Handler();
-//	}
-//	sDate.WeekDay = RTC_WEEKDAY_MONDAY;
-//	sDate.Month = RTC_MONTH_JANUARY;
-//	sDate.Date = 1;
-//	sDate.Year = 22;
-//
-//	if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN) != HAL_OK)
-//	{
-//	Error_Handler();
-//	}
 }
 
 const struct ContextAction action1 = {"Set time", &setTimeAction};
@@ -89,10 +41,10 @@ void faceSetup(void){
 void faceMain(void){
 	char temperature[30] = {0};
 	sprintf(&temperature, "%4.1f`C", bmpData.temperature);
-	lcdPutStr(35+(*(zektonSmallFont.font_Width)*(13-strlen(temperature))), 14, temperature, zektonSmallFont);
+	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(temperature))), 14, temperature, zekton24font);
 	char baroStr[30] = {0};
 	sprintf(&baroStr, "%04.1f hPa", ((float)bmpData.pressure/100));
-	lcdPutStr(35+(*(zektonSmallFont.font_Width)*(13-strlen(baroStr))), 42, baroStr, zektonSmallFont);
+	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(baroStr))), 42, baroStr, zekton24font);
 
 	char fracStr[30] = {0};
 	char timeStr[30] = {0};
@@ -100,16 +52,18 @@ void faceMain(void){
 	sprintf(&timeStr, "%02d", RtcTime.Hours);
 	sprintf(&timeStr2, "%02d", RtcTime.Minutes);
 	sprintf(&fracStr, "%02d", RtcTime.Seconds);
-	lcdPutStr(20, 76, timeStr, zecton84font);
-	lcdPutStr(170, 76, timeStr2, zecton84font);
-	lcdPutStr(315, 76, fracStr, zecton45font);
+	lcdPutStr(20, 76, timeStr, zekton84font);
+	lcdPutStr(170, 76, timeStr2, zekton84font);
+	lcdPutStr(315, 76, fracStr, zekton45font);
 
 	char dateStr[30] = {0};
 	sprintf(&dateStr, "20 september");
-	lcdPutStr(35+(*(zektonSmallFont.font_Width)*(13-strlen(dateStr))), 174, dateStr, zektonSmallFont);
+	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(dateStr))), 174, dateStr, zekton24font);
 	char weekStr[30] = {0};
 	sprintf(&weekStr, "wednesday");
-	lcdPutStr(35+(*(zektonSmallFont.font_Width)*(13-strlen(weekStr))), 200, weekStr, zektonSmallFont);
+	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(weekStr))), 200, weekStr, zekton24font);
 
 	enableCntxMenu();
 }
+
+

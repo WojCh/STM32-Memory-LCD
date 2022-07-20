@@ -23,7 +23,7 @@
 #ifndef __FONT_zecton1214_H
 #define __FONT_zecton1214_H
 
-#define zecton12font &zecton1214
+#define zekton12font &zecton1214
 
 static const Font_TypeDef zecton1214 = {
 		9,           // Font width

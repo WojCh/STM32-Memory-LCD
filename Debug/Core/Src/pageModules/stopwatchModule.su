@@ -7,4 +7,4 @@
 ../Core/Src/pageModules/stopwatchModule.c:78:10:stwString	24	static
 ../Core/Src/pageModules/stopwatchModule.c:82:6:updateStopwatch	4	static
 ../Core/Src/pageModules/stopwatchModule.c:89:6:stwSetup	8	static
-../Core/Src/pageModules/stopwatchModule.c:95:6:stwMain	112	static
+../Core/Src/pageModules/stopwatchModule.c:95:6:stwMain	80	static

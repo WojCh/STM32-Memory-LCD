@@ -44,11 +44,11 @@ void numberInputSetup(void){
 void numberInputMain(void){
 		char bufStr[30] = {0};
 		sprintf(&bufStr, "%02d", val[0]);
-		lcdPutStr(20, 76, bufStr, zecton84font);
+		lcdPutStr(20, 76, bufStr, zekton84font);
 		sprintf(&bufStr, "%02d", val[1]);
-		lcdPutStr(170, 76, bufStr, zecton84font);
+		lcdPutStr(170, 76, bufStr, zekton84font);
 		sprintf(&bufStr, "%02d", RtcTime.Seconds);
-		lcdPutStr(315, 76, bufStr, zecton45font);
+		lcdPutStr(315, 76, bufStr, zekton45font);
 		lcdHLine(cursorXarr[curPosition], cursorXarr[curPosition]+60, 175, 1);
 		lcdHLine(cursorXarr[curPosition], cursorXarr[curPosition]+60, 176, 1);
 		lcdHLine(cursorXarr[curPosition], cursorXarr[curPosition]+60, 177, 1);

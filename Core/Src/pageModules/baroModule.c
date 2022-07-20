@@ -35,9 +35,9 @@ void baroMain(void){
 	char str3[50] = {0};
 	char str4[50] = {0};
 	sprintf(&str1, "%4.1f`C", bmpData.temperature);
-	lcdPutStr(10, 14, str1, zektonSmallFont);
+	lcdPutStr(10, 14, str1, zekton24font);
 	sprintf(&str1, "%04.1fhPa", (float)bmpData.pressure/100);
-	lcdPutStr(215, 14, str1, zektonSmallFont);
+	lcdPutStr(215, 14, str1, zekton24font);
 	if(baroMode == 0){
 		sprintf(&str1, "%6.1f hPa@sl", bmpData.slpress/100);
 		sprintf(&str3, "At const %.0fm asl", fixedAltitude);
@@ -45,8 +45,8 @@ void baroMain(void){
 		sprintf(&str1, "Altitude %5.1fm asl", bmpData.altitude);
 		sprintf(&str3, "For const %6.1fhPa", (BMP_PRESS_CONST_SEA_LEVEL/100));
 	}
-	lcdPutStr(0, 100, str1, zektonSmallFont);
-	lcdPutStr(0, 150, str3, zektonSmallFont);
+	lcdPutStr(0, 100, str1, zekton24font);
+	lcdPutStr(0, 150, str3, zekton24font);
 }
 
 void changeBaroMode(void){
