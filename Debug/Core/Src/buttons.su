@@ -1,6 +1,0 @@
-../Core/Src/buttons.c:10:6:initButtons	24	static
-../Core/Src/buttons.c:37:6:resetButtonHandlers	16	static
-../Core/Src/buttons.c:54:6:setPressSetting	16	static
-../Core/Src/buttons.c:59:9:readButton	16	static
-../Core/Src/buttons.c:63:6:scanButton	24	static
-../Core/Src/buttons.c:141:6:scanButtons	24	static

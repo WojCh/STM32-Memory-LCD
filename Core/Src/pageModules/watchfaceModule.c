@@ -23,17 +23,47 @@ static void setDefaultClbcks(void){
 	btn_BC.onSinglePressHandler = &prevScreen;
 }
 
-static void setTimeScreen(void){
-	lcdRect(150, 300, 10, 230, 2);
-	RtcTime.Hours = 12;
-	RtcTime.Minutes = 34;
-	RtcTime.Seconds = 56;
-	RtcTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
-	RtcTime.StoreOperation = RTC_STOREOPERATION_RESET;
-	if (HAL_RTC_SetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN) != HAL_OK)
-	{
-	Error_Handler();
-	}
+//void setTimeScreenSetup(void){
+//
+////	exit edit mode
+//	btn_B3.onSinglePressHandler = &applySelectedScreen;
+////	cursor left
+//	btn_B2.onSinglePressHandler = &applySelectedScreen;
+////	accept
+//	btn_B1.onSinglePressHandler = &applySelectedScreen;
+////	reduce
+//	btn_BA.onSinglePressHandler = &applySelectedScreen;
+////	cursor right
+//	btn_BB.onSinglePressHandler = &applySelectedScreen;
+////	increase
+//	btn_BC.onSinglePressHandler = &applySelectedScreen;
+//}
+//void setTimeScreen(void){
+//	char fracStr[30] = {0};
+//	char timeStr[30] = {0};
+//	char timeStr2[30] = {0};
+//	sprintf(&timeStr, "%02d", RtcTime.Hours);
+//	sprintf(&timeStr2, "%02d", RtcTime.Minutes);
+//	sprintf(&fracStr, "%02d", RtcTime.Seconds);
+//	lcdPutStr(20, 76, timeStr, zecton84font);
+//	lcdPutStr(170, 76, timeStr2, zecton84font);
+//	lcdPutStr(315, 76, fracStr, zecton45font);
+//}
+//const struct Module setTimeModule = {"Set time", &setTimeScreenSetup, &setTimeScreen, NULL};
+
+
+static void setTimeAction(void){
+	guiApplyView(&numberInputModule);
+//	lcdRect(150, 300, 10, 230, 2);
+//	RtcTime.Hours = 12;
+//	RtcTime.Minutes = 34;
+//	RtcTime.Seconds = 56;
+//	RtcTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+//	RtcTime.StoreOperation = RTC_STOREOPERATION_RESET;
+//	if (HAL_RTC_SetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN) != HAL_OK)
+//	{
+//	Error_Handler();
+//	}
 //	sDate.WeekDay = RTC_WEEKDAY_MONDAY;
 //	sDate.Month = RTC_MONTH_JANUARY;
 //	sDate.Date = 1;
@@ -45,9 +75,9 @@ static void setTimeScreen(void){
 //	}
 }
 
-const struct ContextAction action1 = {"Set time", &setTimeScreen};
-const struct ContextAction action2 = {"Customize", &setTimeScreen};
-const struct ContextAction action3 = {"Action 2", &setTimeScreen};
+const struct ContextAction action1 = {"Set time", &setTimeAction};
+const struct ContextAction action2 = {"Customize", &setTimeAction};
+const struct ContextAction action3 = {"Lock", &setTimeAction};
 struct ContextAction* ContextActions[] = {&action1, &action2, &action3};
 
 void faceSetup(void){

@@ -10,6 +10,7 @@
 
 #include "buttons.h"
 #include "gui.h"
+#include "submodules/numberInputScreen.h"
 
 static void setDefaultClbcks(void);
 

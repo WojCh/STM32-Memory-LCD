@@ -48,6 +48,7 @@ Core/Src/pageModules/stopwatchModule.o: \
  ../Core/Inc/../Src/pageModules/stopwatchModule.h \
  ../Core/Inc/../Src/pageModules/gpsModule.h \
  ../Core/Inc/../Src/pageModules/watchfaceModule.h \
+ ../Core/Inc/../Src/pageModules/submodules/numberInputScreen.h \
  ../Core/Inc/../Src/pageModules/settingsModule.h ../Core/Inc/rtc.h \
  ../Core/Inc/main.h ../Core/Inc/icons/icons_small.h ../Core/Inc/stw.h
 ../Core/Inc/font13.h:
@@ -112,6 +113,7 @@ Core/Src/pageModules/stopwatchModule.o: \
 ../Core/Inc/../Src/pageModules/stopwatchModule.h:
 ../Core/Inc/../Src/pageModules/gpsModule.h:
 ../Core/Inc/../Src/pageModules/watchfaceModule.h:
+../Core/Inc/../Src/pageModules/submodules/numberInputScreen.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:
 ../Core/Inc/rtc.h:
 ../Core/Inc/main.h:

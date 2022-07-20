@@ -1,0 +1,9 @@
+../Core/Src/pageModules/submodules/numberInputScreen.c:19:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/submodules/numberInputScreen.c:37:6:numberInputSetup	8	static
+../Core/Src/pageModules/submodules/numberInputScreen.c:44:6:numberInputMain	40	static
+../Core/Src/pageModules/submodules/numberInputScreen.c:57:6:cursorNext	4	static
+../Core/Src/pageModules/submodules/numberInputScreen.c:61:6:cursorPrev	4	static
+../Core/Src/pageModules/submodules/numberInputScreen.c:65:6:increment	4	static
+../Core/Src/pageModules/submodules/numberInputScreen.c:88:6:decrement	8	static
+../Core/Src/pageModules/submodules/numberInputScreen.c:116:6:exit	8	static
+../Core/Src/pageModules/submodules/numberInputScreen.c:119:6:accept	8	static

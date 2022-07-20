@@ -1,8 +1,8 @@
 ../Core/Src/pageModules/contextMenu.c:21:6:setupCntxMenu	16	static
-../Core/Src/pageModules/contextMenu.c:29:6:cntxSelect	8	static
-../Core/Src/pageModules/contextMenu.c:36:6:nextItem	4	static
-../Core/Src/pageModules/contextMenu.c:43:6:prevItem	4	static
-../Core/Src/pageModules/contextMenu.c:51:6:setDefaultClbcks	4	static
-../Core/Src/pageModules/contextMenu.c:61:6:showCntxMenu	8	static
-../Core/Src/pageModules/contextMenu.c:66:6:hideCntxMenu	8	static
-../Core/Src/pageModules/contextMenu.c:74:6:enableCntxMenu	48	static
+../Core/Src/pageModules/contextMenu.c:26:6:cntxSelect	8	static
+../Core/Src/pageModules/contextMenu.c:33:6:nextItem	4	static
+../Core/Src/pageModules/contextMenu.c:40:6:prevItem	4	static
+../Core/Src/pageModules/contextMenu.c:48:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/contextMenu.c:58:6:showCntxMenu	8	static
+../Core/Src/pageModules/contextMenu.c:64:6:hideCntxMenu	8	static
+../Core/Src/pageModules/contextMenu.c:72:6:enableCntxMenu	48	static

@@ -41,6 +41,7 @@ Core/Src/pageModules/baroModule.o: ../Core/Src/pageModules/baroModule.c \
  ../Core/Inc/main.h ../Core/Inc/stw.h \
  ../Core/Inc/../Src/pageModules/gpsModule.h \
  ../Core/Inc/../Src/pageModules/watchfaceModule.h \
+ ../Core/Inc/../Src/pageModules/submodules/numberInputScreen.h \
  ../Core/Inc/../Src/pageModules/settingsModule.h \
  ../Core/Inc/icons/icons_small.h ../Core/Inc/lcd.h ../Core/Inc/spi.h \
  ../Core/Inc/font13.h ../Core/Inc/lcd.h ../Core/Inc/digits5x9.h \
@@ -94,6 +95,7 @@ Core/Src/pageModules/baroModule.o: ../Core/Src/pageModules/baroModule.c \
 ../Core/Inc/stw.h:
 ../Core/Inc/../Src/pageModules/gpsModule.h:
 ../Core/Inc/../Src/pageModules/watchfaceModule.h:
+../Core/Inc/../Src/pageModules/submodules/numberInputScreen.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:
 ../Core/Inc/icons/icons_small.h:
 ../Core/Inc/lcd.h:

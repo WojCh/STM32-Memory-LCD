@@ -19,7 +19,4 @@ void changeBaroMode(void);
 void addBaro(void);
 void remBaro(void);
 
-void showBaroDesc(void);
-void showBaroScreen(void);
-
 #endif /* SRC_PAGEMODULES_BAROMODULE_H_ */

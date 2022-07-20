@@ -188,7 +188,7 @@ typedef struct baroDataSet{
 } baroDataSet;
 
 extern bmp_t bmp180module;
-extern baroDataSet bmpData;
+extern volatile baroDataSet bmpData;
 
 baroDataSet getBmpData(bmp_t* bmp180);
 

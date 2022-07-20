@@ -43,6 +43,7 @@ Core/Src/pageModules/watchfaceModule.o: \
  ../Core/Inc/../Src/pageModules/watchfaceModule.h \
  ../Core/Inc/../Src/pageModules/settingsModule.h \
  ../Core/Inc/icons/icons_small.h ../Core/Inc/lcd.h ../Core/Inc/spi.h \
+ ../Core/Src/pageModules/submodules/numberInputScreen.h \
  ../Core/Src/pageModules/contextMenu.h ../Core/Inc/font13.h \
  ../Core/Inc/lcd.h ../Core/Inc/digits5x9.h ../Core/Inc/fonts/zekton24.h \
  ../Core/Inc/fonts/zekton84.h ../Core/Inc/fonts/zekton45.h
@@ -99,6 +100,7 @@ Core/Src/pageModules/watchfaceModule.o: \
 ../Core/Inc/icons/icons_small.h:
 ../Core/Inc/lcd.h:
 ../Core/Inc/spi.h:
+../Core/Src/pageModules/submodules/numberInputScreen.h:
 ../Core/Src/pageModules/contextMenu.h:
 ../Core/Inc/font13.h:
 ../Core/Inc/lcd.h:

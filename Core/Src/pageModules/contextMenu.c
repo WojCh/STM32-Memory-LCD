@@ -20,9 +20,6 @@ uint8_t actionsNum = 3;
 //void setupCntxMenu(void (*defClbckPtr)(void), struct ContextActions act[], uint8_t num){
 void setupCntxMenu(void (*defClbckPtr)(void)){
 	prevClbcks = defClbckPtr;
-	//define item structure based on passed parameters
-//	cntxActions2 = act;
-//	actionsNum = num;
 }
 
 uint8_t actionIndex = 0;
@@ -48,7 +45,7 @@ void prevItem(void){
 	}
 }
 
-void setDefaultClbcks(void){
+static void setDefaultClbcks(void){
 	btn_B3.onSinglePressHandler = &hideCntxMenu;
 
 	btn_BC.onSinglePressHandler = &prevItem;
@@ -60,6 +57,7 @@ void setDefaultClbcks(void){
 
 void showCntxMenu(void){
 	//set up context callbacks
+//	resetButtonHandlers();
 	setDefaultClbcks();
 	isCntxOpen = 1;
 }
