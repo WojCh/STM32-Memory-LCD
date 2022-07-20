@@ -4614,15 +4614,15 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
- 80025f4:	2309      	movs	r3, #9
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE|RCC_OSCILLATORTYPE_LSE;
+ 80025f4:	2305      	movs	r3, #5
  80025f6:	623b      	str	r3, [r7, #32]
   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
  80025f8:	f44f 23a0 	mov.w	r3, #327680	; 0x50000
  80025fc:	627b      	str	r3, [r7, #36]	; 0x24
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
+  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
  80025fe:	2301      	movs	r3, #1
- 8002600:	637b      	str	r3, [r7, #52]	; 0x34
+ 8002600:	62bb      	str	r3, [r7, #40]	; 0x28
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
  8002602:	2302      	movs	r3, #2
  8002604:	63bb      	str	r3, [r7, #56]	; 0x38
@@ -4962,8 +4962,8 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef* rtcHandle)
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
  80027cc:	2320      	movs	r3, #32
  80027ce:	60bb      	str	r3, [r7, #8]
-    PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
- 80027d0:	f44f 7300 	mov.w	r3, #512	; 0x200
+    PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
+ 80027d0:	f44f 7380 	mov.w	r3, #256	; 0x100
  80027d4:	633b      	str	r3, [r7, #48]	; 0x30
     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
  80027d6:	f107 0308 	add.w	r3, r7, #8
