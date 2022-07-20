@@ -1,0 +1,12 @@
+../Core/Src/lcd.c:13:6:lcdClear	8	static
+../Core/Src/lcd.c:18:9:reverse_uint8	24	static
+../Core/Src/lcd.c:33:6:lcdTest	96	static
+../Core/Src/lcd.c:82:6:lcdClearBuffer	16	static
+../Core/Src/lcd.c:97:6:updateSetting	16	static
+../Core/Src/lcd.c:101:6:lcdPutPix	24	static
+../Core/Src/lcd.c:119:6:lcdPutChar	32	static
+../Core/Src/lcd.c:142:6:lcdPutIcon	40	static
+../Core/Src/lcd.c:163:6:lcdPutStr	40	static
+../Core/Src/lcd.c:174:6:lcdHLine	32	static
+../Core/Src/lcd.c:211:6:lcdRefresh	16	static
+../Core/Src/lcd.c:224:6:lcdRect	32	static

@@ -1,0 +1,11 @@
+../Core/Src/gui.c:36:6:prevPos	4	static
+../Core/Src/gui.c:44:6:nextPos	4	static
+../Core/Src/gui.c:52:6:nextScreen	8	static
+../Core/Src/gui.c:56:6:prevScreen	8	static
+../Core/Src/gui.c:60:6:resetPos	8	static
+../Core/Src/gui.c:65:6:guiApplyView	16	static
+../Core/Src/gui.c:71:6:applySelectedScreen	8	static
+../Core/Src/gui.c:78:6:selectScreen	8	static
+../Core/Src/gui.c:86:6:returnToMenu	8	static
+../Core/Src/gui.c:94:6:showAlert	4	static
+../Core/Src/gui.c:98:6:showGui	8	static
