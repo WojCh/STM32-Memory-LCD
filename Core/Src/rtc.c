@@ -58,7 +58,7 @@ void MX_RTC_Init(void)
   /* USER CODE BEGIN Check_RTC_BKUP */
 
 //	return disables setting time to 000 each time
-//	return 0;
+	return 0;
   /* USER CODE END Check_RTC_BKUP */
 
   /** Initialize RTC and set the Time and Date

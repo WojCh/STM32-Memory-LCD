@@ -8,17 +8,17 @@
 #ifndef INC_GUI_H_
 #define INC_GUI_H_
 
-#define MENU_ITEM_NUM 5
+#define MENU_ITEM_NUM 6
 
 //#include "main.h"
 //#include "font13.h"
 #include "buttons.h"
 #include "bmp180.h"
-#include "../Src/pageModules/menuModule.h"
+#include "../Src/pageModules/watchfaceModule.h"
 #include "../Src/pageModules/baroModule.h"
 #include "../Src/pageModules/stopwatchModule.h"
 #include "../Src/pageModules/gpsModule.h"
-#include "../Src/pageModules/watchfaceModule.h"
+#include "../Src/pageModules/localInfo.h"
 #include "../Src/pageModules/settingsModule.h"
 #include "icons/icons_small.h"
 

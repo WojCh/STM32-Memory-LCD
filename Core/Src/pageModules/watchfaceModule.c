@@ -16,6 +16,8 @@
 #include "fonts/zekton84.h"
 #include <fonts/zekton45.h>
 
+
+
 static void setDefaultClbcks(void){
 	// module callbacks
 	btn_B2.onSinglePressHandler = &showCntxMenu;
@@ -26,11 +28,24 @@ static void setDefaultClbcks(void){
 static void setTimeAction(void){
 	guiApplyView(&numberInputModule);
 }
+static void setDateAction(void){
+//	guiApplyView(&dateInputModule);
+	RtcDate.Month = 7;
+	RtcDate.Date = 21;
+	RtcDate.Year = 22;
+	RtcDate.WeekDay = zellerCongruence(RtcDate.Date, RtcDate.Month, 2000+RtcDate.Year);
+
+	if (HAL_RTC_SetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN) != HAL_OK)
+	{
+	Error_Handler();
+	}
+}
 
 const struct ContextAction action1 = {"Set time", &setTimeAction};
-const struct ContextAction action2 = {"Customize", &setTimeAction};
-const struct ContextAction action3 = {"Lock", &setTimeAction};
-struct ContextAction* ContextActions[] = {&action1, &action2, &action3};
+const struct ContextAction action2 = {"Set date", &setDateAction};
+const struct ContextAction action3 = {"Customize", &setTimeAction};
+const struct ContextAction action4 = {"Lock", &setTimeAction};
+struct ContextAction* ContextActions[] = {&action1, &action2, &action3, &action4};
 
 void faceSetup(void){
 	setDefaultClbcks();
@@ -56,12 +71,12 @@ void faceMain(void){
 	lcdPutStr(170, 76, timeStr2, zekton84font);
 	lcdPutStr(315, 76, fracStr, zekton45font);
 
-	char dateStr[30] = {0};
-	sprintf(&dateStr, "20 september");
-	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(dateStr))), 174, dateStr, zekton24font);
-	char weekStr[30] = {0};
-	sprintf(&weekStr, "wednesday");
-	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(weekStr))), 200, weekStr, zekton24font);
+	char buffString[30] = {0};
+	sprintf(&buffString, "September 2022");
+	sprintf(&buffString, "%s %d", months[RtcDate.Month], 2000+RtcDate.Year);
+	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(buffString))), 174, buffString, zekton24font);
+	sprintf(&buffString, "%s %d", weekDays[RtcDate.WeekDay], RtcDate.Date);
+	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(buffString))), 200, buffString, zekton24font);
 
 	enableCntxMenu();
 }

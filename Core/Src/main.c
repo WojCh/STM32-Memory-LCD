@@ -145,7 +145,6 @@ int main(void)
 		bmpData = getBmpData(&bmp180module);
 		HAL_RTC_GetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN);
-
 	  lcdClearBuffer();
 
 	  // functions executed through GUI

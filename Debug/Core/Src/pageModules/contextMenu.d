@@ -35,13 +35,14 @@ Core/Src/pageModules/contextMenu.o: ../Core/Src/pageModules/contextMenu.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Core/Inc/gpio.h ../Core/Inc/bmp180.h \
- ../Core/Inc/../Src/pageModules/menuModule.h ../Core/Inc/buttons.h \
+ ../Core/Inc/../Src/pageModules/watchfaceModule.h ../Core/Inc/buttons.h \
+ ../Core/Inc/../Src/pageModules/submodules/numberInputScreen.h \
  ../Core/Inc/../Src/pageModules/baroModule.h ../Core/Inc/bmp180.h \
  ../Core/Inc/../Src/pageModules/stopwatchModule.h ../Core/Inc/rtc.h \
  ../Core/Inc/main.h ../Core/Inc/stw.h \
  ../Core/Inc/../Src/pageModules/gpsModule.h \
- ../Core/Inc/../Src/pageModules/watchfaceModule.h \
- ../Core/Inc/../Src/pageModules/submodules/numberInputScreen.h \
+ ../Core/Inc/../Src/pageModules/localInfo.h \
+ ../Core/Inc/../Src/utils/timeUtils.h \
  ../Core/Inc/../Src/pageModules/settingsModule.h \
  ../Core/Inc/icons/icons_small.h ../Core/Inc/lcd.h ../Core/Inc/spi.h \
  ../Core/Inc/fonts/zekton24.h
@@ -84,8 +85,9 @@ Core/Src/pageModules/contextMenu.o: ../Core/Src/pageModules/contextMenu.c \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 ../Core/Inc/gpio.h:
 ../Core/Inc/bmp180.h:
-../Core/Inc/../Src/pageModules/menuModule.h:
+../Core/Inc/../Src/pageModules/watchfaceModule.h:
 ../Core/Inc/buttons.h:
+../Core/Inc/../Src/pageModules/submodules/numberInputScreen.h:
 ../Core/Inc/../Src/pageModules/baroModule.h:
 ../Core/Inc/bmp180.h:
 ../Core/Inc/../Src/pageModules/stopwatchModule.h:
@@ -93,8 +95,8 @@ Core/Src/pageModules/contextMenu.o: ../Core/Src/pageModules/contextMenu.c \
 ../Core/Inc/main.h:
 ../Core/Inc/stw.h:
 ../Core/Inc/../Src/pageModules/gpsModule.h:
-../Core/Inc/../Src/pageModules/watchfaceModule.h:
-../Core/Inc/../Src/pageModules/submodules/numberInputScreen.h:
+../Core/Inc/../Src/pageModules/localInfo.h:
+../Core/Inc/../Src/utils/timeUtils.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:
 ../Core/Inc/icons/icons_small.h:
 ../Core/Inc/lcd.h:

@@ -6,6 +6,8 @@
  */
 
 #include "stw.h"
+#define STW_STATE_ENABLED	1
+#define STW_STATE_DISABLED	0
 
 stw_struct stwS = {0, 0};
 
@@ -21,13 +23,13 @@ void addItem(stw_struct stwS){
 }
 
 void stwStart(void){
-	stwS.state = 1;
+	stwS.state = STW_STATE_ENABLED;
 }
 void stwTick(void){
 	stwS.cnt++;
 }
 void stwStop(void){
-	stwS.state = 0;
+	stwS.state = STW_STATE_DISABLED;
 }
 void stwClear(void){
 	stwS.cnt = 0;

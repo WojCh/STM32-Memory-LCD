@@ -35,12 +35,15 @@ extern "C" {
 extern RTC_HandleTypeDef hrtc;
 
 /* USER CODE BEGIN Private defines */
+static const char* weekDays[] = {"Zero", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+static const char* months[] = {"Zero", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
 /* USER CODE END Private defines */
 
 void MX_RTC_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+
 
 /* USER CODE END Prototypes */
 

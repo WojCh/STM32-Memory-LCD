@@ -24,6 +24,7 @@ SUBDIRS := \
 Core/Src \
 Core/Src/pageModules \
 Core/Src/pageModules/submodules \
+Core/Src/utils \
 Core/Startup \
 Drivers/STM32F4xx_HAL_Driver/Src \
 

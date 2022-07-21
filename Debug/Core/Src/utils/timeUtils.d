@@ -1,6 +1,5 @@
-Core/Src/pageModules/stopwatchModule.o: \
- ../Core/Src/pageModules/stopwatchModule.c ../Core/Inc/font13.h \
- ../Core/Inc/lcd.h ../Core/Inc/main.h \
+Core/Src/utils/timeUtils.o: ../Core/Src/utils/timeUtils.c \
+ ../Core/Src/utils/timeUtils.h ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -33,27 +32,8 @@ Core/Src/pageModules/stopwatchModule.o: \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/spi.h ../Core/Inc/digits5x9.h ../Core/Inc/digits_larabie.h \
- ../Core/Inc/font_larabie.h ../Core/Inc/font_larabie36.h \
- ../Core/Inc/icons/icons_small.h ../Core/Inc/lcd.h \
- ../Core/Inc/fonts/minimalFont.h ../Core/Inc/fonts/smallestFont.h \
- ../Core/Inc/fonts/ocrFont.h ../Core/Inc/fonts/zekton14.h \
- ../Core/Inc/fonts/zekton14b.h ../Core/Inc/fonts/zekton24.h \
- ../Core/Inc/fonts/zekton45.h ../Core/Src/pageModules/stopwatchModule.h \
- ../Core/Inc/buttons.h ../Core/Inc/gpio.h ../Core/Inc/gui.h \
- ../Core/Inc/buttons.h ../Core/Inc/bmp180.h \
- ../Core/Inc/../Src/pageModules/watchfaceModule.h \
- ../Core/Inc/../Src/pageModules/submodules/numberInputScreen.h \
- ../Core/Inc/../Src/pageModules/baroModule.h ../Core/Inc/bmp180.h \
- ../Core/Inc/../Src/pageModules/stopwatchModule.h \
- ../Core/Inc/../Src/pageModules/gpsModule.h \
- ../Core/Inc/../Src/pageModules/localInfo.h \
- ../Core/Inc/../Src/utils/timeUtils.h ../Core/Inc/main.h \
- ../Core/Inc/../Src/pageModules/settingsModule.h ../Core/Inc/rtc.h \
- ../Core/Inc/icons/icons_small.h ../Core/Inc/stw.h
-../Core/Inc/font13.h:
-../Core/Inc/lcd.h:
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+../Core/Src/utils/timeUtils.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -88,36 +68,3 @@ Core/Src/pageModules/stopwatchModule.o: \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-../Core/Inc/spi.h:
-../Core/Inc/digits5x9.h:
-../Core/Inc/digits_larabie.h:
-../Core/Inc/font_larabie.h:
-../Core/Inc/font_larabie36.h:
-../Core/Inc/icons/icons_small.h:
-../Core/Inc/lcd.h:
-../Core/Inc/fonts/minimalFont.h:
-../Core/Inc/fonts/smallestFont.h:
-../Core/Inc/fonts/ocrFont.h:
-../Core/Inc/fonts/zekton14.h:
-../Core/Inc/fonts/zekton14b.h:
-../Core/Inc/fonts/zekton24.h:
-../Core/Inc/fonts/zekton45.h:
-../Core/Src/pageModules/stopwatchModule.h:
-../Core/Inc/buttons.h:
-../Core/Inc/gpio.h:
-../Core/Inc/gui.h:
-../Core/Inc/buttons.h:
-../Core/Inc/bmp180.h:
-../Core/Inc/../Src/pageModules/watchfaceModule.h:
-../Core/Inc/../Src/pageModules/submodules/numberInputScreen.h:
-../Core/Inc/../Src/pageModules/baroModule.h:
-../Core/Inc/bmp180.h:
-../Core/Inc/../Src/pageModules/stopwatchModule.h:
-../Core/Inc/../Src/pageModules/gpsModule.h:
-../Core/Inc/../Src/pageModules/localInfo.h:
-../Core/Inc/../Src/utils/timeUtils.h:
-../Core/Inc/main.h:
-../Core/Inc/../Src/pageModules/settingsModule.h:
-../Core/Inc/rtc.h:
-../Core/Inc/icons/icons_small.h:
-../Core/Inc/stw.h:

@@ -16,14 +16,14 @@
 
 #include "gui.h"
 
-const struct Module menuModule = {"Menu", &menuSetup, &menuMain};
 const struct Module faceModule = {"Watchface", &faceSetup, &faceMain};
 const struct Module stwModule = {"Stopwatch", &stwSetup, &stwMain};
 const struct Module baroModule = {"Atmo", &baroSetup, &baroMain};
+const struct Module localModule = {"Local", &localSetup, &localMain};
 const struct Module gpsModule = {"GPS", &gpsSetup, &gpsMain};
 const struct Module settingsModule = {"Settings", &settingsSetup, &settingsMain};
 
-struct Module menuItems[MENU_ITEM_NUM] = {faceModule, stwModule, baroModule, gpsModule, settingsModule};
+struct Module menuItems[MENU_ITEM_NUM] = {faceModule, stwModule, baroModule, localModule, gpsModule, settingsModule};
 
 // default screens and displays/values
 uint8_t position = 0;
@@ -86,8 +86,8 @@ void selectScreen(void){
 void returnToMenu(void){
 	resetButtonHandlers();
 	isModuleSet = 0;
-	moduleSetupPtr = menuModule.setup;
-	currentModulePtr =menuModule.main;
+//	moduleSetupPtr = menuModule.setup;
+//	currentModulePtr =menuModule.main;
 }
 
 // function to display alert message over current gui

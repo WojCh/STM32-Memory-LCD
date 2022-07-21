@@ -93,17 +93,6 @@ void stwSetup(void){
 
 // functions to execute when menu item entered
 void stwMain(void){
-//	char tempStr[4] = {0};
-//	char funcArr[6][4] = {"STW", "TMR", "WRT", "TRK", "LFT", "SLT"};
-//	for(uint8_t i = 0; i < 6; i++){
-//		sprintf(&tempStr, funcArr[i]);
-//		if(i == 0){
-//			lcdPutStr(10+50*i, 10, tempStr, zekton12font_bold);
-//		} else {
-//			lcdPutStr(10+50*i, 10, tempStr, zekton12font);
-//		}
-//	}
-
 	char guiPos[6] = {0};
 	sprintf(&guiPos, "%02d:%02d", RtcTime.Hours, RtcTime.Minutes);
 	lcdPutStr(400 - 10 - (*zekton24font.font_Width) * strlen(guiPos), 10, guiPos, zekton24font);

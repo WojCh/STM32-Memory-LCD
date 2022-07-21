@@ -45,8 +45,8 @@ void baroMain(void){
 		sprintf(&str1, "Altitude %5.1fm asl", bmpData.altitude);
 		sprintf(&str3, "For const %6.1fhPa", (BMP_PRESS_CONST_SEA_LEVEL/100));
 	}
-	lcdPutStr(0, 100, str1, zekton24font);
-	lcdPutStr(0, 150, str3, zekton24font);
+	lcdPutStr(10, 100, str1, zekton24font);
+	lcdPutStr(10, 150, str3, zekton24font);
 }
 
 void changeBaroMode(void){

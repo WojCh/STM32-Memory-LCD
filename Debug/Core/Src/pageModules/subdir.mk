@@ -8,6 +8,7 @@ C_SRCS += \
 ../Core/Src/pageModules/baroModule.c \
 ../Core/Src/pageModules/contextMenu.c \
 ../Core/Src/pageModules/gpsModule.c \
+../Core/Src/pageModules/localInfo.c \
 ../Core/Src/pageModules/menuModule.c \
 ../Core/Src/pageModules/settingsModule.c \
 ../Core/Src/pageModules/stopwatchModule.c \
@@ -17,6 +18,7 @@ OBJS += \
 ./Core/Src/pageModules/baroModule.o \
 ./Core/Src/pageModules/contextMenu.o \
 ./Core/Src/pageModules/gpsModule.o \
+./Core/Src/pageModules/localInfo.o \
 ./Core/Src/pageModules/menuModule.o \
 ./Core/Src/pageModules/settingsModule.o \
 ./Core/Src/pageModules/stopwatchModule.o \
@@ -26,6 +28,7 @@ C_DEPS += \
 ./Core/Src/pageModules/baroModule.d \
 ./Core/Src/pageModules/contextMenu.d \
 ./Core/Src/pageModules/gpsModule.d \
+./Core/Src/pageModules/localInfo.d \
 ./Core/Src/pageModules/menuModule.d \
 ./Core/Src/pageModules/settingsModule.d \
 ./Core/Src/pageModules/stopwatchModule.d \
@@ -39,7 +42,7 @@ Core/Src/pageModules/%.o Core/Src/pageModules/%.su: ../Core/Src/pageModules/%.c 
 clean: clean-Core-2f-Src-2f-pageModules
 
 clean-Core-2f-Src-2f-pageModules:
-	-$(RM) ./Core/Src/pageModules/baroModule.d ./Core/Src/pageModules/baroModule.o ./Core/Src/pageModules/baroModule.su ./Core/Src/pageModules/contextMenu.d ./Core/Src/pageModules/contextMenu.o ./Core/Src/pageModules/contextMenu.su ./Core/Src/pageModules/gpsModule.d ./Core/Src/pageModules/gpsModule.o ./Core/Src/pageModules/gpsModule.su ./Core/Src/pageModules/menuModule.d ./Core/Src/pageModules/menuModule.o ./Core/Src/pageModules/menuModule.su ./Core/Src/pageModules/settingsModule.d ./Core/Src/pageModules/settingsModule.o ./Core/Src/pageModules/settingsModule.su ./Core/Src/pageModules/stopwatchModule.d ./Core/Src/pageModules/stopwatchModule.o ./Core/Src/pageModules/stopwatchModule.su ./Core/Src/pageModules/watchfaceModule.d ./Core/Src/pageModules/watchfaceModule.o ./Core/Src/pageModules/watchfaceModule.su
+	-$(RM) ./Core/Src/pageModules/baroModule.d ./Core/Src/pageModules/baroModule.o ./Core/Src/pageModules/baroModule.su ./Core/Src/pageModules/contextMenu.d ./Core/Src/pageModules/contextMenu.o ./Core/Src/pageModules/contextMenu.su ./Core/Src/pageModules/gpsModule.d ./Core/Src/pageModules/gpsModule.o ./Core/Src/pageModules/gpsModule.su ./Core/Src/pageModules/localInfo.d ./Core/Src/pageModules/localInfo.o ./Core/Src/pageModules/localInfo.su ./Core/Src/pageModules/menuModule.d ./Core/Src/pageModules/menuModule.o ./Core/Src/pageModules/menuModule.su ./Core/Src/pageModules/settingsModule.d ./Core/Src/pageModules/settingsModule.o ./Core/Src/pageModules/settingsModule.su ./Core/Src/pageModules/stopwatchModule.d ./Core/Src/pageModules/stopwatchModule.o ./Core/Src/pageModules/stopwatchModule.su ./Core/Src/pageModules/watchfaceModule.d ./Core/Src/pageModules/watchfaceModule.o ./Core/Src/pageModules/watchfaceModule.su
 
 .PHONY: clean-Core-2f-Src-2f-pageModules
 

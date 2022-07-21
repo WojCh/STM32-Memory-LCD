@@ -1,4 +1,5 @@
-../Core/Src/pageModules/watchfaceModule.c:19:13:setDefaultClbcks	4	static
-../Core/Src/pageModules/watchfaceModule.c:26:13:setTimeAction	8	static
-../Core/Src/pageModules/watchfaceModule.c:35:6:faceSetup	8	static
-../Core/Src/pageModules/watchfaceModule.c:41:6:faceMain	240	static
+../Core/Src/pageModules/watchfaceModule.c:21:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/watchfaceModule.c:28:13:setTimeAction	8	static
+../Core/Src/pageModules/watchfaceModule.c:31:13:setDateAction	8	static
+../Core/Src/pageModules/watchfaceModule.c:50:6:faceSetup	8	static
+../Core/Src/pageModules/watchfaceModule.c:56:6:faceMain	208	static
