@@ -11,7 +11,8 @@
 #include "buttons.h"
 #include "gui.h"
 #include "../Src/utils/timeUtils.h"
-
+#include <time.h>
+#include <math.h>
 
 static void setDefaultClbcks(void);
 void localSetup(void);

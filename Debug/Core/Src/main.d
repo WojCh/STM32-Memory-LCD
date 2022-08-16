@@ -40,7 +40,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/customTimer.h ../Core/Inc/tim.h ../Core/Inc/gui.h \
  ../Core/Inc/buttons.h ../Core/Inc/bmp180.h \
  ../Core/Inc/../Src/pageModules/watchfaceModule.h \
- ../Core/Inc/../Src/pageModules/submodules/numberInputScreen.h \
+ ../Core/Inc/../Src/pageModules/submodules/timeInputScreen.h \
+ ../Core/Inc/../Src/pageModules/submodules/dateInputScreen.h \
  ../Core/Inc/../Src/pageModules/baroModule.h \
  ../Core/Inc/../Src/pageModules/stopwatchModule.h ../Core/Inc/stw.h \
  ../Core/Inc/../Src/pageModules/gpsModule.h \
@@ -104,7 +105,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/buttons.h:
 ../Core/Inc/bmp180.h:
 ../Core/Inc/../Src/pageModules/watchfaceModule.h:
-../Core/Inc/../Src/pageModules/submodules/numberInputScreen.h:
+../Core/Inc/../Src/pageModules/submodules/timeInputScreen.h:
+../Core/Inc/../Src/pageModules/submodules/dateInputScreen.h:
 ../Core/Inc/../Src/pageModules/baroModule.h:
 ../Core/Inc/../Src/pageModules/stopwatchModule.h:
 ../Core/Inc/stw.h:

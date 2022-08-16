@@ -10,7 +10,9 @@
 
 #include "buttons.h"
 #include "gui.h"
-#include "submodules/numberInputScreen.h"
+
+#include "submodules/timeInputScreen.h"
+#include "submodules/dateInputScreen.h"
 
 static void setDefaultClbcks(void);
 void faceSetup(void);

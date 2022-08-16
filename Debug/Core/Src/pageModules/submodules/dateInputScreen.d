@@ -1,6 +1,8 @@
-Core/Src/pageModules/localInfo.o: ../Core/Src/pageModules/localInfo.c \
- ../Core/Src/pageModules/localInfo.h ../Core/Inc/buttons.h \
- ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+Core/Src/pageModules/submodules/dateInputScreen.o: \
+ ../Core/Src/pageModules/submodules/dateInputScreen.c \
+ ../Core/Src/pageModules/submodules/dateInputScreen.h \
+ ../Core/Inc/buttons.h ../Core/Inc/main.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
@@ -42,12 +44,12 @@ Core/Src/pageModules/localInfo.o: ../Core/Src/pageModules/localInfo.c \
  ../Core/Inc/main.h ../Core/Inc/stw.h \
  ../Core/Inc/../Src/pageModules/gpsModule.h \
  ../Core/Inc/../Src/pageModules/localInfo.h \
+ ../Core/Inc/../Src/utils/timeUtils.h \
  ../Core/Inc/../Src/pageModules/settingsModule.h \
  ../Core/Inc/icons/icons_small.h ../Core/Inc/lcd.h ../Core/Inc/spi.h \
- ../Core/Inc/../Src/utils/timeUtils.h ../Core/Inc/fonts/smallestFont.h \
- ../Core/Inc/fonts/zekton24.h ../Core/Inc/fonts/zekton84.h \
- ../Core/Inc/fonts/zekton45.h
-../Core/Src/pageModules/localInfo.h:
+ ../Core/Inc/fonts/zekton84.h ../Core/Inc/fonts/zekton45.h \
+ ../Core/Inc/fonts/zekton24.h
+../Core/Src/pageModules/submodules/dateInputScreen.h:
 ../Core/Inc/buttons.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -98,12 +100,11 @@ Core/Src/pageModules/localInfo.o: ../Core/Src/pageModules/localInfo.c \
 ../Core/Inc/stw.h:
 ../Core/Inc/../Src/pageModules/gpsModule.h:
 ../Core/Inc/../Src/pageModules/localInfo.h:
+../Core/Inc/../Src/utils/timeUtils.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:
 ../Core/Inc/icons/icons_small.h:
 ../Core/Inc/lcd.h:
 ../Core/Inc/spi.h:
-../Core/Inc/../Src/utils/timeUtils.h:
-../Core/Inc/fonts/smallestFont.h:
-../Core/Inc/fonts/zekton24.h:
 ../Core/Inc/fonts/zekton84.h:
 ../Core/Inc/fonts/zekton45.h:
+../Core/Inc/fonts/zekton24.h:

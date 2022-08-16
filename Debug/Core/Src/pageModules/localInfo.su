@@ -1,4 +1,6 @@
-../Core/Src/pageModules/localInfo.c:16:6:prevMonth	8	static
-../Core/Src/pageModules/localInfo.c:24:13:setDefaultClbcks	4	static
-../Core/Src/pageModules/localInfo.c:30:6:localSetup	8	static
-../Core/Src/pageModules/localInfo.c:34:6:localMain	40	static
+../Core/Src/pageModules/localInfo.c:17:6:prevMonth	8	static
+../Core/Src/pageModules/localInfo.c:27:6:addDay	8	static
+../Core/Src/pageModules/localInfo.c:32:6:remDay	8	static
+../Core/Src/pageModules/localInfo.c:38:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/localInfo.c:46:6:localSetup	8	static
+../Core/Src/pageModules/localInfo.c:60:6:localMain	256	static

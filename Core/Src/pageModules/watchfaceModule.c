@@ -26,19 +26,10 @@ static void setDefaultClbcks(void){
 }
 
 static void setTimeAction(void){
-	guiApplyView(&numberInputModule);
+	guiApplyView(&timeInputModule);
 }
 static void setDateAction(void){
-//	guiApplyView(&dateInputModule);
-	RtcDate.Month = 7;
-	RtcDate.Date = 21;
-	RtcDate.Year = 22;
-	RtcDate.WeekDay = zellerCongruence(RtcDate.Date, RtcDate.Month, 2000+RtcDate.Year);
-
-	if (HAL_RTC_SetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN) != HAL_OK)
-	{
-	Error_Handler();
-	}
+	guiApplyView(&dateInputModule);
 }
 
 const struct ContextAction action1 = {"Set time", &setTimeAction};
