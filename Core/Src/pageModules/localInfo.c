@@ -10,17 +10,12 @@
 
 // fonts
 #include "fonts/smallestFont.h"
+#include "fonts/zekton14.h"
+#include "fonts/zekton14b.h"
 #include "fonts/zekton24.h"
 #include "fonts/zekton84.h"
 #include <fonts/zekton45.h>
 
-void prevMonth(void){
-	RtcDate.Month--;
-	if (HAL_RTC_SetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN) != HAL_OK)
-	{
-	Error_Handler();
-	}
-}
 
 struct tm testTime;
 
@@ -38,19 +33,19 @@ void remDay(){
 static void setDefaultClbcks(void){
 	// module callbacks
 	btn_BA.onSinglePressHandler = &nextScreen;
-	btn_BB.onSinglePressHandler = &prevMonth;
 	btn_BC.onSinglePressHandler = &prevScreen;
-	btn_B1.onContinuousShortPressHandler = &addDay;
-	btn_B3.onContinuousShortPressHandler = &remDay;
+//	btn_B1.onContinuousShortPressHandler = &addDay;
+//	btn_B3.onContinuousShortPressHandler = &remDay;
 }
 void localSetup(void){
 	setDefaultClbcks();
-	testTime.tm_hour = 15;
-	testTime.tm_min = 56;
-	testTime.tm_sec = 0;
-	testTime.tm_mday = 3 ;
-	testTime.tm_mon = 1-1;
-	testTime.tm_year = 2022-1900;
+	testTime.tm_hour = RtcTime.Hours;
+	testTime.tm_min = RtcTime.Minutes;
+	testTime.tm_sec = RtcTime.Seconds;
+	testTime.tm_mday = RtcDate.Date ;
+	testTime.tm_mon = RtcDate.Month-1;
+//	testTime.tm_year = 2022-1900;
+	testTime.tm_year = RtcDate.Year+100;
 //	testTime.tm_wday = zellerCongruence(10, 10, 2022);
 //	testTime.tm_yday = 10;
 	mktime(&testTime);
@@ -58,59 +53,109 @@ void localSetup(void){
 
 
 void localMain(void){
+	testTime.tm_hour = RtcTime.Hours;
+	testTime.tm_min = RtcTime.Minutes;
+	testTime.tm_sec = RtcTime.Seconds;
+	testTime.tm_mday = RtcDate.Date ;
+	testTime.tm_mon = RtcDate.Month-1;
+//	testTime.tm_year = 2022-1900;
+	testTime.tm_year = RtcDate.Year+100;
+//	testTime.tm_wday = zellerCongruence(10, 10, 2022);
+//	testTime.tm_yday = 10;
+	mktime(&testTime);
+
 	char textBuffer[50] = {0};
 	char textBuffer2[50] = {0};
 	uint8_t shiftedWeekDay = (testTime.tm_wday+7-1)%7+1;
 	uint8_t weekOfTheYear = (testTime.tm_yday+1+7-shiftedWeekDay)/7;
-	sprintf(&textBuffer, "week %d, day %d", weekOfTheYear, testTime.tm_yday+1);
-	lcdPutStr(10, 10, textBuffer, zekton24font);
+	sprintf(&textBuffer, "week %d day %d", weekOfTheYear, testTime.tm_yday+1);
+	lcdPutStr(10, 10, textBuffer, zekton12font);
 
 	sprintf(&textBuffer, asctime(&testTime));
-	lcdPutStr(10, 160, textBuffer, smallestFont);
+	lcdPutStr(170, 10, textBuffer, smallestFont);
 	strftime(&textBuffer, 40, "%Z day:%j week:%U", &testTime);
-	lcdPutStr(10, 170, textBuffer, smallestFont);
+	lcdPutStr(170, 22, textBuffer, smallestFont);
 
 	uint8_t hhour = testTime.tm_hour;
 	uint8_t mmin = testTime.tm_min;
 	uint8_t ssec = testTime.tm_sec;
+	int timezone = 2;		// [h] east+ west-
 	int dayOfTheYear = testTime.tm_yday+1;
-	float fyear = (2*3.1415/365)*(dayOfTheYear-1+(hhour-12)/24);
+	// fractional year = gamma [rad]
+	float fyear = (2*M_PI/365)*(dayOfTheYear-1+(hhour-timezone-12)/24);
+	// equation of time [min]
 	float eqtime = 229.18*(0.000075+0.001868*cos(fyear)-0.032077*sin(fyear)-0.014615*cos(2*fyear)-0.040849*sin(2*fyear));
+	// solar declination angle [rad]
 	float decl = 0.006918-0.399912*cos(fyear)+0.070257*sin(fyear)-0.006758*cos(2*fyear)+0.000907*sin(2*fyear)-0.002697*cos(3*fyear)+0.00148*sin(3*fyear);
 
-	double longitude = 17;
-	double latitude = 51;
-	int timezone = 1;
-	float time_off = eqtime+4*longitude-60*timezone;
-	float tst = hhour*60+mmin+(float)ssec/60+time_off;
+
+	double longitude = 17; 	// [deg]
+	double latitude = 51;	// [deg]
+	float time_off = eqtime+4*longitude-60*timezone; // time offset [min]
+	float tst = hhour*60+mmin+(float)ssec/60+time_off; // true solar time [min]
+	// solar hour angle [deg]
 	float sha = (tst/4)-180;
-	float cosphi = sin(latitude*3.1415/180)*sin(decl)+cos(latitude*3.1415/180)*cos(decl)*cos(sha*3.1415/180);
+	// solar zenith angle = phi [rad]
+	float cosphi = sin(latitude*M_PI/180)*sin(decl)+cos(latitude*M_PI/180)*cos(decl)*cos(sha*M_PI/180);
 	float phi = acos(cosphi);
 	float sinphi = sqrt(1-cosphi*cosphi);
-	float sa = -acos(-(sin(latitude*3.1415/180)*cosphi-sin(decl))/(cos(latitude*3.1415/180)*sinphi));
+	// solar azimuth = theta [rad]
+	float sa = -acos(-(sin(latitude*M_PI/180)*cosphi-sin(decl))/(cos(latitude*M_PI/180)*sinphi));
 
+	// setting for sunrise/sunset zenith angle [rad]
+	double twilightType[] = {0.833, 6, 12, 18}; // twilight, civil, nautical, astronomical
+	double zenith = (90+twilightType[0])*M_PI/180;
+	// calculated hour angle [rad]
+	float cha = acos(cos(zenith)/(cos(latitude*M_PI/180)*cos(decl))-tan(latitude*M_PI/180)*tan(decl));
 
-	double zenith = 90.833*3.1415/180;
-//	double zenith = (90.833+6)*3.1415/180;
-	float cha = acos(cos(zenith)/(cos(latitude*3.1415/180)*cos(decl))-tan(latitude*3.1415/180)*tan(decl));
-
-	int sunrise = 720-4*(longitude+cha*180/3.1415)-eqtime+60*timezone;
-	int sunset = 720-4*(longitude-cha*180/3.1415)-eqtime+60*timezone;
+	//sunrise/sunset/noon times [min]
+	int sunrise = 720-4*(longitude+cha*180/M_PI)-eqtime+60*timezone;
+	int sunset = 720-4*(longitude-cha*180/M_PI)-eqtime+60*timezone;
 	int noon = 720-4*longitude-eqtime+60*timezone;
 
-	sprintf(&textBuffer, "g:%f et:%f decl:%f to:%0.2f", fyear, eqtime, decl, time_off);
-	lcdPutStr(0, 190, textBuffer, smallestFont);
-	sprintf(&textBuffer2, "tst:%f sha:%f cosphi:%f", tst, sha, cosphi);
-	lcdPutStr(0, 200, textBuffer2, smallestFont);
-	sprintf(&textBuffer, "sa:%f cha:%f", sa, cha);
-	lcdPutStr(0, 210, textBuffer, smallestFont);
+//	debugging values
+//	sprintf(&textBuffer, "g:%f et:%f decl:%f to:%0.2f", fyear, eqtime, decl, time_off);
+//	lcdPutStr(0, 190, textBuffer, smallestFont);
+//	sprintf(&textBuffer2, "tst:%f sha:%f cosphi:%f", tst, sha, cosphi);
+//	lcdPutStr(0, 200, textBuffer2, smallestFont);
+//	sprintf(&textBuffer, "sa:%f cha:%f", sa, cha);
+//	lcdPutStr(0, 210, textBuffer, smallestFont);
 
 	sprintf(&textBuffer, "Sunrise: %02d:%02d", sunrise/60, sunrise%60);
-	lcdPutStr(10, 70, textBuffer, zekton24font);
+	lcdPutStr(10, 26, textBuffer, zekton12font_bold);
 	sprintf(&textBuffer, "Noon: %02d:%02d", noon/60, noon%60);
-	lcdPutStr(10, 100, textBuffer, zekton24font);
+	lcdPutStr(10, 42, textBuffer, zekton12font_bold);
 	sprintf(&textBuffer, "Sunset: %02d:%02d", sunset/60, sunset%60);
-	lcdPutStr(10, 130, textBuffer, zekton24font);
+	lcdPutStr(10, 58, textBuffer, zekton12font_bold);
+
+	sprintf(&textBuffer, "solar elevation angle: %02.3f deg", 90-phi*180/M_PI);
+	lcdPutStr(10, 80, textBuffer, zekton12font_bold);
+	sprintf(&textBuffer, "solar azimuth angle: %02.3f deg", fmod(360+sa*180/M_PI, 360));
+	lcdPutStr(10, 96, textBuffer, zekton12font_bold);
+
+	double perc = (hhour*60+mmin+(double)ssec/60-sunrise)*100/(sunset-sunrise);
+	sprintf(&textBuffer, "percentage daylight: %2.3f%%", perc);
+	lcdPutStr(10, 116, textBuffer, zekton12font_bold);
+	sprintf(&textBuffer, "day length: %02dh %02dmin", (sunset-sunrise)/60, (sunset-sunrise)%60);
+	lcdPutStr(10, 132, textBuffer, zekton12font_bold);
+
+	uint16_t scaleXrise = 10+380*sunrise/(24*60-0);
+	uint16_t scaleXset = 10+380*sunset/(24*60-0);
+	uint16_t scaleXnoon = 10+380*noon/(24*60-0);
+	uint16_t scaleXnow = 10+380*(hhour*60+mmin)/(24*60-0);
+	lcdRect(10,10 , 160, 169, 1);
+	lcdRect(390,390 , 160, 169, 1);
+	lcdRect(scaleXrise,scaleXrise , 160, 169, 1);
+	lcdRect(scaleXset,scaleXset , 160, 169, 1);
+	lcdRect(scaleXnoon,scaleXnoon , 160, 169, 1);
+	lcdRect(scaleXnow,scaleXnow , 150, 175, 1);
+
+	sprintf(&textBuffer, "%02d:%02d", sunrise/60, sunrise%60);
+	lcdPutStr(scaleXrise-20, 170, textBuffer, smallestFont);
+	sprintf(&textBuffer, "%02d:%02d", sunset/60, sunset%60);
+	lcdPutStr(scaleXset-20, 170, textBuffer, smallestFont);
+	sprintf(&textBuffer, "%02d:%02d", noon/60, noon%60);
+	lcdPutStr(scaleXnoon-20, 170, textBuffer, smallestFont);
 }
 
 

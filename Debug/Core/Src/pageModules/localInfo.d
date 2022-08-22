@@ -45,6 +45,7 @@ Core/Src/pageModules/localInfo.o: ../Core/Src/pageModules/localInfo.c \
  ../Core/Inc/../Src/pageModules/settingsModule.h \
  ../Core/Inc/icons/icons_small.h ../Core/Inc/lcd.h ../Core/Inc/spi.h \
  ../Core/Inc/../Src/utils/timeUtils.h ../Core/Inc/fonts/smallestFont.h \
+ ../Core/Inc/fonts/zekton14.h ../Core/Inc/fonts/zekton14b.h \
  ../Core/Inc/fonts/zekton24.h ../Core/Inc/fonts/zekton84.h \
  ../Core/Inc/fonts/zekton45.h
 ../Core/Src/pageModules/localInfo.h:
@@ -104,6 +105,8 @@ Core/Src/pageModules/localInfo.o: ../Core/Src/pageModules/localInfo.c \
 ../Core/Inc/spi.h:
 ../Core/Inc/../Src/utils/timeUtils.h:
 ../Core/Inc/fonts/smallestFont.h:
+../Core/Inc/fonts/zekton14.h:
+../Core/Inc/fonts/zekton14b.h:
 ../Core/Inc/fonts/zekton24.h:
 ../Core/Inc/fonts/zekton84.h:
 ../Core/Inc/fonts/zekton45.h:

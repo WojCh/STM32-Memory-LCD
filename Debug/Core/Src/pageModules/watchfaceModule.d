@@ -47,8 +47,9 @@ Core/Src/pageModules/watchfaceModule.o: \
  ../Core/Src/pageModules/submodules/timeInputScreen.h \
  ../Core/Src/pageModules/submodules/dateInputScreen.h \
  ../Core/Src/pageModules/contextMenu.h ../Core/Inc/font13.h \
- ../Core/Inc/lcd.h ../Core/Inc/digits5x9.h ../Core/Inc/fonts/zekton24.h \
- ../Core/Inc/fonts/zekton84.h ../Core/Inc/fonts/zekton45.h
+ ../Core/Inc/lcd.h ../Core/Inc/digits5x9.h ../Core/Inc/fonts/zekton14.h \
+ ../Core/Inc/fonts/zekton24.h ../Core/Inc/fonts/zekton84.h \
+ ../Core/Inc/fonts/zekton45.h
 ../Core/Src/pageModules/watchfaceModule.h:
 ../Core/Inc/buttons.h:
 ../Core/Inc/main.h:
@@ -109,6 +110,7 @@ Core/Src/pageModules/watchfaceModule.o: \
 ../Core/Inc/font13.h:
 ../Core/Inc/lcd.h:
 ../Core/Inc/digits5x9.h:
+../Core/Inc/fonts/zekton14.h:
 ../Core/Inc/fonts/zekton24.h:
 ../Core/Inc/fonts/zekton84.h:
 ../Core/Inc/fonts/zekton45.h:

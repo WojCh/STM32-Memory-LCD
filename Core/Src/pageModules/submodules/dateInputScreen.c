@@ -16,7 +16,9 @@
 
 static uint8_t curPosition = 0;
 static uint8_t valDatePos[3] = {0, 0, 0};
-static uint16_t cursorXarr[5] = {20, 85, 170, 235, 315};
+static uint16_t cursorXarr[3] = {10, 210, 50};
+static uint16_t cursorYarr[3] = {197, 197, 229};
+static uint16_t cursorL[3] = {190, 85, 250};
 
 static void setDefaultClbcks(void){
 // exit edit mode
@@ -38,76 +40,60 @@ static void setDefaultClbcks(void){
 void dateInputConfigure(void);
 void dateInputSetup(void){
 	setDefaultClbcks();
-	valDatePos[0] = RtcTime.Hours;
-	valDatePos[1] = RtcTime.Minutes;
-	valDatePos[2] = RtcTime.Seconds;
+	valDatePos[0] = RtcDate.Date;
+	valDatePos[1] = RtcDate.Month;
+	valDatePos[2] = RtcDate.Year;
 }
 
 void dateInputMain(void){
 	char buffString[30] = {0};
 	sprintf(&buffString, "September 2022");
-	sprintf(&buffString, "%s %d", months[RtcDate.Month], 2000+RtcDate.Year);
+	sprintf(&buffString, "%s %d", months[valDatePos[1]], 2000+valDatePos[2]);
 	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(buffString))), 174, buffString, zekton24font);
-	sprintf(&buffString, "%s %d", weekDays[RtcDate.WeekDay], RtcDate.Date);
-	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(buffString))), 200, buffString, zekton24font);
+	// here change weekday to dynamic zeller's congruence calculation
+	sprintf(&buffString, "%s %d", weekDays[zellerCongruence(valDatePos[0], valDatePos[1], 2000+valDatePos[2])], valDatePos[0]);
+	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(buffString))), 202, buffString, zekton24font);
+	lcdHLine(cursorXarr[curPosition], cursorXarr[curPosition]+cursorL[curPosition], cursorYarr[curPosition], 1);
+	lcdHLine(cursorXarr[curPosition], cursorXarr[curPosition]+cursorL[curPosition], cursorYarr[curPosition]+1, 1);
 }
 
 static void cursorNext(void){
-	if(curPosition < 4)	curPosition++;
+	if(curPosition < 2)	curPosition++;
 	else curPosition = 0;
 }
 static void cursorPrev(void){
 	if(curPosition > 0)	curPosition--;
-	else curPosition = 4;
+	else curPosition = 2;
 }
 static void increment(void){
 	switch(curPosition){
 		case 0:
-			if(valDatePos[0] < 13 ) valDatePos[0]+=10;
-			else valDatePos[0] = 20;
+			if(valDatePos[1] < 12 ) valDatePos[1]+=1;
+			else valDatePos[1] = 1;
 			break;
 		case 1:
-			if(valDatePos[0] <= 23 ) valDatePos[0]++;
-			else valDatePos[0] = 0;
+			if(valDatePos[2] <= 99 ) valDatePos[2]++;
+			else valDatePos[2] = 0;
 			break;
 		case 2:
-			if(valDatePos[1] < 49 ) valDatePos[1]+=10;
-			else valDatePos[1] = 0;
-			break;
-		case 3:
-			if(valDatePos[1] < 59 ) valDatePos[1]++;
-			else valDatePos[1] = 0;
-			break;
-		case 4:
-			valDatePos[2] = 0;
+			if(valDatePos[0] < 31 ) valDatePos[0]+=1;
+			else valDatePos[0] = 1;
 			break;
 	}
 }
 static void decrement(void){
 	switch(curPosition){
 			case 0:
-				if(valDatePos[0] > 9 ) valDatePos[0]-=10;
-				else valDatePos[0] = 0;
+				if(valDatePos[1] >= 1 ) valDatePos[1]-=1;
+				else valDatePos[1] = 12;
 				break;
 			case 1:
-				if(valDatePos[0] > 0 ) valDatePos[0]--;
-				else valDatePos[0] = 23;
+				if(valDatePos[2] > 0 ) valDatePos[2]--;
+				else valDatePos[2] = 100;
 				break;
 			case 2:
-				if(valDatePos[1] > 9 ) valDatePos[1]-=10;
-				else valDatePos[1] = 0;
-				break;
-			case 3:
-				if(valDatePos[1] > 0 ) valDatePos[1]--;
-				else valDatePos[1] = 59;
-				break;
-			case 4:
-//				val[2] = 0;
-				RtcTime.Seconds = 0;
-				if (HAL_RTC_SetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN) != HAL_OK)
-					{
-						Error_Handler();
-					}
+				if(valDatePos[0] > 1 ) valDatePos[0]-=1;
+				else valDatePos[0] = 31;
 				break;
 		}
 }
@@ -115,19 +101,11 @@ static void exit(void){
 	applySelectedScreen();
 }
 static void accept(void){
-//	RtcTime.Hours = val[0];
-//	RtcTime.Minutes = val[1];
-////	RtcTime.Seconds = val[2];
-//	RtcTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
-//	RtcTime.StoreOperation = RTC_STOREOPERATION_RESET;
-//	if (HAL_RTC_SetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN) != HAL_OK)
-//	{
-//	Error_Handler();
-//	}
-	RtcDate.Month = 7;
-	RtcDate.Date = 25;
-	RtcDate.Year = 22;
-	RtcDate.WeekDay = zellerCongruence(RtcDate.Date, RtcDate.Month, 2000+RtcDate.Year);
+
+	RtcDate.Month = valDatePos[1];
+	RtcDate.Date = valDatePos[0];
+	RtcDate.Year = valDatePos[2];
+	RtcDate.WeekDay = zellerCongruence(valDatePos[0], valDatePos[1], 2000+valDatePos[2]);
 
 	if (HAL_RTC_SetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN) != HAL_OK)
 	{

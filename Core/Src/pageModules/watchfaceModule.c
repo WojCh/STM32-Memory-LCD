@@ -12,6 +12,7 @@
 // fonts
 #include "font13.h"
 #include "digits5x9.h"
+#include "fonts/zekton14.h"
 #include "fonts/zekton24.h"
 #include "fonts/zekton84.h"
 #include <fonts/zekton45.h>
@@ -49,7 +50,7 @@ void faceMain(void){
 	sprintf(&temperature, "%4.1f`C", bmpData.temperature);
 	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(temperature))), 14, temperature, zekton24font);
 	char baroStr[30] = {0};
-	sprintf(&baroStr, "%04.1f hPa", ((float)bmpData.pressure/100));
+	sprintf(&baroStr, "%4.0f hPa", ((float)bmpData.pressure/100));
 	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(baroStr))), 42, baroStr, zekton24font);
 
 	char fracStr[30] = {0};
@@ -67,7 +68,7 @@ void faceMain(void){
 	sprintf(&buffString, "%s %d", months[RtcDate.Month], 2000+RtcDate.Year);
 	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(buffString))), 174, buffString, zekton24font);
 	sprintf(&buffString, "%s %d", weekDays[RtcDate.WeekDay], RtcDate.Date);
-	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(buffString))), 200, buffString, zekton24font);
+	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(buffString))), 202, buffString, zekton24font);
 
 	enableCntxMenu();
 }

@@ -8,6 +8,9 @@
 #ifndef SRC_PAGEMODULES_BAROMODULE_H_
 #define SRC_PAGEMODULES_BAROMODULE_H_
 
+#define BARO_MODE_FIXED_ALTITUDE 0
+#define BARO_MODE_FIXED_PRESSURE 1
+
 #include "bmp180.h"
 #include "buttons.h"
 #include "gui.h"

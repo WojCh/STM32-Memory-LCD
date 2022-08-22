@@ -47,7 +47,8 @@ Core/Src/pageModules/baroModule.o: ../Core/Src/pageModules/baroModule.c \
  ../Core/Inc/../Src/pageModules/settingsModule.h \
  ../Core/Inc/icons/icons_small.h ../Core/Inc/lcd.h ../Core/Inc/spi.h \
  ../Core/Inc/font13.h ../Core/Inc/lcd.h ../Core/Inc/digits5x9.h \
- ../Core/Inc/fonts/zekton45.h ../Core/Inc/fonts/zekton24.h
+ ../Core/Inc/fonts/zekton45.h ../Core/Inc/fonts/zekton24.h \
+ ../Core/Inc/fonts/zekton14.h ../Core/Inc/fonts/zekton14b.h
 ../Core/Src/pageModules/baroModule.h:
 ../Core/Inc/bmp180.h:
 ../Core/Inc/buttons.h:
@@ -109,3 +110,5 @@ Core/Src/pageModules/baroModule.o: ../Core/Src/pageModules/baroModule.c \
 ../Core/Inc/digits5x9.h:
 ../Core/Inc/fonts/zekton45.h:
 ../Core/Inc/fonts/zekton24.h:
+../Core/Inc/fonts/zekton14.h:
+../Core/Inc/fonts/zekton14b.h:
