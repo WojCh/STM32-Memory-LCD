@@ -154,10 +154,12 @@ void localMain(void){
 	uint16_t scaleXnow = 10+380*(hhour*60+mmin)/(24*60-0);
 
 	lcdHLine(10,399-10,165,1);
+	lcdVLine(10, 163, 167, 1);
+	lcdVLine(399-10, 163, 167, 1);
 	lcdVLine(scaleXrise, 160, 170, 2);
 	lcdVLine(scaleXset, 160, 170, 2);
 	lcdVLine(scaleXnoon, 160, 170, 2);
-	lcdVLine(scaleXnow, 150, 175, 2);
+	lcdVLine(scaleXnow, 155, 175, 2);
 
 	sprintf(&textBuffer, "%02d:%02d", sunrise/60, sunrise%60);
 	lcdPutStr(scaleXrise-19, 170, textBuffer, smallestFont);

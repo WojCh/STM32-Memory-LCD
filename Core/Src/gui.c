@@ -13,8 +13,8 @@
  *
  *
  */
-
-#define LCD_DEBUGGING 0
+// initializes device with GPS module as the initial screen
+#define LCD_DEBUGGING 1
 
 #include "gui.h"
 

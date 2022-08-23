@@ -191,6 +191,86 @@ void lcdVLine(uint16_t x, uint16_t y1, uint8_t y2, uint8_t mode){
 		lcdBuffer[y*SCR_W/8+block] = content;
 	}
 }
+
+void lcdHLine2(uint16_t x1, uint16_t x2, uint8_t y, uint8_t mode, uint8_t fill){
+		uint8_t pattern = 0xFF;
+		switch(fill){
+		case 0:	// clear
+			pattern = 0x00;
+			break;
+		case 1:	// fill
+			pattern = 0xFF;
+			break;
+		case 2:	// vertical lines
+			pattern = 0x55;
+			break;
+		case 3:	// horizontal lines
+			if(y%2) pattern = 0x00;
+			else pattern = 0xFF;
+			break;
+		case 4:	//  checker pattern
+			if(y%2) pattern = 0xAA;
+			else pattern = 0x55;
+			break;
+		case 5:	// shifted dots
+			if(y%2) pattern = 0b10001000;
+			else pattern = 0b00100010;
+			break;
+		case 6: // diagonal lines
+			if(y%4==0) pattern = 0b10001000;
+			else if(y%4==1) pattern = 0b01000100;
+			else if(y%4==2) pattern = 0b00100010;
+			else if(y%4==3) pattern = 0b00010001;
+			break;
+		case 7: // vertical rain
+			if((y%4==0) || (y%4==2)) pattern = 0b10101010;
+			else if(y%4==1) pattern = 0b00100010;
+			else if(y%4==3) pattern = 0b00100010<<2;
+			break;
+		default:
+			pattern = 0x00;
+			break;
+		}
+
+		uint8_t x1block = x1/8;
+		uint8_t offset1 = x1%8;
+		uint8_t x2block = x2/8;
+		uint8_t offset2 = x2%8;
+		uint8_t firstBlock = lcdBuffer[y*SCR_W/8+x1block];
+		uint8_t lastBlock = lcdBuffer[y*SCR_W/8+x2block];
+		uint8_t fillBlock = 0xFF;
+		if((8-offset1)>(x2-x1+1)) fillBlock = (pattern & ((~(0xFF>>(x2-x1+1)))>>offset1));
+		else fillBlock = pattern;
+		switch(mode){
+		// clear
+		case 0:
+//			firstBlock |= (fillBlock >> offset1);
+//			lastBlock |= (0xFF << (8-offset2-1));
+//			for(uint8_t i = 1; i < (x2block-x1block); i++){
+//				lcdBuffer[y*SCR_W/8+x1block+i] |= 0xFF;
+//			}
+			break;
+		// fill
+		case 1:
+			firstBlock &= ~(fillBlock & (0xFF >> (offset1)));
+			lastBlock &= ~(pattern & (0xFF << (8-offset2-1)));
+			for(uint8_t i = 1; i < (x2block-x1block); i++){
+				lcdBuffer[y*SCR_W/8+x1block+i] &= ~pattern;
+			}
+			break;
+		// revert
+		case 2:
+//			firstBlock ^= (fillBlock >> offset1);
+//			lastBlock ^= (0xFF << (8-offset2-1));
+//			for(uint8_t i = 1; i < (x2block-x1block); i++){
+//				lcdBuffer[y*SCR_W/8+x1block+i] ^= 0xFF;
+//			}
+			break;
+		}
+		lcdBuffer[y*SCR_W/8+x1block] = firstBlock;
+		if(x2block>x1block)	lcdBuffer[y*SCR_W/8+x2block] = lastBlock;
+}
+
 // Draw horizontal line
 void lcdHLine(uint16_t x1, uint16_t x2, uint8_t y, uint8_t mode){
 	uint8_t x1block = x1/8;
@@ -247,6 +327,17 @@ void lcdRefresh(void){
 void lcdRect(uint16_t x1, uint16_t x2, uint8_t y1, uint8_t y2, uint8_t mode){
 	for(uint8_t i = y1; i <= y2; i++){
 		lcdHLine(x1, x2, i, mode);
+	}
+}
+void lcdRect2(uint16_t x1, uint16_t x2, uint8_t y1, uint8_t y2, uint8_t mode, uint8_t fill){
+	if(x1!=x2 && y1!=y2){
+		lcdHLine2(x1, x2, y1, mode,1);
+		lcdHLine2(x1, x2, y2, mode,1);
+		lcdVLine(x1, y1+1, y2-1, mode);
+		lcdVLine(x2, y1+1, y2-1, mode);
+		for(uint8_t y = y1+1; y < y2; y++){
+			lcdHLine2(x1+1, x2-1, y, mode, fill);
+		}
 	}
 }
 
