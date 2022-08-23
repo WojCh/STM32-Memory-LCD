@@ -17,8 +17,6 @@
 #include "fonts/zekton84.h"
 #include <fonts/zekton45.h>
 
-
-
 static void setDefaultClbcks(void){
 	// module callbacks
 	btn_B2.onSinglePressHandler = &showCntxMenu;

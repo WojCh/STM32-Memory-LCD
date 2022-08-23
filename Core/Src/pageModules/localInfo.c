@@ -4,7 +4,9 @@
  *  Created on: 25 kwi 2022
  *      Author: wojch
  *
- *      module displaying watchfaces
+ *      module displaying sun position information
+ *      https://gml.noaa.gov/grad/solcalc/solareqns.PDF
+ *      https://gml.noaa.gov/grad/solcalc/sunrise.html
  */
 #include "localInfo.h"
 
@@ -121,16 +123,23 @@ void localMain(void){
 //	sprintf(&textBuffer, "sa:%f cha:%f", sa, cha);
 //	lcdPutStr(0, 210, textBuffer, smallestFont);
 
+	// add atmospheric refraction
+	// https://gml.noaa.gov/grad/solcalc/calcdetails.html
 	sprintf(&textBuffer, "Sunrise: %02d:%02d", sunrise/60, sunrise%60);
-	lcdPutStr(10, 26, textBuffer, zekton12font_bold);
+	lcdPutStr(10, 28, textBuffer, zekton12font_bold);
 	sprintf(&textBuffer, "Noon: %02d:%02d", noon/60, noon%60);
-	lcdPutStr(10, 42, textBuffer, zekton12font_bold);
+	lcdPutStr(10, 44, textBuffer, zekton12font_bold);
 	sprintf(&textBuffer, "Sunset: %02d:%02d", sunset/60, sunset%60);
-	lcdPutStr(10, 58, textBuffer, zekton12font_bold);
+	lcdPutStr(10, 60, textBuffer, zekton12font_bold);
 
 	sprintf(&textBuffer, "solar elevation angle: %02.3f deg", 90-phi*180/M_PI);
 	lcdPutStr(10, 80, textBuffer, zekton12font_bold);
-	sprintf(&textBuffer, "solar azimuth angle: %02.3f deg", fmod(360+sa*180/M_PI, 360));
+
+	double saDeg;
+	if(cha<0) saDeg = -sa*180/M_PI;
+	else saDeg = 360+sa*180/M_PI;
+	sprintf(&textBuffer, "solar azimuth angle: %02.3f deg", saDeg);
+//	sprintf(&textBuffer, "solar azimuth angle: %02.3f deg", fmod(360+sa*180/M_PI, 360));
 	lcdPutStr(10, 96, textBuffer, zekton12font_bold);
 
 	double perc = (hhour*60+mmin+(double)ssec/60-sunrise)*100/(sunset-sunrise);
@@ -143,19 +152,19 @@ void localMain(void){
 	uint16_t scaleXset = 10+380*sunset/(24*60-0);
 	uint16_t scaleXnoon = 10+380*noon/(24*60-0);
 	uint16_t scaleXnow = 10+380*(hhour*60+mmin)/(24*60-0);
-	lcdRect(10,10 , 160, 169, 1);
-	lcdRect(390,390 , 160, 169, 1);
-	lcdRect(scaleXrise,scaleXrise , 160, 169, 1);
-	lcdRect(scaleXset,scaleXset , 160, 169, 1);
-	lcdRect(scaleXnoon,scaleXnoon , 160, 169, 1);
-	lcdRect(scaleXnow,scaleXnow , 150, 175, 1);
+
+	lcdHLine(10,399-10,165,1);
+	lcdVLine(scaleXrise, 160, 170, 2);
+	lcdVLine(scaleXset, 160, 170, 2);
+	lcdVLine(scaleXnoon, 160, 170, 2);
+	lcdVLine(scaleXnow, 150, 175, 2);
 
 	sprintf(&textBuffer, "%02d:%02d", sunrise/60, sunrise%60);
-	lcdPutStr(scaleXrise-20, 170, textBuffer, smallestFont);
+	lcdPutStr(scaleXrise-19, 170, textBuffer, smallestFont);
 	sprintf(&textBuffer, "%02d:%02d", sunset/60, sunset%60);
-	lcdPutStr(scaleXset-20, 170, textBuffer, smallestFont);
+	lcdPutStr(scaleXset-19, 170, textBuffer, smallestFont);
 	sprintf(&textBuffer, "%02d:%02d", noon/60, noon%60);
-	lcdPutStr(scaleXnoon-20, 170, textBuffer, smallestFont);
+	lcdPutStr(scaleXnoon-19, 170, textBuffer, smallestFont);
 }
 
 

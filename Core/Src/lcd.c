@@ -169,8 +169,29 @@ void lcdPutStr(uint16_t x, uint8_t y, const char *chr, const Font_TypeDef *font)
 //		  HAL_Delay(1);
 		  }
 }
-
-// Draw horizontal line - minimum width = 8px
+void lcdVLine(uint16_t x, uint16_t y1, uint8_t y2, uint8_t mode){
+	uint8_t block = x/8;
+	uint8_t offset = x%8;
+	for(uint8_t y = y1; y <= y2; y++){
+	uint8_t content = lcdBuffer[y*SCR_W/8+block];
+	switch(mode){
+		// clear
+		case 0:
+			content |= (0b10000000 >> offset);
+			break;
+		// fill
+		case 1:
+			content &= ~(0b10000000 >> offset);
+			break;
+		// revert
+		case 2:
+			content ^= (0b10000000 >> offset);
+			break;
+		}
+		lcdBuffer[y*SCR_W/8+block] = content;
+	}
+}
+// Draw horizontal line
 void lcdHLine(uint16_t x1, uint16_t x2, uint8_t y, uint8_t mode){
 	uint8_t x1block = x1/8;
 	uint8_t offset1 = x1%8;
@@ -178,34 +199,36 @@ void lcdHLine(uint16_t x1, uint16_t x2, uint8_t y, uint8_t mode){
 	uint8_t offset2 = x2%8;
 	uint8_t firstBlock = lcdBuffer[y*SCR_W/8+x1block];
 	uint8_t lastBlock = lcdBuffer[y*SCR_W/8+x1block+x2block];
+	uint8_t fillBlock = 0xFF;
+	if((8-offset1)>(x2-x1+1)) fillBlock = ~(0xFF>>(x2-x1+1));
 	switch(mode){
 	// clear
 	case 0:
-		firstBlock |= (0xFF >> offset1);
-		lastBlock |= (0xFF << (8-offset2));
+		firstBlock |= (fillBlock >> offset1);
+		lastBlock |= (0xFF << (8-offset2-1));
 		for(uint8_t i = 1; i < (x2block-x1block); i++){
 			lcdBuffer[y*SCR_W/8+x1block+i] |= 0xFF;
 		}
 		break;
 	// fill
 	case 1:
-		firstBlock &= ~(0xFF >> offset1);
-		lastBlock &= ~(0xFF << (8-offset2));
+		firstBlock &= ~(fillBlock >> offset1);
+		lastBlock &= ~(0xFF << (8-offset2-1));
 		for(uint8_t i = 1; i < (x2block-x1block); i++){
 			lcdBuffer[y*SCR_W/8+x1block+i] &= 0x00;
 		}
 		break;
 	// revert
 	case 2:
-		firstBlock ^= (0xFF >> offset1);
-		lastBlock ^= (0xFF << (8-offset2));
+		firstBlock ^= (fillBlock >> offset1);
+		lastBlock ^= (0xFF << (8-offset2-1));
 		for(uint8_t i = 1; i < (x2block-x1block); i++){
 			lcdBuffer[y*SCR_W/8+x1block+i] ^= 0xFF;
 		}
 		break;
 	}
 	lcdBuffer[y*SCR_W/8+x1block] = firstBlock;
-	lcdBuffer[y*SCR_W/8+x2block] = lastBlock;
+	if(x2block>x1block)	lcdBuffer[y*SCR_W/8+x2block] = lastBlock;
 }
 
 void lcdRefresh(void){

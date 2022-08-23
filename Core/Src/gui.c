@@ -14,6 +14,8 @@
  *
  */
 
+#define LCD_DEBUGGING 0
+
 #include "gui.h"
 
 const struct Module faceModule = {"Watchface", &faceSetup, &faceMain};
@@ -27,9 +29,15 @@ struct Module menuItems[MENU_ITEM_NUM] = {faceModule, stwModule, baroModule, loc
 
 // default screens and displays/values
 uint8_t position = 0;
-void (*moduleMainPtr)(void) = faceModule.main;
-void (*moduleSetupPtr)(void) = faceSetup;
-void (*currentModulePtr)(void) = faceMain;
+#if LCD_DEBUGGING
+	void (*moduleMainPtr)(void) = gpsModule.main;
+	void (*moduleSetupPtr)(void) = gpsSetup;
+	void (*currentModulePtr)(void) = gpsMain;
+#else
+	void (*moduleMainPtr)(void) = faceModule.main;
+	void (*moduleSetupPtr)(void) = faceSetup;
+	void (*currentModulePtr)(void) = faceMain;
+#endif
 
 uint8_t isModuleSet = 0;
 

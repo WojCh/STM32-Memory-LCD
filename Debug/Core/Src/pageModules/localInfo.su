@@ -1,5 +1,5 @@
-../Core/Src/pageModules/localInfo.c:22:6:addDay	8	static
-../Core/Src/pageModules/localInfo.c:27:6:remDay	8	static
-../Core/Src/pageModules/localInfo.c:33:13:setDefaultClbcks	4	static
-../Core/Src/pageModules/localInfo.c:40:6:localSetup	8	static
-../Core/Src/pageModules/localInfo.c:55:6:localMain	296	static
+../Core/Src/pageModules/localInfo.c:24:6:addDay	8	static
+../Core/Src/pageModules/localInfo.c:29:6:remDay	8	static
+../Core/Src/pageModules/localInfo.c:35:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/localInfo.c:42:6:localSetup	8	static
+../Core/Src/pageModules/localInfo.c:57:6:localMain	296	static
