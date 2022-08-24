@@ -227,6 +227,68 @@ void lcdHLine2(uint16_t x1, uint16_t x2, uint8_t y, uint8_t mode, uint8_t fill){
 			else if(y%4==1) pattern = 0b00100010;
 			else if(y%4==3) pattern = 0b00100010<<2;
 			break;
+		case 8: // diagonal crosses
+			if((y%4==1) || (y%4==3)) pattern = 0b01010101;
+			else if(y%4==0) pattern = 0b10001000;
+			else if(y%4==2) pattern = 0b00100010;
+			break;
+		case 9: // big checkerboard
+			if((y%4==0) || (y%4==1)) pattern = 0b11001100;
+			else if(y%4==2 || y%4==3) pattern = 0b00110011;
+			break;
+		case 10: // vertical crosshatch
+			if(y%2==0) pattern = 0b01010101;
+			else if(y%2==1) pattern = 0b11111111;
+			break;
+		case 11: // corners
+			if(y%4==0) pattern = 0b11001100;
+			else if(y%4==1) pattern = 0b01000100;
+			else pattern = 0x00;
+			break;
+		case 12: // big corners
+			if(y%4==0) pattern = 0b11101110;
+			else if(y%4==1 || y%4==2) pattern = 0b00100010;
+			else pattern = 0x00;
+			break;
+		case 13: // big vertical crosshatch
+			if(y%4==0) pattern = 0b11111111;
+			else pattern = 0b10001000;
+			break;
+		case 14: // points
+			if(y%2==0) pattern = ~0b01010101;
+			else if(y%2==1) pattern = ~0b11111111;
+			break;
+		case 15: // crosses
+			if(y%4==0 || y%4==2) pattern = 0b10101010;
+			else if(y%4==1) pattern = 0b01000100;
+			else pattern = 0x00;
+			break;
+		case 16: // boxes
+			if(y%4==0 || y%4==2) pattern = 0b11101110;
+			else if(y%4==1) pattern = 0b10101010;
+			else pattern = 0x00;
+			break;
+		case 17: // diamonds
+			if(y%4==0 || y%4==2) pattern = 0b01000100;
+			else if(y%4==1) pattern = 0b10101010;
+			else if(y%4==3) pattern = 0b00010001;
+			break;
+		case 18: // waves
+			if(y%3==0) pattern = 0b01010101;
+			else if(y%3==1) pattern = 0b10101010;
+			else if(y%3==2) pattern = 0b00000000;
+			break;
+		case 19: // big waves
+			if(y%4==0) pattern = 0b00100010;
+			else if(y%4==1) pattern = 0b01010101;
+			else if(y%4==2) pattern = 0b10001000;
+			else pattern = 0x00;
+			break;
+		case 20: // circles
+			if(y%4==1 || y%4==3) pattern = 0b10001000;
+			else if(y%4==0) pattern = 0b01110111;
+			else if(y%4==2) pattern = 0b10101010;
+			break;
 		default:
 			pattern = 0x00;
 			break;
@@ -331,10 +393,10 @@ void lcdRect(uint16_t x1, uint16_t x2, uint8_t y1, uint8_t y2, uint8_t mode){
 }
 void lcdRect2(uint16_t x1, uint16_t x2, uint8_t y1, uint8_t y2, uint8_t mode, uint8_t fill){
 	if(x1!=x2 && y1!=y2){
-		lcdHLine2(x1, x2, y1, mode,1);
-		lcdHLine2(x1, x2, y2, mode,1);
-		lcdVLine(x1, y1+1, y2-1, mode);
-		lcdVLine(x2, y1+1, y2-1, mode);
+//		lcdHLine2(x1, x2, y1, mode,1);
+//		lcdHLine2(x1, x2, y2, mode,1);
+//		lcdVLine(x1, y1+1, y2-1, mode);
+//		lcdVLine(x2, y1+1, y2-1, mode);
 		for(uint8_t y = y1+1; y < y2; y++){
 			lcdHLine2(x1+1, x2-1, y, mode, fill);
 		}
