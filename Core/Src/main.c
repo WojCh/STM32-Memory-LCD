@@ -35,6 +35,8 @@
 #include "buttons.h"
 #include "customTimer.h"
 #include "gui.h"
+#include "../Src/utils/ringBuffer.h"
+
 
 /* USER CODE END Includes */
 
@@ -56,9 +58,10 @@
 
 /* USER CODE BEGIN PV */
 
-//	int posCounter = 100;
 	RTC_TimeTypeDef RtcTime;
 	RTC_DateTypeDef RtcDate;
+	RingBuffer_t baroRing;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -133,6 +136,9 @@ int main(void)
   initTimer();
   setTimeout(1);
   startClock();
+
+  init_ring_buffer(&baroRing, 399);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -143,6 +149,10 @@ int main(void)
   {
 	  // functions executed along with the menu
 		bmpData = getBmpData(&bmp180module);
+		// option to be moved into ring buffer lib - overwriting values
+//		if(baroRing.num_entries>=baroRing.size)remove_ring_buffer(&baroRing);
+//		add_ring_buffer(&baroRing, (int)bmpData.temperature);
+		add_ovw_ring_buffer(&baroRing, (int)(10*bmpData.temperature));
 		HAL_RTC_GetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN);
 	  lcdClearBuffer();

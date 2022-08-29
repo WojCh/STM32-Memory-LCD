@@ -8,8 +8,8 @@
 ../Core/Src/lcd.c:142:6:lcdPutIcon	40	static
 ../Core/Src/lcd.c:163:6:lcdPutStr	40	static
 ../Core/Src/lcd.c:172:6:lcdVLine	24	static
-../Core/Src/lcd.c:195:6:lcdHLine2	32	static
-../Core/Src/lcd.c:337:6:lcdHLine	32	static
-../Core/Src/lcd.c:376:6:lcdRefresh	16	static
-../Core/Src/lcd.c:389:6:lcdRect	32	static
-../Core/Src/lcd.c:394:6:lcdRect2	40	static
+../Core/Src/lcd.c:198:6:lcdHLine2	32	static
+../Core/Src/lcd.c:348:6:lcdHLine	32	static
+../Core/Src/lcd.c:387:6:lcdRefresh	16	static
+../Core/Src/lcd.c:400:6:lcdRect	32	static
+../Core/Src/lcd.c:405:6:lcdRect2	40	static

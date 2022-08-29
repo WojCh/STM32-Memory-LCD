@@ -32,23 +32,24 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/i2c.h ../Core/Inc/main.h ../Core/Inc/rtc.h ../Core/Inc/spi.h \
- ../Core/Inc/tim.h ../Core/Inc/usart.h ../Core/Inc/gpio.h \
- ../Core/Inc/lcd.h ../Core/Inc/spi.h ../Core/Inc/font13.h \
- ../Core/Inc/lcd.h ../Core/Inc/gps.h ../Core/Inc/usart.h \
- ../Core/Inc/bmp180.h ../Core/Inc/buttons.h ../Core/Inc/gpio.h \
- ../Core/Inc/customTimer.h ../Core/Inc/tim.h ../Core/Inc/gui.h \
- ../Core/Inc/buttons.h ../Core/Inc/bmp180.h \
- ../Core/Inc/../Src/pageModules/watchfaceModule.h \
+ ../Core/Inc/../Src/utils/ringBuffer.h ../Core/Inc/i2c.h \
+ ../Core/Inc/main.h ../Core/Inc/rtc.h ../Core/Inc/spi.h ../Core/Inc/tim.h \
+ ../Core/Inc/usart.h ../Core/Inc/gpio.h ../Core/Inc/lcd.h \
+ ../Core/Inc/spi.h ../Core/Inc/font13.h ../Core/Inc/lcd.h \
+ ../Core/Inc/gps.h ../Core/Inc/usart.h ../Core/Inc/bmp180.h \
+ ../Core/Inc/buttons.h ../Core/Inc/gpio.h ../Core/Inc/customTimer.h \
+ ../Core/Inc/tim.h ../Core/Inc/gui.h ../Core/Inc/buttons.h \
+ ../Core/Inc/bmp180.h ../Core/Inc/../Src/pageModules/watchfaceModule.h \
  ../Core/Inc/../Src/pageModules/submodules/timeInputScreen.h \
  ../Core/Inc/../Src/pageModules/submodules/dateInputScreen.h \
  ../Core/Inc/../Src/pageModules/baroModule.h \
+ ../Core/Inc/../Src/pageModules/../../Src/utils/ringBuffer.h \
  ../Core/Inc/../Src/pageModules/stopwatchModule.h ../Core/Inc/stw.h \
  ../Core/Inc/../Src/pageModules/gpsModule.h \
  ../Core/Inc/../Src/pageModules/localInfo.h \
  ../Core/Inc/../Src/utils/timeUtils.h \
  ../Core/Inc/../Src/pageModules/settingsModule.h \
- ../Core/Inc/icons/icons_small.h
+ ../Core/Inc/icons/icons_small.h ../Core/Src/../Src/utils/ringBuffer.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -83,6 +84,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+../Core/Inc/../Src/utils/ringBuffer.h:
 ../Core/Inc/i2c.h:
 ../Core/Inc/main.h:
 ../Core/Inc/rtc.h:
@@ -108,6 +110,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/../Src/pageModules/submodules/timeInputScreen.h:
 ../Core/Inc/../Src/pageModules/submodules/dateInputScreen.h:
 ../Core/Inc/../Src/pageModules/baroModule.h:
+../Core/Inc/../Src/pageModules/../../Src/utils/ringBuffer.h:
 ../Core/Inc/../Src/pageModules/stopwatchModule.h:
 ../Core/Inc/stw.h:
 ../Core/Inc/../Src/pageModules/gpsModule.h:
@@ -115,3 +118,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/../Src/utils/timeUtils.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:
 ../Core/Inc/icons/icons_small.h:
+../Core/Src/../Src/utils/ringBuffer.h:

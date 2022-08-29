@@ -1,0 +1,8 @@
+../Core/Src/utils/ringBuffer.c:12:6:init_ring_buffer	16	static
+../Core/Src/utils/ringBuffer.c:20:9:ring_buffer_empty	16	static
+../Core/Src/utils/ringBuffer.c:23:9:ring_buffer_full	16	static
+../Core/Src/utils/ringBuffer.c:26:6:ring_buffer_destroy	16	static
+../Core/Src/utils/ringBuffer.c:30:9:add_ring_buffer	16	static
+../Core/Src/utils/ringBuffer.c:37:5:remove_ring_buffer	24	static
+../Core/Src/utils/ringBuffer.c:46:9:add_ovw_ring_buffer	16	static
+../Core/Src/utils/ringBuffer.c:58:5:read_nth_ring_buffer	16	static

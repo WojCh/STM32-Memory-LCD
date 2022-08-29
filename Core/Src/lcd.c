@@ -173,22 +173,25 @@ void lcdVLine(uint16_t x, uint16_t y1, uint8_t y2, uint8_t mode){
 	uint8_t block = x/8;
 	uint8_t offset = x%8;
 	for(uint8_t y = y1; y <= y2; y++){
-	uint8_t content = lcdBuffer[y*SCR_W/8+block];
-	switch(mode){
-		// clear
-		case 0:
-			content |= (0b10000000 >> offset);
-			break;
-		// fill
-		case 1:
-			content &= ~(0b10000000 >> offset);
-			break;
-		// revert
-		case 2:
-			content ^= (0b10000000 >> offset);
-			break;
+		uint8_t content = lcdBuffer[y*SCR_W/8+block];
+		switch(mode){
+			// clear
+			case 0:
+				content |= (0b10000000 >> offset);
+				break;
+			// fill
+			case 1:
+				content &= ~(0b10000000 >> offset);
+				break;
+			// revert
+			case 2:
+				content ^= (0b10000000 >> offset);
+				break;
+			default:
+				content &= ~(0b10000000 >> offset);
+				break;
 		}
-		lcdBuffer[y*SCR_W/8+block] = content;
+			lcdBuffer[y*SCR_W/8+block] = content;
 	}
 }
 
@@ -306,11 +309,11 @@ void lcdHLine2(uint16_t x1, uint16_t x2, uint8_t y, uint8_t mode, uint8_t fill){
 		switch(mode){
 		// clear
 		case 0:
-//			firstBlock |= (fillBlock >> offset1);
-//			lastBlock |= (0xFF << (8-offset2-1));
-//			for(uint8_t i = 1; i < (x2block-x1block); i++){
-//				lcdBuffer[y*SCR_W/8+x1block+i] |= 0xFF;
-//			}
+			firstBlock |= (fillBlock & (0xFF >> (offset1)));
+			lastBlock |= (pattern & (0xFF << (8-offset2-1)));
+			for(uint8_t i = 1; i < (x2block-x1block); i++){
+				lcdBuffer[y*SCR_W/8+x1block+i] |= pattern;
+			}
 			break;
 		// fill
 		case 1:
@@ -322,11 +325,19 @@ void lcdHLine2(uint16_t x1, uint16_t x2, uint8_t y, uint8_t mode, uint8_t fill){
 			break;
 		// revert
 		case 2:
-//			firstBlock ^= (fillBlock >> offset1);
-//			lastBlock ^= (0xFF << (8-offset2-1));
-//			for(uint8_t i = 1; i < (x2block-x1block); i++){
-//				lcdBuffer[y*SCR_W/8+x1block+i] ^= 0xFF;
-//			}
+			firstBlock ^= (fillBlock & (0xFF >> (offset1)));
+			lastBlock ^= (pattern & (0xFF << (8-offset2-1)));
+			for(uint8_t i = 1; i < (x2block-x1block); i++){
+				lcdBuffer[y*SCR_W/8+x1block+i] ^= pattern;
+			}
+			break;
+			// overwrite
+		case 3:
+			firstBlock = ~((fillBlock & (0xFF >> (offset1))) | (~firstBlock & (0xFF<<(8-offset1))));
+			lastBlock = ~((pattern & (0xFF << (8-offset2-1))) | (~lastBlock & (0xFF>>(offset2+1))));
+			for(uint8_t i = 1; i < (x2block-x1block); i++){
+				lcdBuffer[y*SCR_W/8+x1block+i] = ~pattern;
+			}
 			break;
 		}
 		lcdBuffer[y*SCR_W/8+x1block] = firstBlock;
@@ -391,14 +402,16 @@ void lcdRect(uint16_t x1, uint16_t x2, uint8_t y1, uint8_t y2, uint8_t mode){
 		lcdHLine(x1, x2, i, mode);
 	}
 }
-void lcdRect2(uint16_t x1, uint16_t x2, uint8_t y1, uint8_t y2, uint8_t mode, uint8_t fill){
+void lcdRect2(uint16_t x1, uint16_t x2, uint8_t y1, uint8_t y2, uint8_t mode, uint8_t fill, uint8_t outline){
 	if(x1!=x2 && y1!=y2){
-//		lcdHLine2(x1, x2, y1, mode,1);
-//		lcdHLine2(x1, x2, y2, mode,1);
-//		lcdVLine(x1, y1+1, y2-1, mode);
-//		lcdVLine(x2, y1+1, y2-1, mode);
-		for(uint8_t y = y1+1; y < y2; y++){
-			lcdHLine2(x1+1, x2-1, y, mode, fill);
+		for(uint8_t y = y1; y <= y2; y++){
+			lcdHLine2(x1, x2, y, mode, fill);
+		}
+		if(outline){
+			lcdHLine2(x1, x2, y1, mode,1);
+			lcdHLine2(x1, x2, y2, mode,1);
+			lcdVLine(x1, y1+1, y2-1, mode);
+			lcdVLine(x2, y1+1, y2-1, mode);
 		}
 	}
 }

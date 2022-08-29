@@ -34,7 +34,8 @@ Core/Src/pageModules/stopwatchModule.o: \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/spi.h ../Core/Inc/digits5x9.h ../Core/Inc/digits_larabie.h \
+ ../Core/Inc/../Src/utils/ringBuffer.h ../Core/Inc/spi.h \
+ ../Core/Inc/digits5x9.h ../Core/Inc/digits_larabie.h \
  ../Core/Inc/font_larabie.h ../Core/Inc/font_larabie36.h \
  ../Core/Inc/icons/icons_small.h ../Core/Inc/lcd.h \
  ../Core/Inc/fonts/minimalFont.h ../Core/Inc/fonts/smallestFont.h \
@@ -47,6 +48,7 @@ Core/Src/pageModules/stopwatchModule.o: \
  ../Core/Inc/../Src/pageModules/submodules/timeInputScreen.h \
  ../Core/Inc/../Src/pageModules/submodules/dateInputScreen.h \
  ../Core/Inc/../Src/pageModules/baroModule.h ../Core/Inc/bmp180.h \
+ ../Core/Inc/../Src/pageModules/../../Src/utils/ringBuffer.h \
  ../Core/Inc/../Src/pageModules/stopwatchModule.h \
  ../Core/Inc/../Src/pageModules/gpsModule.h \
  ../Core/Inc/../Src/pageModules/localInfo.h \
@@ -89,6 +91,7 @@ Core/Src/pageModules/stopwatchModule.o: \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+../Core/Inc/../Src/utils/ringBuffer.h:
 ../Core/Inc/spi.h:
 ../Core/Inc/digits5x9.h:
 ../Core/Inc/digits_larabie.h:
@@ -114,6 +117,7 @@ Core/Src/pageModules/stopwatchModule.o: \
 ../Core/Inc/../Src/pageModules/submodules/dateInputScreen.h:
 ../Core/Inc/../Src/pageModules/baroModule.h:
 ../Core/Inc/bmp180.h:
+../Core/Inc/../Src/pageModules/../../Src/utils/ringBuffer.h:
 ../Core/Inc/../Src/pageModules/stopwatchModule.h:
 ../Core/Inc/../Src/pageModules/gpsModule.h:
 ../Core/Inc/../Src/pageModules/localInfo.h:

@@ -14,6 +14,8 @@
 #include "bmp180.h"
 #include "buttons.h"
 #include "gui.h"
+#include "../../Src/utils/ringBuffer.h"
+
 
 void baroSetup(void);
 void baroMain(void);

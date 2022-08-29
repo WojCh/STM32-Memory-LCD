@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "../Src/utils/ringBuffer.h"
 
 /* USER CODE END Includes */
 
@@ -44,6 +44,7 @@ extern "C" {
 /* USER CODE BEGIN EC */
 	extern RTC_TimeTypeDef RtcTime;
 	extern RTC_DateTypeDef RtcDate;
+	extern RingBuffer_t baroRing;
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/

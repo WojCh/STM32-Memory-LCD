@@ -23,6 +23,7 @@ static void setDefaultClbcks(void){
 	btn_BB.onSingleLongPressHandler = &changeBaroMode;
 	btn_B3.onContinuousShortPressHandler = &addBaro;
 	btn_B1.onContinuousShortPressHandler = &remBaro;
+	btn_B2.onSinglePressHandler = NULL;
 }
 
 // function executed once on module load
@@ -51,6 +52,21 @@ void baroMain(void){
 	lcdPutStr(10, 50, str4, zekton12font);
 	lcdPutStr(10, 66, str1, zekton12font);
 	lcdPutStr(10, 82, str3, zekton12font);
+	uint16_t minTemp = 275;
+	uint16_t maxTemp = 325;
+	uint16_t minX = 10;
+	uint16_t maxX = 390;
+	uint8_t maxHeight = 230;
+	uint8_t minHeight = 100;
+	for(uint16_t i=0; i<baroRing.num_entries; i++){
+//		lcdRect2(400/baroRing.size*i, 400/baroRing.size*i+1, maxHeight-(maxHeight-minHeight)*(baroRing.values[i]-minTemp)/(maxTemp-minTemp), maxHeight, 1, 14, 0);
+		lcdRect2(400/baroRing.size*i, 400/baroRing.size*i+1, maxHeight-(maxHeight-minHeight)*(read_nth_ring_buffer(&baroRing, i)-minTemp)/(maxTemp-minTemp), maxHeight, 1, 14, 0);
+
+		lcdHLine2(0, 399, maxHeight-(maxHeight-minHeight)*(maxTemp-minTemp)/(maxTemp-minTemp), 1, 2);
+		lcdHLine2(0, 399, maxHeight-(maxHeight-minHeight)*(minTemp-minTemp)/(maxTemp-minTemp), 1, 2);
+		lcdHLine2(0, 399, maxHeight-(maxHeight-minHeight)*(300-minTemp)/(maxTemp-minTemp), 1, 2);
+	}
+//	lcdVLine(baroRing.tail, minHeight, maxHeight, 1);
 }
 
 void changeBaroMode(void){
