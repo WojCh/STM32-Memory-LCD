@@ -32,7 +32,8 @@ Core/Src/gps.o: ../Core/Src/gps.c ../Core/Inc/gps.h ../Core/Inc/usart.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/../Src/utils/ringBuffer.h ../Core/Inc/gps.h
+ ../Core/Inc/globals.h ../Core/Inc/../Src/utils/ringBuffer.h \
+ ../Core/Inc/../Src/utils/cbuffer.h ../Core/Inc/gps.h
 ../Core/Inc/gps.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/main.h:
@@ -69,5 +70,7 @@ Core/Src/gps.o: ../Core/Src/gps.c ../Core/Inc/gps.h ../Core/Inc/usart.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+../Core/Inc/globals.h:
 ../Core/Inc/../Src/utils/ringBuffer.h:
+../Core/Inc/../Src/utils/cbuffer.h:
 ../Core/Inc/gps.h:

@@ -1,0 +1,7 @@
+../Core/Src/utils/cbuffer.c:18:6:cbuf_init	24	static
+../Core/Src/utils/cbuffer.c:27:6:cbuf_del	16	static
+../Core/Src/utils/cbuffer.c:33:9:cbuf_isEmpty	16	static
+../Core/Src/utils/cbuffer.c:37:9:cbuf_isFull	16	static
+../Core/Src/utils/cbuffer.c:42:9:cbuf_append	16	static
+../Core/Src/utils/cbuffer.c:53:9:cbuf_ovw	16	static
+../Core/Src/utils/cbuffer.c:68:7:cbuf_readn	16	static

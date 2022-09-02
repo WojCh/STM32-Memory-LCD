@@ -7,12 +7,14 @@
 
 #include "menuModule.h"
 
-#include <fonts/font_zekton12.h>
-#include <fonts/font_calibri13.h>
+//#include <fonts/font_zekton12.h>
+//#include <fonts/font_calibri13.h>
+//
+//#include "fonts/zekton24.h"
+//#include "fonts/zekton84.h"
+//#include "fonts/zekton45.h"
+#include "fonts/fonts.h"
 
-#include "fonts/zekton24.h"
-#include "fonts/zekton84.h"
-#include "fonts/zekton45.h"
 
 void resetMenuPos(void){
 		position=0;

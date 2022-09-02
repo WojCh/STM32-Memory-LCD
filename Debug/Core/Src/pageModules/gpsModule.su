@@ -1,4 +1,4 @@
-../Core/Src/pageModules/gpsModule.c:14:6:readGps	8	static
-../Core/Src/pageModules/gpsModule.c:18:13:setDefaultClbcks	4	static
-../Core/Src/pageModules/gpsModule.c:25:6:gpsSetup	8	static
-../Core/Src/pageModules/gpsModule.c:30:6:gpsMain	552	static
+../Core/Src/pageModules/gpsModule.c:16:6:readGps	8	static
+../Core/Src/pageModules/gpsModule.c:20:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/gpsModule.c:27:6:gpsSetup	8	static
+../Core/Src/pageModules/gpsModule.c:32:6:gpsMain	552	static

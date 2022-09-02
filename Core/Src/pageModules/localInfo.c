@@ -10,13 +10,14 @@
  */
 #include "localInfo.h"
 
-#include <fonts/font_zekton12.h>
 // fonts
-#include "fonts/font_12.h"
-#include "fonts/font_zekton12bold.h"
-#include "fonts/zekton24.h"
-#include "fonts/zekton84.h"
-#include <fonts/zekton45.h>
+//#include <fonts/font_zekton12.h>
+//#include "fonts/font_12.h"
+//#include "fonts/font_zekton12bold.h"
+//#include "fonts/zekton24.h"
+//#include "fonts/zekton84.h"
+//#include <fonts/zekton45.h>
+#include "fonts/fonts.h"
 
 
 struct tm testTime;

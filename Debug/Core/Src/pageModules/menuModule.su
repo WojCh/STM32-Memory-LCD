@@ -1,0 +1,4 @@
+../Core/Src/pageModules/menuModule.c:19:6:resetMenuPos	4	static
+../Core/Src/pageModules/menuModule.c:23:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/menuModule.c:35:6:menuSetup	8	static
+../Core/Src/pageModules/menuModule.c:39:6:menuMain	168	static

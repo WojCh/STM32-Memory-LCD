@@ -33,9 +33,10 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/gui.h ../Core/Inc/buttons.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/../Src/utils/ringBuffer.h ../Core/Inc/gps.h \
- ../Core/Inc/usart.h ../Core/Inc/bmp180.h \
- ../Core/Inc/../Src/pageModules/watchfaceModule.h ../Core/Inc/buttons.h \
+ ../Core/Inc/globals.h ../Core/Inc/../Src/utils/ringBuffer.h \
+ ../Core/Inc/../Src/utils/cbuffer.h ../Core/Inc/gps.h ../Core/Inc/usart.h \
+ ../Core/Inc/bmp180.h ../Core/Inc/../Src/pageModules/watchfaceModule.h \
+ ../Core/Inc/buttons.h \
  ../Core/Inc/../Src/pageModules/submodules/timeInputScreen.h \
  ../Core/Inc/../Src/pageModules/submodules/dateInputScreen.h \
  ../Core/Inc/../Src/pageModules/baroModule.h ../Core/Inc/bmp180.h \
@@ -82,7 +83,9 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/gui.h ../Core/Inc/buttons.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+../Core/Inc/globals.h:
 ../Core/Inc/../Src/utils/ringBuffer.h:
+../Core/Inc/../Src/utils/cbuffer.h:
 ../Core/Inc/gps.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/bmp180.h:

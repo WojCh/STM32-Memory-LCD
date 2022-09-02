@@ -6,9 +6,10 @@
  */
 #include "contextMenu.h"
 
-#include <fonts/font_zekton12.h>
 // fonts
-#include "fonts/zekton24.h"
+//#include <fonts/font_zekton12.h>
+//#include "fonts/zekton24.h"
+#include "fonts/fonts.h"
 
 static uint8_t cntxPosition = 0;
 static void (*prevClbcks)(void) = NULL;

@@ -1,0 +1,8 @@
+../Core/Src/pageModules/contextMenu.c:23:6:setupCntxMenu	16	static
+../Core/Src/pageModules/contextMenu.c:28:6:cntxSelect	8	static
+../Core/Src/pageModules/contextMenu.c:35:6:nextItem	4	static
+../Core/Src/pageModules/contextMenu.c:42:6:prevItem	4	static
+../Core/Src/pageModules/contextMenu.c:50:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/contextMenu.c:60:6:showCntxMenu	8	static
+../Core/Src/pageModules/contextMenu.c:66:6:hideCntxMenu	8	static
+../Core/Src/pageModules/contextMenu.c:74:6:enableCntxMenu	48	static

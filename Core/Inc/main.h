@@ -31,8 +31,9 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "../Src/utils/ringBuffer.h"
-#include "gps.h"
+//#include "../Src/utils/ringBuffer.h"
+//#include "gps.h"
+#include "globals.h"
 
 /* USER CODE END Includes */
 
@@ -43,11 +44,11 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-	extern RTC_TimeTypeDef RtcTime;
-	extern RTC_DateTypeDef RtcDate;
-	extern RingBuffer_t tempRing;
-	extern RingBuffer_t baroRing;
-	extern gpsDevice_t gpsDev;
+//	extern RTC_TimeTypeDef RtcTime;
+//	extern RTC_DateTypeDef RtcDate;
+//	extern RingBuffer_t tempRing;
+//	extern RingBuffer_t baroRing;
+//	extern gpsDevice_t gpsDev;
 
 /* USER CODE END EC */
 

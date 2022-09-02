@@ -57,7 +57,8 @@
 	RTC_TimeTypeDef RtcTime;
 	RTC_DateTypeDef RtcDate;
 //	ring buffers for sensor data
-	RingBuffer_t baroRing;
+//	RingBuffer_t baroRing;
+	cbuf_t baroRing;
 	RingBuffer_t tempRing;
 	gpsDevice_t gpsDev;
 
@@ -135,9 +136,9 @@ int main(void)
 //  setTimeout(1);
   startClock();
 
-  init_ring_buffer(&baroRing, 399);
+//  init_ring_buffer(&baroRing, 399);
   init_ring_buffer(&tempRing, 399);
-
+  cbuf_init(&baroRing, sizeof(uint16_t), 399);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -152,7 +153,9 @@ int main(void)
 //		if(baroRing.num_entries>=baroRing.size)remove_ring_buffer(&baroRing);
 //		add_ring_buffer(&baroRing, (int)bmpData.temperature);
 		add_ovw_ring_buffer(&tempRing, (int)(10*bmpData.temperature));
-		add_ovw_ring_buffer(&baroRing, (int)(bmpData.pressure/10));
+//		add_ovw_ring_buffer(&baroRing, (int)(bmpData.pressure/10));
+		uint16_t aaa = (uint16_t)(bmpData.pressure/10);
+		cbuf_ovw(&baroRing, &aaa);
 		HAL_RTC_GetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN);
 //		gpsDev.getData(&gpsDev);

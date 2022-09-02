@@ -10,9 +10,10 @@
 
 #include "dateInputScreen.h"
 
-#include "fonts/zekton84.h"
-#include <fonts/zekton45.h>
-#include "fonts/zekton24.h"
+//#include "fonts/zekton84.h"
+//#include <fonts/zekton45.h>
+//#include "fonts/zekton24.h"
+#include "fonts/fonts.h"
 
 static uint8_t curPosition = 0;
 static uint8_t valDatePos[3] = {0, 0, 0};

@@ -1,0 +1,9 @@
+../Core/Src/pageModules/submodules/timeInputScreen.c:22:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/submodules/timeInputScreen.c:40:6:timeInputSetup	8	static
+../Core/Src/pageModules/submodules/timeInputScreen.c:47:6:timeInputMain	40	static
+../Core/Src/pageModules/submodules/timeInputScreen.c:60:13:cursorNext	4	static
+../Core/Src/pageModules/submodules/timeInputScreen.c:64:13:cursorPrev	4	static
+../Core/Src/pageModules/submodules/timeInputScreen.c:68:13:increment	4	static
+../Core/Src/pageModules/submodules/timeInputScreen.c:91:13:decrement	8	static
+../Core/Src/pageModules/submodules/timeInputScreen.c:119:13:exit	8	static
+../Core/Src/pageModules/submodules/timeInputScreen.c:122:13:accept	8	static

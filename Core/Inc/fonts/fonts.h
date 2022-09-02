@@ -8,6 +8,8 @@
 #ifndef INC_FONTS_FONTS_H_
 #define INC_FONTS_FONTS_H_
 
+#include "lcd.h"
+
 #include "font_12.h"
 #include "font_calibri13.h"
 #include "font_zekton12.h"

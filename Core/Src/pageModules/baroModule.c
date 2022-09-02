@@ -6,11 +6,13 @@
  */
 
 #include "baroModule.h"
-#include <fonts/font_calibri13.h>
-#include <fonts/zekton45.h>
-#include "fonts/zekton24.h"
-#include "fonts/font_zekton12.h"
-#include "fonts/font_zekton12bold.h"
+//#include <fonts/font_calibri13.h>
+//#include <fonts/zekton45.h>
+//#include "fonts/zekton24.h"
+//#include "fonts/font_zekton12.h"
+//#include "fonts/font_zekton12bold.h"
+#include "fonts/fonts.h"
+
 
 // fixed alt = 0/fixed baro = 1 mode
 uint8_t baroMode = BARO_MODE_FIXED_ALTITUDE;
@@ -59,10 +61,13 @@ void baroMain(void){
 	uint16_t maxX = 390;
 	uint8_t maxHeight = 230;
 	uint8_t minHeight = 100;
-	for(uint16_t i=0; i<baroRing.num_entries; i++){
-//		lcdRect2(400/baroRing.size*i, 400/baroRing.size*i+1, maxHeight-(maxHeight-minHeight)*(baroRing.values[i]-minTemp)/(maxTemp-minTemp), maxHeight, 1, 14, 0);
+	for(uint16_t i=0; i<tempRing.num_entries; i++){
 		lcdRect2(400/tempRing.size*i, 400/tempRing.size*i+1, maxHeight-(maxHeight-minHeight)*(read_nth_ring_buffer(&tempRing, i)-minTemp)/(maxTemp-minTemp), maxHeight, 1, 14, 0);
-		lcdRect2(400/baroRing.size*i, 400/baroRing.size*i+1, maxHeight-(maxHeight-minHeight)*(read_nth_ring_buffer(&baroRing, i)-minBaro)/(maxBaro-minBaro), maxHeight, 1, 2, 0);
+//		lcdRect2(400/baroRing.size*i, 400/baroRing.size*i+1, maxHeight-(maxHeight-minHeight)*(read_nth_ring_buffer(&baroRing, i)-minBaro)/(maxBaro-minBaro), maxHeight, 1, 2, 0);
+//		uint16_t* vvaall= (uint16_t*)(baroRing.elements[i*baroRing.elemSize]);
+//		uint16_t* vvaall= (uint16_t*)(baroRing.elements+i*baroRing.elemSize);
+		uint16_t* vvaall= (uint16_t*)(cbuf_readn(&baroRing, i));
+		lcdRect2(400/baroRing.maxSize*i, 400/baroRing.maxSize*i+1, maxHeight-(maxHeight-minHeight)*((*vvaall)-minBaro)/(maxBaro-minBaro), maxHeight, 1, 2, 0);
 
 		lcdHLine2(0, 399, maxHeight-(maxHeight-minHeight)*(maxTemp-minTemp)/(maxTemp-minTemp), 1, 2);
 		lcdHLine2(0, 399, maxHeight-(maxHeight-minHeight)*(minTemp-minTemp)/(maxTemp-minTemp), 1, 2);

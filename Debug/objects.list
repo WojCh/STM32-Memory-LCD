@@ -25,6 +25,7 @@
 "./Core/Src/pageModules/watchfaceModule.o"
 "./Core/Src/pageModules/submodules/dateInputScreen.o"
 "./Core/Src/pageModules/submodules/timeInputScreen.o"
+"./Core/Src/utils/cbuffer.o"
 "./Core/Src/utils/ringBuffer.o"
 "./Core/Src/utils/timeUtils.o"
 "./Core/Startup/startup_stm32f429zitx.o"

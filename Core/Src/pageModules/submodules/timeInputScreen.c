@@ -10,8 +10,11 @@
 
 #include "timeInputScreen.h"
 
-#include "fonts/zekton84.h"
-#include <fonts/zekton45.h>
+
+
+#include "fonts/fonts.h"
+//#include "fonts/zekton84.h"
+//#include <fonts/zekton45.h>
 static uint8_t curPosition = 0;
 static uint8_t valTimePos[3] = {0, 0, 0};
 static uint16_t cursorXarr[5] = {20, 85, 170, 235, 315};

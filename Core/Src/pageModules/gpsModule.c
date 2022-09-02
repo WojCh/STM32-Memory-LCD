@@ -6,7 +6,9 @@
  */
 
 #include "gpsModule.h"
-#include <fonts/font_calibri13.h>
+#include "fonts/fonts.h"
+
+//#include <fonts/font_calibri13.h>
 
 extern gpsDevice_t gpsDev;
 
