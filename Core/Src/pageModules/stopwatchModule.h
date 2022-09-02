@@ -11,7 +11,7 @@
 #include "buttons.h"
 #include "gui.h"
 #include "rtc.h"
-#include "main.h"
+//#include "main.h"
 
 #include "bmp180.h"
 #include "stw.h"

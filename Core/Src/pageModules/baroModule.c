@@ -6,12 +6,11 @@
  */
 
 #include "baroModule.h"
-#include "font13.h"
-#include "digits5x9.h"
+#include <fonts/font_calibri13.h>
 #include <fonts/zekton45.h>
 #include "fonts/zekton24.h"
-#include "fonts/zekton14.h"
-#include "fonts/zekton14b.h"
+#include "fonts/font_zekton12.h"
+#include "fonts/font_zekton12bold.h"
 
 // fixed alt = 0/fixed baro = 1 mode
 uint8_t baroMode = BARO_MODE_FIXED_ALTITUDE;
@@ -37,9 +36,9 @@ void baroMain(void){
 	char str3[50] = {0};
 	char str4[50] = {0};
 	sprintf(&str1, "Temperature: %4.1f`C", bmpData.temperature);
-	lcdPutStr(10, 14, str1, zekton12font);
+	lcdPutStr(10, 14, str1, font_12_zekton);
 	sprintf(&str1, "Ambient pressure: %04.1fhPa", (float)bmpData.pressure/100);
-	lcdPutStr(10, 30, str1, zekton12font);
+	lcdPutStr(10, 30, str1, font_12_zekton);
 	if(baroMode == BARO_MODE_FIXED_ALTITUDE){
 		sprintf(&str4, "Fixed altitude mode");
 		sprintf(&str1, "Pressure %6.1f hPa at the sea level", bmpData.slpress/100);
@@ -49,10 +48,12 @@ void baroMain(void){
 		sprintf(&str1, "Altitude %5.1fm above sea level", bmpData.altitude);
 		sprintf(&str3, "For const pressure %6.1f hPa", (BMP_PRESS_CONST_SEA_LEVEL/100));
 	}
-	lcdPutStr(10, 50, str4, zekton12font);
-	lcdPutStr(10, 66, str1, zekton12font);
-	lcdPutStr(10, 82, str3, zekton12font);
-	uint16_t minTemp = 275;
+	lcdPutStr(10, 50, str4, font_12_zekton);
+	lcdPutStr(10, 66, str1, font_12_zekton);
+	lcdPutStr(10, 82, str3, font_12_zekton);
+	uint16_t minBaro = 10000;
+	uint16_t maxBaro = 10050;
+	uint16_t minTemp = 200;
 	uint16_t maxTemp = 325;
 	uint16_t minX = 10;
 	uint16_t maxX = 390;
@@ -60,7 +61,8 @@ void baroMain(void){
 	uint8_t minHeight = 100;
 	for(uint16_t i=0; i<baroRing.num_entries; i++){
 //		lcdRect2(400/baroRing.size*i, 400/baroRing.size*i+1, maxHeight-(maxHeight-minHeight)*(baroRing.values[i]-minTemp)/(maxTemp-minTemp), maxHeight, 1, 14, 0);
-		lcdRect2(400/baroRing.size*i, 400/baroRing.size*i+1, maxHeight-(maxHeight-minHeight)*(read_nth_ring_buffer(&baroRing, i)-minTemp)/(maxTemp-minTemp), maxHeight, 1, 14, 0);
+		lcdRect2(400/tempRing.size*i, 400/tempRing.size*i+1, maxHeight-(maxHeight-minHeight)*(read_nth_ring_buffer(&tempRing, i)-minTemp)/(maxTemp-minTemp), maxHeight, 1, 14, 0);
+		lcdRect2(400/baroRing.size*i, 400/baroRing.size*i+1, maxHeight-(maxHeight-minHeight)*(read_nth_ring_buffer(&baroRing, i)-minBaro)/(maxBaro-minBaro), maxHeight, 1, 2, 0);
 
 		lcdHLine2(0, 399, maxHeight-(maxHeight-minHeight)*(maxTemp-minTemp)/(maxTemp-minTemp), 1, 2);
 		lcdHLine2(0, 399, maxHeight-(maxHeight-minHeight)*(minTemp-minTemp)/(maxTemp-minTemp), 1, 2);

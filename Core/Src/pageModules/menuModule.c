@@ -7,12 +7,12 @@
 
 #include "menuModule.h"
 
-#include "font13.h"
-#include "digits5x9.h"
+#include <fonts/font_zekton12.h>
+#include <fonts/font_calibri13.h>
+
 #include "fonts/zekton24.h"
 #include "fonts/zekton84.h"
 #include "fonts/zekton45.h"
-#include "fonts/zekton14.h"
 
 void resetMenuPos(void){
 		position=0;
@@ -36,7 +36,7 @@ void menuSetup(void){
 
 void menuMain(void){
 //	if(moduleDescPtr != NULL) moduleDescPtr();
-		uint8_t fontWidth = *zekton12font.font_Width;
+		uint8_t fontWidth = *font_12_zekton.font_Width;
 		char leftStr[30] = {0};
 		char rightStr[30] = {0};
 		char centStr[30] = {0};
@@ -59,15 +59,15 @@ void menuMain(void){
 //		moduleDescPtr = menuItems[position].description;
 		moduleSetupPtr = menuItems[position].setup;
 		moduleMainPtr = menuItems[position].main;
-		lcdPutStr(200 - (fontWidth * strlen(menuItems[position].name)/2), 180, centStr, zekton12font);
+		lcdPutStr(200 - (fontWidth * strlen(menuItems[position].name)/2), 180, centStr, font_12_zekton);
 //		if(menuItems[position].icon != NULL) lcdPutIcon(200 - menuItems[position].icon->icon_Width/2, 65, menuItems[position].icon);
-		lcdPutStr(70 - (fontWidth * strlen(leftStr)/2), 190, leftStr, zekton12font);
-		lcdPutStr(330 - (fontWidth * strlen(rightStr)/2), 190, rightStr, zekton12font);
+		lcdPutStr(70 - (fontWidth * strlen(leftStr)/2), 190, leftStr, font_12_zekton);
+		lcdPutStr(330 - (fontWidth * strlen(rightStr)/2), 190, rightStr, font_12_zekton);
 
 			// debug stuff
 			if(1){
 				sprintf(&centStr, "%d", position);
-				lcdPutStr(380, 0, centStr, zekton12font);
+				lcdPutStr(380, 0, centStr, font_12_zekton);
 			}
 	//		  char guiPos[50] ={0};
 	//		  sprintf(&guiPos, "%02d:%02d:%02d %4.1f*C %02d-%02d-20%02d", RtcTime.Hours, RtcTime.Minutes, RtcTime.Seconds, bmpData.temperature, RtcDate.Date, RtcDate.Month, RtcDate.Year);
@@ -75,5 +75,5 @@ void menuMain(void){
 			  char guiPos[50] = {0};
 			  sprintf(&guiPos, "%02d:%02d", RtcTime.Hours, RtcTime.Minutes);
 	//		  lcdPutStr(200 - fontWidth * strlen(guiPos[0])/2, SCR_H-ocrFont->font_Height-1, guiPos, ocrFont);
-			  lcdPutStr(200 - fontWidth * strlen(guiPos)/2, 1, guiPos, zekton12font);
+			  lcdPutStr(200 - fontWidth * strlen(guiPos)/2, 1, guiPos, font_12_zekton);
 }

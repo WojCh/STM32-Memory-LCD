@@ -1,18 +1,20 @@
 #ifndef INC_GPS_H_
 #define INC_GPS_H_
 
-#include "main.h"
+typedef struct gpsDevice gpsDevice_t;
+
 #include "usart.h"
 
-extern char gpsBuffer[];
-
-typedef struct gpsDevice{
+struct gpsDevice{
 	UART_HandleTypeDef* uartPort;
 	char buffer[600];
 	void (*getData)(struct gpsDevice*);
-} gpsDevice;
+};
 
-gpsDevice initGps(UART_HandleTypeDef* uartPort);
+extern char gpsBuffer[];
+
+
+gpsDevice_t initGps(UART_HandleTypeDef* uartPort);
 
 
 typedef struct gpsTime{

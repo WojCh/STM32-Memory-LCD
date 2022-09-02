@@ -21,7 +21,7 @@
 #ifndef INC_LCD_H_
 #define INC_LCD_H_
 
-#include "main.h"
+//#include "main.h"
 #include "spi.h"
 
 

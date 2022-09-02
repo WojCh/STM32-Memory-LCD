@@ -8,7 +8,8 @@
 #ifndef INC_STW_H_
 #define INC_STW_H_
 
-#include "main.h"
+//#include "main.h"
+#include <stdint.h>
 
 typedef struct stw_t{
 	uint32_t cnt : 24;

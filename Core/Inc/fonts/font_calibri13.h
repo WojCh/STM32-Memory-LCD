@@ -1,8 +1,10 @@
 #include "lcd.h"
 
-#define font13 &font13_i
+#ifndef __FONT_font13calibri_H
+#define __FONT_font13calibri_H
+#define font_13_calibri &font13calibri
 
-static const Font_TypeDef font13_i = {
+static const Font_TypeDef font13calibri = {
 		13,           // Font width
 		22,           // Font height
 		44,           // Bytes per character
@@ -2292,3 +2294,4 @@ static const Font_TypeDef font13_i = {
 	0x00, 0x00, //              
 }
 };
+#endif

@@ -1,16 +1,22 @@
 #include "gps.h"
 
 
+//struct gpsDevice{
+//	UART_HandleTypeDef* uartPort;
+//	char buffer[600];
+//	void (*getData)(struct gpsDevice*);
+//};
+
 //const uint8_t gpsCmds[] = {"GNGSA", "GNGLL", "GNGGA", "GPTXT", "GNZDA", "GNVTG", "GNRMC", "GPGSV", "BDGSV"};
 char gpsBuffer[600] = {0};
 
-void getDataFromUart(gpsDevice* gps){
+void getDataFromUart(gpsDevice_t* gps){
 	  HAL_UART_Receive(&huart6, &gps->buffer, 600, 1000);
 //	  HAL_UART_Receive(&huart6, &gpsModule.buffer, 600, 1000);
 }
 
-gpsDevice initGps(UART_HandleTypeDef* uartPort){
-	gpsDevice gpsModule;
+gpsDevice_t initGps(UART_HandleTypeDef* uartPort){
+	gpsDevice_t gpsModule;
 	gpsModule.uartPort = uartPort;
 	strncpy(&gpsModule.buffer, 0, 600);
 	gpsModule.getData = &getDataFromUart;
@@ -90,11 +96,11 @@ int hexCharToInt(char* value){
 void readSentence(char* buffer, gpsSentence* sentence){
 
 //	char code[] = "BDGSV";
-//	char code[] = "GNZDA";
+	char code[] = "GNZDA";
 //	char code[] = "GPGSV";
 //	char code[] = "GNGSA";
 //	char code[] = "GPTXT";
-	char code[] = "GNGGA";
+//	char code[] = "GNGGA";
 	char term[] = ",";
 
 	char* pos = strstr(buffer, code);

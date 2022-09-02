@@ -29,13 +29,9 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include "lcd.h"
-#include "font13.h"
-#include "gps.h"
 #include "bmp180.h"
 #include "buttons.h"
-#include "customTimer.h"
 #include "gui.h"
-#include "../Src/utils/ringBuffer.h"
 
 
 /* USER CODE END Includes */
@@ -60,7 +56,10 @@
 
 	RTC_TimeTypeDef RtcTime;
 	RTC_DateTypeDef RtcDate;
+//	ring buffers for sensor data
 	RingBuffer_t baroRing;
+	RingBuffer_t tempRing;
+	gpsDevice_t gpsDev;
 
 /* USER CODE END PV */
 
@@ -124,8 +123,7 @@ int main(void)
   // Initialize Timer 10 - generating LCD refresh Interrupt
   HAL_TIM_Base_Start_IT(&htim10);
 
-  gpsDevice gpsModule;
-  gpsModule = initGps(&huart6);
+  gpsDev = initGps(&huart6);
 
 //  bmp_t bmp180module;
   // bmp180module defined inside of c file
@@ -134,10 +132,11 @@ int main(void)
   initButtons(btnsPtrs);
 
   initTimer();
-  setTimeout(1);
+//  setTimeout(1);
   startClock();
 
   init_ring_buffer(&baroRing, 399);
+  init_ring_buffer(&tempRing, 399);
 
   /* USER CODE END 2 */
 
@@ -152,9 +151,11 @@ int main(void)
 		// option to be moved into ring buffer lib - overwriting values
 //		if(baroRing.num_entries>=baroRing.size)remove_ring_buffer(&baroRing);
 //		add_ring_buffer(&baroRing, (int)bmpData.temperature);
-		add_ovw_ring_buffer(&baroRing, (int)(10*bmpData.temperature));
+		add_ovw_ring_buffer(&tempRing, (int)(10*bmpData.temperature));
+		add_ovw_ring_buffer(&baroRing, (int)(bmpData.pressure/10));
 		HAL_RTC_GetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN);
+//		gpsDev.getData(&gpsDev);
 	  lcdClearBuffer();
 
 	  // functions executed through GUI

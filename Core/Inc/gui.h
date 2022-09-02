@@ -20,7 +20,7 @@
 #include "../Src/pageModules/gpsModule.h"
 #include "../Src/pageModules/localInfo.h"
 #include "../Src/pageModules/settingsModule.h"
-#include "icons/icons_small.h"
+//#include "icons/icons_small.h"
 
 
 const struct Module{

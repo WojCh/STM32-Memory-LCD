@@ -10,10 +10,10 @@
  */
 #include "localInfo.h"
 
+#include <fonts/font_zekton12.h>
 // fonts
-#include "fonts/smallestFont.h"
-#include "fonts/zekton14.h"
-#include "fonts/zekton14b.h"
+#include "fonts/font_12.h"
+#include "fonts/font_zekton12bold.h"
 #include "fonts/zekton24.h"
 #include "fonts/zekton84.h"
 #include <fonts/zekton45.h>
@@ -71,7 +71,7 @@ void localMain(void){
 	uint8_t shiftedWeekDay = (testTime.tm_wday+7-1)%7+1;
 	uint8_t weekOfTheYear = (testTime.tm_yday+1+7-shiftedWeekDay)/7;
 	sprintf(&textBuffer, "week %d day %d", weekOfTheYear, testTime.tm_yday+1);
-	lcdPutStr(10, 10, textBuffer, zekton12font);
+	lcdPutStr(10, 10, textBuffer, font_12_zekton);
 
 	sprintf(&textBuffer, asctime(&testTime));
 	lcdPutStr(170, 10, textBuffer, smallestFont);
@@ -126,27 +126,27 @@ void localMain(void){
 	// add atmospheric refraction
 	// https://gml.noaa.gov/grad/solcalc/calcdetails.html
 	sprintf(&textBuffer, "Sunrise: %02d:%02d", sunrise/60, sunrise%60);
-	lcdPutStr(10, 28, textBuffer, zekton12font_bold);
+	lcdPutStr(10, 28, textBuffer, font_12_zekton_bold);
 	sprintf(&textBuffer, "Noon: %02d:%02d", noon/60, noon%60);
-	lcdPutStr(10, 44, textBuffer, zekton12font_bold);
+	lcdPutStr(10, 44, textBuffer, font_12_zekton_bold);
 	sprintf(&textBuffer, "Sunset: %02d:%02d", sunset/60, sunset%60);
-	lcdPutStr(10, 60, textBuffer, zekton12font_bold);
+	lcdPutStr(10, 60, textBuffer, font_12_zekton_bold);
 
 	sprintf(&textBuffer, "solar elevation angle: %02.3f deg", 90-phi*180/M_PI);
-	lcdPutStr(10, 80, textBuffer, zekton12font_bold);
+	lcdPutStr(10, 80, textBuffer, font_12_zekton_bold);
 
 	double saDeg;
 	if(cha<0) saDeg = -sa*180/M_PI;
 	else saDeg = 360+sa*180/M_PI;
 	sprintf(&textBuffer, "solar azimuth angle: %02.3f deg", saDeg);
 //	sprintf(&textBuffer, "solar azimuth angle: %02.3f deg", fmod(360+sa*180/M_PI, 360));
-	lcdPutStr(10, 96, textBuffer, zekton12font_bold);
+	lcdPutStr(10, 96, textBuffer, font_12_zekton_bold);
 
 	double perc = (hhour*60+mmin+(double)ssec/60-sunrise)*100/(sunset-sunrise);
 	sprintf(&textBuffer, "percentage daylight: %2.3f%%", perc);
-	lcdPutStr(10, 116, textBuffer, zekton12font_bold);
+	lcdPutStr(10, 116, textBuffer, font_12_zekton_bold);
 	sprintf(&textBuffer, "day length: %02dh %02dmin", (sunset-sunrise)/60, (sunset-sunrise)%60);
-	lcdPutStr(10, 132, textBuffer, zekton12font_bold);
+	lcdPutStr(10, 132, textBuffer, font_12_zekton_bold);
 
 	uint16_t scaleXrise = 10+380*sunrise/(24*60-0);
 	uint16_t scaleXset = 10+380*sunset/(24*60-0);

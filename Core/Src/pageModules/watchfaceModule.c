@@ -10,9 +10,9 @@
 #include "contextMenu.h"
 
 // fonts
-#include "font13.h"
-#include "digits5x9.h"
-#include "fonts/zekton14.h"
+#include <fonts/font_calibri13.h>
+
+#include "fonts/font_zekton12.h"
 #include "fonts/zekton24.h"
 #include "fonts/zekton84.h"
 #include <fonts/zekton45.h>

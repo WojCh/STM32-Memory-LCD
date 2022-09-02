@@ -6,6 +6,7 @@
  */
 #include "contextMenu.h"
 
+#include <fonts/font_zekton12.h>
 // fonts
 #include "fonts/zekton24.h"
 
@@ -72,18 +73,18 @@ void hideCntxMenu(void){
 void enableCntxMenu(void){
 	if(isCntxOpen){
 //		clear rect
-		lcdRect(0, 200, 5, 8+(*zekton24font.font_Height)*(actionsNum-1)+28, 0);
+		lcdRect(0, 200, 5, 8+(*font_12_zekton.font_Height)*(actionsNum)+2, 0);
 //		draw frame
 		lcdHLine(0, 200, 6, 1);
-		lcdHLine(0, 200, 8+(*zekton24font.font_Height)*(actionsNum-1)+28, 1);
+		lcdHLine(0, 200, 8+(*font_12_zekton.font_Height)*(actionsNum)+2, 1);
 //		create list
 		char item[30] = {0};
 		for(uint8_t i = 0; i < actionsNum; i++){
 			sprintf(&item, ContextActions[i]->name);
-			lcdPutStr(5, 10+(*zekton24font.font_Height)*i, item, zekton24font);
+			lcdPutStr(5, 10+(*font_12_zekton.font_Height)*i, item, font_12_zekton);
 		}
 //		indicate selection
-		lcdRect(0, 200, 8+(*zekton24font.font_Height)*cntxPosition, 33+(*zekton24font.font_Height)*cntxPosition, 2);
+		lcdRect(0, 200, 8+(*font_12_zekton.font_Height)*cntxPosition, 8+(*font_12_zekton.font_Height)*(cntxPosition+1), 2);
 
 	}
 }

@@ -1,6 +1,6 @@
 Core/Src/pageModules/contextMenu.o: ../Core/Src/pageModules/contextMenu.c \
  ../Core/Src/pageModules/contextMenu.h ../Core/Inc/gui.h \
- ../Core/Inc/buttons.h ../Core/Inc/main.h \
+ ../Core/Inc/buttons.h ../Core/Inc/gpio.h ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -34,24 +34,23 @@ Core/Src/pageModules/contextMenu.o: ../Core/Src/pageModules/contextMenu.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/../Src/utils/ringBuffer.h ../Core/Inc/gpio.h \
- ../Core/Inc/bmp180.h ../Core/Inc/../Src/pageModules/watchfaceModule.h \
- ../Core/Inc/buttons.h \
+ ../Core/Inc/../Src/utils/ringBuffer.h ../Core/Inc/gps.h \
+ ../Core/Inc/usart.h ../Core/Inc/bmp180.h \
+ ../Core/Inc/../Src/pageModules/watchfaceModule.h ../Core/Inc/buttons.h \
  ../Core/Inc/../Src/pageModules/submodules/timeInputScreen.h \
  ../Core/Inc/../Src/pageModules/submodules/dateInputScreen.h \
  ../Core/Inc/../Src/pageModules/baroModule.h ../Core/Inc/bmp180.h \
  ../Core/Inc/../Src/pageModules/../../Src/utils/ringBuffer.h \
  ../Core/Inc/../Src/pageModules/stopwatchModule.h ../Core/Inc/rtc.h \
- ../Core/Inc/main.h ../Core/Inc/stw.h \
- ../Core/Inc/../Src/pageModules/gpsModule.h \
+ ../Core/Inc/stw.h ../Core/Inc/../Src/pageModules/gpsModule.h \
  ../Core/Inc/../Src/pageModules/localInfo.h \
- ../Core/Inc/../Src/utils/timeUtils.h \
+ ../Core/Inc/../Src/utils/timeUtils.h ../Core/Inc/main.h \
  ../Core/Inc/../Src/pageModules/settingsModule.h \
- ../Core/Inc/icons/icons_small.h ../Core/Inc/lcd.h ../Core/Inc/spi.h \
- ../Core/Inc/fonts/zekton24.h
+ ../Core/Inc/fonts/font_zekton12.h ../Core/Inc/fonts/zekton24.h
 ../Core/Src/pageModules/contextMenu.h:
 ../Core/Inc/gui.h:
 ../Core/Inc/buttons.h:
+../Core/Inc/gpio.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -87,7 +86,8 @@ Core/Src/pageModules/contextMenu.o: ../Core/Src/pageModules/contextMenu.c \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 ../Core/Inc/../Src/utils/ringBuffer.h:
-../Core/Inc/gpio.h:
+../Core/Inc/gps.h:
+../Core/Inc/usart.h:
 ../Core/Inc/bmp180.h:
 ../Core/Inc/../Src/pageModules/watchfaceModule.h:
 ../Core/Inc/buttons.h:
@@ -98,13 +98,11 @@ Core/Src/pageModules/contextMenu.o: ../Core/Src/pageModules/contextMenu.c \
 ../Core/Inc/../Src/pageModules/../../Src/utils/ringBuffer.h:
 ../Core/Inc/../Src/pageModules/stopwatchModule.h:
 ../Core/Inc/rtc.h:
-../Core/Inc/main.h:
 ../Core/Inc/stw.h:
 ../Core/Inc/../Src/pageModules/gpsModule.h:
 ../Core/Inc/../Src/pageModules/localInfo.h:
 ../Core/Inc/../Src/utils/timeUtils.h:
+../Core/Inc/main.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:
-../Core/Inc/icons/icons_small.h:
-../Core/Inc/lcd.h:
-../Core/Inc/spi.h:
+../Core/Inc/fonts/font_zekton12.h:
 ../Core/Inc/fonts/zekton24.h:

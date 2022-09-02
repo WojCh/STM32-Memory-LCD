@@ -1,6 +1,6 @@
-../Core/Src/pageModules/baroModule.c:19:13:setDefaultClbcks	4	static
-../Core/Src/pageModules/baroModule.c:30:6:baroSetup	8	static
-../Core/Src/pageModules/baroModule.c:35:6:baroMain	208	static
-../Core/Src/pageModules/baroModule.c:72:6:changeBaroMode	4	static
-../Core/Src/pageModules/baroModule.c:81:6:addBaro	4	static
-../Core/Src/pageModules/baroModule.c:88:6:remBaro	4	static
+../Core/Src/pageModules/baroModule.c:18:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/baroModule.c:29:6:baroSetup	8	static
+../Core/Src/pageModules/baroModule.c:34:6:baroMain	216	static
+../Core/Src/pageModules/baroModule.c:74:6:changeBaroMode	4	static
+../Core/Src/pageModules/baroModule.c:83:6:addBaro	4	static
+../Core/Src/pageModules/baroModule.c:90:6:remBaro	4	static

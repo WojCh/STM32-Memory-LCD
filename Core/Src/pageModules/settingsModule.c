@@ -6,15 +6,15 @@
  */
 
 #include "settingsModule.h"
-#include "font13.h"
-#include "digits5x9.h"
-#include "digits_larabie.h"
-#include "font_larabie.h"
-#include "font_larabie36.h"
-#include "icons/icons_small.h"
-#include "fonts/minimalFont.h"
-#include "fonts/smallestFont.h"
-#include "fonts/ocrFont.h"
+
+//#include <fonts/font_zekton12.h>
+//#include <fonts/font_calibri13.h>
+//#include "icons/icons_small.h"
+//#include "fonts/minimalFont.h"
+#include "fonts/fonts.h"
+//#include "fonts/ocrFont.h"
+//#include "fonts/font_zekton12bold.h"
+//#include "fonts/zekton24.h"
 
 uint8_t currentPage = 0;
 uint8_t PAGES_NUM = 6;
@@ -39,36 +39,86 @@ void showPage1(void){
 		char timeStr[30] = {0};
 
 	//	sprintf(&timeStr, "a%02d:%02d.%02d", RtcTime.Hours, RtcTime.Minutes, RtcTime.Seconds);
-		sprintf(&timeStr, "%02d%02d", RtcTime.Hours, RtcTime.Minutes);
+		sprintf(&timeStr, "%02d:%02d %02d", RtcTime.Hours, RtcTime.Minutes, RtcTime.Seconds);
 	//	sprintf(&fracStr, "%02d", 100*(RtcTime.SecondFraction - RtcTime.SubSeconds)/RtcTime.SecondFraction);
-		sprintf(&fracStr, "%02d", RtcTime.Seconds);
-		lcdPutStr(0, 0, timeStr, bigDigitsLarabie);
-		lcdPutStr(300, 0, fracStr, fontLarabieMedium);
+		lcdPutStr(14, 11, timeStr, zekton24font);
+		lcdVLine(1, 1*6, 1*6+33, 1);
+		lcdVLine(2, 1*6-1, 1*6-1+35, 1);
+		lcdVLine(3, 1*6-1, 1*6-1+35, 1);
+		lcdVLine(4, 1*6, 1*6+33, 1);
 }
 void showPage2(void){
 	char fracStr[30] = {0};
-		sprintf(&fracStr, "Page 2: STW");
-		lcdPutStr(0, 0, fracStr, fontLarabieMedium);
+		sprintf(&fracStr, "STW");
+		lcdPutStr(14, 50, fracStr, zekton24font);
+		lcdVLine(1, 2*6+(2-1)*33, 2*6+33+(2-1)*33, 1);
+		lcdVLine(2, 2*6-1+(2-1)*33, 2*6-1+35+(2-1)*33, 1);
+		lcdVLine(3, 2*6-1+(2-1)*33, 2*6-1+35+(2-1)*33, 1);
+		lcdVLine(4, 2*6+(2-1)*33, 2*6+33+(2-1)*33, 1);
 }
 void showPage3(void){
 	char fracStr[30] = {0};
 		sprintf(&fracStr, "Page 3: TMR");
-		lcdPutStr(0, 0, fracStr, fontLarabieMedium);
+		lcdPutStr(0, 0, fracStr, zekton24font);
+		lcdVLine(1, 3*6+(3-1)*33, 3*6+33+(3-1)*33, 1);
+		lcdVLine(2, 3*6-1+(3-1)*33, 3*6-1+35+(3-1)*33, 1);
+		lcdVLine(3, 3*6-1+(3-1)*33, 3*6-1+35+(3-1)*33, 1);
+		lcdVLine(4, 3*6+(3-1)*33, 3*6+33+(3-1)*33, 1);
 }
 void showPage4(void){
 	char fracStr[30] = {0};
 		sprintf(&fracStr, "Page 4: CAL");
-		lcdPutStr(0, 0, fracStr, fontLarabieMedium);
+		lcdPutStr(0, 0, fracStr, zekton24font);
+		lcdVLine(1, 4*6+(4-1)*33, 4*6+33+(4-1)*33, 1);
+		lcdVLine(2, 4*6-1+(4-1)*33, 4*6-1+35+(4-1)*33, 1);
+		lcdVLine(3, 4*6-1+(4-1)*33, 4*6-1+35+(4-1)*33, 1);
+		lcdVLine(4, 4*6+(4-1)*33, 4*6+33+(4-1)*33, 1);
 }
 void showPage5(void){
 	char fracStr[30] = {0};
-		sprintf(&fracStr, "Page 5: WRLD");
-		lcdPutStr(0, 0, fracStr, fontLarabieMedium);
+		sprintf(&fracStr, "ABCabc123!@#");
+		lcdPutStr(10, 0, fracStr, smallFont);
+		lcdPutStr(10, 15, fracStr, ocrFont);
+		lcdPutStr(10, 50, fracStr, smallestFont);
+		lcdPutStr(10, 60, fracStr, font_13_calibri);
+		lcdPutStr(10, 90, fracStr, font_12_zekton);
+		lcdPutStr(10, 120, fracStr, font_12_zekton_bold);
+		lcdPutStr(10, 150, fracStr, zekton24font);
+//		lcdPutStr(10, 180, fracStr, zekton45font);
+		lcdVLine(1, 5*6+(5-1)*33, 5*6+33+(5-1)*33, 1);
+		lcdVLine(2, 5*6-1+(5-1)*33, 5*6-1+35+(5-1)*33, 1);
+		lcdVLine(3, 5*6-1+(5-1)*33, 5*6-1+35+(5-1)*33, 1);
+		lcdVLine(4, 5*6+(5-1)*33, 5*6+33+(5-1)*33, 1);
 }
 void showPage6(void){
-	char fracStr[30] = {0};
-		sprintf(&fracStr, "Page 6: DLT");
-		lcdPutStr(0, 0, fracStr, fontLarabieMedium);
+		lcdVLine(1, 6*6+(6-1)*33, 6*6+33+(6-1)*33, 1);
+		lcdVLine(2, 6*6-1+(6-1)*33, 6*6-1+35+(6-1)*33, 1);
+		lcdVLine(3, 6*6-1+(6-1)*33, 6*6-1+35+(6-1)*33, 1);
+		lcdVLine(4, 6*6+(6-1)*33, 6*6+33+(6-1)*33, 1);
+		lcdRect(0,399,25,80,1);
+		lcdRect(0,399,120,180,1);
+		lcdRect2(10, 50, 10, 50,     3, 0, 1);
+		lcdRect2(60, 100, 10, 50,    3, 1, 1);
+		lcdRect2(110, 150, 10, 50,   3, 2, 1);
+		lcdRect2(160, 200, 10, 50,   3, 3, 1);
+		lcdRect2(210, 250, 10, 50,   3, 4, 1);
+		lcdRect2(260, 300, 10, 50,   3, 5, 1);
+		lcdRect2(310, 350, 10, 50,   3, 6, 1);
+		lcdRect2(10, 50, 60, 100,    3, 7, 1);
+		lcdRect2(60, 100, 60, 100,   3, 8, 1);
+		lcdRect2(110, 150, 60, 100,  3, 9, 1);
+		lcdRect2(160, 200, 60, 100,  3, 10, 1);
+		lcdRect2(210, 250, 60, 100,  3, 11, 1);
+		lcdRect2(260, 300, 60, 100,  3, 12, 1);
+		lcdRect2(310, 350, 60, 100,  3, 13, 1);
+		lcdRect2(10, 50, 110, 150,   3, 14, 1);
+		lcdRect2(60, 100, 110, 150,  3, 15, 1);
+		lcdRect2(110, 150, 110, 150, 3, 16, 1);
+		lcdRect2(160, 200, 110, 150, 3, 17, 1);
+		lcdRect2(210, 250, 110, 150, 3, 18, 1);
+		lcdRect2(260, 300, 110, 150, 3, 19, 1);
+		lcdRect2(310, 350, 110, 150, 3, 20, 1);
+		lcdRect2(10, 350, 160, 200, 1, 4);
 }
 
 void showPage(uint8_t pageNum){
@@ -110,8 +160,8 @@ void settingsSetup(void){
 
 void settingsMain(void){
 	char tempStr[30] = {0};
-	sprintf(&tempStr, "Settings will be shown");
-	lcdPutStr(0, 0, tempStr, font13);
+//	sprintf(&tempStr, "Settings will be shown");
+//	lcdPutStr(0, 0, tempStr, font_13_calibri);
 	showPage(currentPage);
 
 }

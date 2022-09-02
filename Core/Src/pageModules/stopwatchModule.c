@@ -14,21 +14,18 @@
 
  */
 
-#include "font13.h"
-#include "digits5x9.h"
-#include "digits_larabie.h"
-#include "font_larabie.h"
-#include "font_larabie36.h"
+#include <fonts/font_calibri13.h>
+
 #include "icons/icons_small.h"
 #include "fonts/minimalFont.h"
-#include "fonts/smallestFont.h"
+#include "fonts/fonts.h"
 #include "fonts/ocrFont.h"
-#include "fonts/zekton14.h"
-#include "fonts/zekton14b.h"
+#include "fonts/font_zekton12bold.h"
 #include "fonts/zekton24.h"
 
 #include <fonts/zekton45.h>
 #include "stopwatchModule.h"
+#include <fonts/font_zekton12.h>
 
 void startStopwatch(){
 	stwStart();
@@ -110,15 +107,15 @@ void stwMain(void){
 //		sprintf(&tempStr2, "%d. %s", i, stwString(convertTicks(stwT.stwArray[i])));
 		if(stwT.stwArray[i] != 0){
 			sprintf(&tempStr2, "Lap %d:", i+1);
-			lcdPutStr(0, 130+i*16, tempStr2, zekton12font);
+			lcdPutStr(0, 130+i*16, tempStr2, font_12_zekton);
 			if(i>0){
-				lcdPutStr(55, 130+i*16, stwString(convertTicks(stwT.stwArray[i]-stwT.stwArray[i-1]), &tempStr2), zekton12font);
+				lcdPutStr(55, 130+i*16, stwString(convertTicks(stwT.stwArray[i]-stwT.stwArray[i-1]), &tempStr2), font_12_zekton);
 			} else {
-				lcdPutStr(55, 130+i*16, stwString(convertTicks(stwT.stwArray[i]), &tempStr2), zekton12font);
+				lcdPutStr(55, 130+i*16, stwString(convertTicks(stwT.stwArray[i]), &tempStr2), font_12_zekton);
 			}
 			sprintf(&tempStr2, "Split:");
-			lcdPutStr(165, 130+i*16, tempStr2, zekton12font);
-			lcdPutStr(225, 130+i*16, stwString(convertTicks(stwT.stwArray[i]), &tempStr2), zekton12font);
+			lcdPutStr(165, 130+i*16, tempStr2, font_12_zekton);
+			lcdPutStr(225, 130+i*16, stwString(convertTicks(stwT.stwArray[i]), &tempStr2), font_12_zekton);
 		}
 	}
 

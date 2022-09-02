@@ -8,7 +8,7 @@
 #ifndef INC_BUTTONS_H_
 #define INC_BUTTONS_H_
 
-#include "main.h"
+//#include "main.h"
 #include "gpio.h"
 
 #define BTN_NUMBER 6
