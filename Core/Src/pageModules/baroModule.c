@@ -32,10 +32,10 @@ void baroSetup(void){
 	setDefaultClbcks();
 }
 
-uint16_t minX = 10;
-uint16_t maxX = 390;
-uint8_t maxHeight = 230;
-uint8_t minHeight = 100;
+uint16_t minX = 35;
+uint16_t maxX = 347;
+uint8_t maxHeight = 225;
+uint8_t minHeight = 110;
 
 // main function
 void baroMain(void){
@@ -71,16 +71,27 @@ void baroMain(void){
 		if(currT>=maxTemp) maxTemp = currT;
 		if(currT<=minTemp) minTemp = currT;
 	}
-	for(uint16_t i=0; i<tempRing.num_entries; i++){
+	for(uint16_t j=minX; j<maxX; j++){
+		uint16_t i = (j-minX)*baroRing.elemNum/(maxX-minX);
 		// graph data
 		uint16_t* vvaall= (uint16_t*)(cbuf_readn(&baroRing, i));
-		lcdRect2(400/baroRing.maxSize*i, 400/baroRing.maxSize*i+1, maxHeight-(maxHeight-minHeight)*((*vvaall)-minBaro)/(maxBaro-minBaro), maxHeight, 1, 2, 0);
-		lcdRect2(400/tempRing.size*i, 400/tempRing.size*i+1, maxHeight-(maxHeight-minHeight)*(read_nth_ring_buffer(&tempRing, i)-minTemp)/(maxTemp-minTemp), maxHeight, 1, 14, 0);
+		lcdRect2(j, j+1, maxHeight-(maxHeight-minHeight)*((*vvaall)-minBaro)/(maxBaro-minBaro), maxHeight, 1, 2, 0);
+		lcdRect2(j, j+1, maxHeight-(maxHeight-minHeight)*(read_nth_ring_buffer(&tempRing, i)-minTemp)/(maxTemp-minTemp), maxHeight, 1, 14, 0);
+//		lcdRect2(400/baroRing.maxSize*i, 400/baroRing.maxSize*i+1, maxHeight-(maxHeight-minHeight)*((*vvaall)-minBaro)/(maxBaro-minBaro), maxHeight, 1, 2, 0);
+//		lcdRect2(400/tempRing.size*i, 400/tempRing.size*i+1, maxHeight-(maxHeight-minHeight)*(read_nth_ring_buffer(&tempRing, i)-minTemp)/(maxTemp-minTemp), maxHeight, 1, 14, 0);
 		// horizontal lines
-		lcdHLine2(0, 399, maxHeight-(maxHeight-minHeight)*(maxTemp-minTemp)/(maxTemp-minTemp), 1, 2);
-		lcdHLine2(0, 399, maxHeight-(maxHeight-minHeight)*(minTemp-minTemp)/(maxTemp-minTemp), 1, 2);
-		lcdHLine2(0, 399, maxHeight-(maxHeight-minHeight)*(300-minTemp)/(maxTemp-minTemp), 1, 2);
+		lcdHLine2(minX, maxX, maxHeight-(maxHeight-minHeight)*(maxTemp-minTemp)/(maxTemp-minTemp), 1, 2);
+		lcdHLine2(minX, maxX, maxHeight-(maxHeight-minHeight)*(minTemp-minTemp)/(maxTemp-minTemp), 1, 2);
+//		lcdHLine2(0, 399, maxHeight-(maxHeight-minHeight)*(300-minTemp)/(maxTemp-minTemp), 1, 2);
 	}
+	sprintf(&str4, "%0.1f", ((float)maxTemp)/10);
+	lcdPutStr(0, minHeight-6, str4, smallestFont);
+	sprintf(&str4, "%0.1f", ((float)minTemp)/10);
+	lcdPutStr(0, maxHeight-6, str4, smallestFont);
+	sprintf(&str4, "%0.1f", ((float)maxBaro)/10);
+	lcdPutStr(350, minHeight-6, str4, smallestFont);
+	sprintf(&str4, "%0.1f", ((float)minBaro)/10);
+	lcdPutStr(350, maxHeight-6, str4, smallestFont);
 //	lcdVLine(baroRing.tail, minHeight, maxHeight, 1);
 }
 
