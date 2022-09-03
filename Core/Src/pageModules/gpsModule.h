@@ -11,9 +11,6 @@
 #include "buttons.h"
 #include "gui.h"
 
-//extern gpsDevice_t gpsDev;
-
-
 void readGps(void);
 static void setDefaultClbcks(void);
 

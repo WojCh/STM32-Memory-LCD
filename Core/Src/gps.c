@@ -8,17 +8,17 @@
 //};
 
 //const uint8_t gpsCmds[] = {"GNGSA", "GNGLL", "GNGGA", "GPTXT", "GNZDA", "GNVTG", "GNRMC", "GPGSV", "BDGSV"};
-char gpsBuffer[600] = {0};
+char gpsBuffer[GPS_BUFFER_SIZE] = {0};
 
 void getDataFromUart(gpsDevice_t* gps){
-	  HAL_UART_Receive(&huart6, &gps->buffer, 600, 1000);
+	  HAL_UART_Receive(&huart6, &gps->buffer, GPS_BUFFER_SIZE, 1000);
 //	  HAL_UART_Receive(&huart6, &gpsModule.buffer, 600, 1000);
 }
 
 gpsDevice_t initGps(UART_HandleTypeDef* uartPort){
 	gpsDevice_t gpsModule;
 	gpsModule.uartPort = uartPort;
-	strncpy(&gpsModule.buffer, 0, 600);
+	strncpy(&gpsModule.buffer, 0, GPS_BUFFER_SIZE);
 	gpsModule.getData = &getDataFromUart;
 	return(gpsModule);
 }
@@ -96,8 +96,8 @@ int hexCharToInt(char* value){
 void readSentence(char* buffer, gpsSentence* sentence){
 
 //	char code[] = "BDGSV";
-	char code[] = "GNZDA";
-//	char code[] = "GPGSV";
+//	char code[] = "GNZDA";
+	char code[] = "GPGSV";
 //	char code[] = "GNGSA";
 //	char code[] = "GPTXT";
 //	char code[] = "GNGGA";

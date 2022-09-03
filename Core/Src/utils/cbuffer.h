@@ -15,6 +15,8 @@ typedef struct cbuffer {
 	size_t elemSize;
 } cbuf_t;
 
+
+
 // initialize buffer, element size, element num
 void cbuf_init(cbuf_t* b, size_t elementSize, uint16_t elemNum);
 // delete buffer

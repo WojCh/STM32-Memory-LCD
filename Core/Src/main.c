@@ -114,6 +114,7 @@ int main(void)
   MX_I2C1_Init();
   MX_TIM11_Init();
   MX_RTC_Init();
+  MX_TIM13_Init();
   /* USER CODE BEGIN 2 */
 //  HAL_UART_Receive_IT(&huart6, &znak, 1);
 
@@ -123,6 +124,8 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   // Initialize Timer 10 - generating LCD refresh Interrupt
   HAL_TIM_Base_Start_IT(&htim10);
+  HAL_TIM_Base_Start_IT(&htim11);
+  HAL_TIM_Base_Start_IT(&htim13);
 
   gpsDev = initGps(&huart6);
 
@@ -132,9 +135,9 @@ int main(void)
 
   initButtons(btnsPtrs);
 
-  initTimer();
+//  initTimer();
 //  setTimeout(1);
-  startClock();
+//  startClock();
 
 //  init_ring_buffer(&baroRing, 399);
   init_ring_buffer(&tempRing, 399);
@@ -152,10 +155,10 @@ int main(void)
 		// option to be moved into ring buffer lib - overwriting values
 //		if(baroRing.num_entries>=baroRing.size)remove_ring_buffer(&baroRing);
 //		add_ring_buffer(&baroRing, (int)bmpData.temperature);
-		add_ovw_ring_buffer(&tempRing, (int)(10*bmpData.temperature));
+//		add_ovw_ring_buffer(&tempRing, (int)(10*bmpData.temperature));
 //		add_ovw_ring_buffer(&baroRing, (int)(bmpData.pressure/10));
-		uint16_t aaa = (uint16_t)(bmpData.pressure/10);
-		cbuf_ovw(&baroRing, &aaa);
+//		uint16_t aaa = (uint16_t)(bmpData.pressure/10);
+//		cbuf_ovw(&baroRing, &aaa);
 		HAL_RTC_GetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN);
 //		gpsDev.getData(&gpsDev);
@@ -225,12 +228,20 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	// APB2 168MHz -> after PSCL 100Hz
 	if(htim->Instance == TIM10){
 		if(stwS.state){
-			HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
 			stwTick();
 		}
 	}
+	// APB2 168MHz -> after PSCL 20Hz
 	if(htim->Instance == TIM11){
 		scanButtons(btnsPtrs);
+	}
+	// APB1 84MHz -> after PSCL 1Hz
+	if(htim->Instance == TIM13){
+		HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
+		add_ovw_ring_buffer(&tempRing, (int)(10*bmpData.temperature));
+		uint16_t aaa = (uint16_t)(bmpData.pressure/10);
+		cbuf_ovw(&baroRing, &aaa);
+
 	}
 }
 

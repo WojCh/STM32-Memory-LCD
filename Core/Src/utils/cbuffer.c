@@ -23,6 +23,7 @@ void cbuf_init(cbuf_t* b, size_t elemSize, uint16_t maxSize){
 	b->head = 0;
 	b->tail = 0;
 }
+
 // delete buffer
 void cbuf_del(cbuf_t* b){
 	free(b->elements);
@@ -41,7 +42,6 @@ uint8_t cbuf_isFull(cbuf_t* b){
 // add element
 uint8_t cbuf_append(cbuf_t* b, void* element){
 	if(cbuf_isFull(b)) return 0;
-//	b->elements[b->tail] = *element;
 	memcpy(b->elements+b->tail*b->elemSize, element, b->elemSize);
 	b->elemNum++;
 	b->tail = (b->tail + 1) % b->maxSize;
