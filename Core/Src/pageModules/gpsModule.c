@@ -11,10 +11,10 @@
 //#include <fonts/font_calibri13.h>
 
 extern gpsDevice_t gpsDev;
-
-
+extern char dmaBuffer[];
 void readGps(void){
-	gpsDev.getData(&gpsDev);
+//	gpsDev.getData(&gpsDev);
+
 }
 
 static void setDefaultClbcks(void){
@@ -30,13 +30,23 @@ void gpsSetup(void){
 }
 
 void gpsMain(void){
-	char tempStr[30] = {0};
+	char tempStr[51] = {0};
 	sprintf(&tempStr, "GPS will be shown");
 	lcdPutStr(0, 0, tempStr, font_13_calibri);
-
-//	lcdPutStr(0,30, &gpsDev.buffer, smallestFont);
+//	for(uint8_t i=0; i<6; i++){
+//		strncpy(&tempStr, &dmaBuffer[50*i], 50);
+////		strncpy(&tempStr, &(gpsDev.buffer[50*i]), 50);
+//		lcdPutStr(0,25+14*i, tempStr, smallestFont);
+//	}
+	for(uint8_t i=0; i<6; i++){
+//		strncpy(&tempStr, &dmaBuffer[50*i], 50);
+		strncpy(&tempStr, &gpsDev.buffer[50*i], 50);
+		lcdPutStr(0,120+14*i, tempStr, smallestFont);
+	}
 //	gpsSentence gpsData;
-//	readSentence(&gpsDev.buffer, &gpsData);
+//	readSentence(&dmaBuffer, &gpsData);
+//	sprintf(&tempStr, "%d", gpsData.isValid);
+//	lcdPutStr(300,0, tempStr, font_13_calibri);
 //	sprintf(&tempStr, "%s", gpsData.words[0]);
 //	lcdPutStr(0,30, tempStr, font_13_calibri);
 //	sprintf(&tempStr, "%s", gpsData.words[1]);

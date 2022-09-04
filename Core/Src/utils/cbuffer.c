@@ -22,6 +22,7 @@ void cbuf_init(cbuf_t* b, size_t elemSize, uint16_t maxSize){
 	b->elemNum = 0;
 	b->head = 0;
 	b->tail = 0;
+	b->isReady = 1;
 }
 
 // delete buffer

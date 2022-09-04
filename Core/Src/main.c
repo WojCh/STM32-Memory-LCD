@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma.h"
 #include "i2c.h"
 #include "rtc.h"
 #include "spi.h"
@@ -32,6 +33,7 @@
 #include "bmp180.h"
 #include "buttons.h"
 #include "gui.h"
+#include "fonts/fonts.h"
 
 
 /* USER CODE END Includes */
@@ -61,6 +63,7 @@
 	cbuf_t baroRing;
 	RingBuffer_t tempRing;
 	gpsDevice_t gpsDev;
+//	char dmaBuffer[GPS_BUFFER_SIZE];
 
 /* USER CODE END PV */
 
@@ -106,6 +109,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USART3_UART_Init();
   MX_SPI1_Init();
   MX_TIM1_Init();
@@ -116,32 +120,26 @@ int main(void)
   MX_RTC_Init();
   MX_TIM13_Init();
   /* USER CODE BEGIN 2 */
-//  HAL_UART_Receive_IT(&huart6, &znak, 1);
-
   //  Initialize VCOMIN pulse on CH1 (PIN PE9) for Sharp Memory LCD
   HAL_TIM_Base_Init(&htim1);
   HAL_TIM_Base_Start_IT(&htim1);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   // Initialize Timer 10 - generating LCD refresh Interrupt
   HAL_TIM_Base_Start_IT(&htim10);
+
+  // TIMER 11 - 20Hz button scanner
   HAL_TIM_Base_Start_IT(&htim11);
-  HAL_TIM_Base_Start_IT(&htim13);
-
-  gpsDev = initGps(&huart6);
-
-//  bmp_t bmp180module;
-  // bmp180module defined inside of c file
-  bmp_init(&bmp180module);
-
   initButtons(btnsPtrs);
 
-//  initTimer();
-//  setTimeout(1);
-//  startClock();
-
+  // TIMER 13 - 1Hz sensors logger
+  HAL_TIM_Base_Start_IT(&htim13);
+  gpsDev = initGps(&huart6);
+  // bmp180module defined inside of c file
+  bmp_init(&bmp180module);
 //  init_ring_buffer(&baroRing, 399);
   init_ring_buffer(&tempRing, 399);
   cbuf_init(&baroRing, sizeof(uint16_t), 399);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -152,18 +150,9 @@ int main(void)
   {
 	  // functions executed along with the menu
 		bmpData = getBmpData(&bmp180module);
-		// option to be moved into ring buffer lib - overwriting values
-//		if(baroRing.num_entries>=baroRing.size)remove_ring_buffer(&baroRing);
-//		add_ring_buffer(&baroRing, (int)bmpData.temperature);
-//		add_ovw_ring_buffer(&tempRing, (int)(10*bmpData.temperature));
-//		add_ovw_ring_buffer(&baroRing, (int)(bmpData.pressure/10));
-//		uint16_t aaa = (uint16_t)(bmpData.pressure/10);
-//		cbuf_ovw(&baroRing, &aaa);
 		HAL_RTC_GetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN);
-//		gpsDev.getData(&gpsDev);
 	  lcdClearBuffer();
-
 	  // functions executed through GUI
 	  showGui();
 
@@ -237,16 +226,22 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	}
 	// APB1 84MHz -> after PSCL 1Hz
 	if(htim->Instance == TIM13){
+//		HAL_UART_Receive_DMA(&huart6, &dmaBuffer, GPS_BUFFER_SIZE);
+		if(gpsDev.isReady != 0) gpsDev.getData(&gpsDev);
+
+
 		HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
-		add_ovw_ring_buffer(&tempRing, (int)(10*bmpData.temperature));
+		if(tempRing.isReady) add_ovw_ring_buffer(&tempRing, (int)(10*bmpData.temperature));
 		uint16_t aaa = (uint16_t)(bmpData.pressure/10);
-		cbuf_ovw(&baroRing, &aaa);
+		if(baroRing.isReady) cbuf_ovw(&baroRing, &aaa);
 
 	}
 }
 
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 	if(huart->Instance == USART6){
+		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 
 	}
 }

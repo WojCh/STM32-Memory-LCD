@@ -17,6 +17,7 @@
 typedef struct ringBuffer {
 		int* values;
 		uint16_t head, tail, num_entries, size;
+		uint8_t isReady;
 } RingBuffer_t;
 
 void init_ring_buffer(RingBuffer_t* b, uint16_t maxSize);

@@ -13,6 +13,7 @@ typedef struct cbuffer {
 	void* elements;
 	uint16_t head, tail, elemNum, maxSize;
 	size_t elemSize;
+	uint8_t isReady;
 } cbuf_t;
 
 

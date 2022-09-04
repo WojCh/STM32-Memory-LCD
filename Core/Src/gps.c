@@ -11,8 +11,10 @@
 char gpsBuffer[GPS_BUFFER_SIZE] = {0};
 
 void getDataFromUart(gpsDevice_t* gps){
-	  HAL_UART_Receive(&huart6, &gps->buffer, GPS_BUFFER_SIZE, 1000);
-//	  HAL_UART_Receive(&huart6, &gpsModule.buffer, 600, 1000);
+//	  HAL_UART_Receive(&huart6, &gps->buffer, GPS_BUFFER_SIZE, 1000);
+////	  HAL_UART_Receive(&huart6, &gpsModule.buffer, 600, 1000);
+	HAL_UART_Receive_DMA(&huart6, &gps->buffer, GPS_BUFFER_SIZE);
+
 }
 
 gpsDevice_t initGps(UART_HandleTypeDef* uartPort){
@@ -20,6 +22,7 @@ gpsDevice_t initGps(UART_HandleTypeDef* uartPort){
 	gpsModule.uartPort = uartPort;
 	strncpy(&gpsModule.buffer, 0, GPS_BUFFER_SIZE);
 	gpsModule.getData = &getDataFromUart;
+	gpsModule.isReady = 1;
 	return(gpsModule);
 }
 
@@ -97,10 +100,10 @@ void readSentence(char* buffer, gpsSentence* sentence){
 
 //	char code[] = "BDGSV";
 //	char code[] = "GNZDA";
-	char code[] = "GPGSV";
+//	char code[] = "GPGSV";
 //	char code[] = "GNGSA";
 //	char code[] = "GPTXT";
-//	char code[] = "GNGGA";
+	char code[] = "GNGGA";
 	char term[] = ",";
 
 	char* pos = strstr(buffer, code);
@@ -133,7 +136,7 @@ void readSentence(char* buffer, gpsSentence* sentence){
 		char* chkPos = strchr(pos, '*')+1;
 		char readChkSum = hexCharToInt(chkPos);
 		if(readChkSum == chksum){
-			sentence->valid = '+';
+			sentence->isValid = 1;
 			int wordLen = 0;
 			char* position = myStr;
 			int i = 0;
@@ -146,7 +149,7 @@ void readSentence(char* buffer, gpsSentence* sentence){
 			sentence->wordNum = i-1;
 			strncpy(&sentence->msgId, sentence->words[0], 5);
 		} else {
-			sentence->valid = 'x';
+			sentence->isValid = 0;
 		}
 	}
 }

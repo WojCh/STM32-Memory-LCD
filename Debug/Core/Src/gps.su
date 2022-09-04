@@ -1,6 +1,6 @@
 ../Core/Src/gps.c:13:6:getDataFromUart	16	static
-../Core/Src/gps.c:18:13:initGps	624	static
-../Core/Src/gps.c:26:6:test	168	static
-../Core/Src/gps.c:78:5:hexCharToInt	32	static
-../Core/Src/gps.c:96:6:readSentence	152	static
-../Core/Src/gps.c:154:6:test3	160	static
+../Core/Src/gps.c:20:13:initGps	328	static
+../Core/Src/gps.c:29:6:test	168	static
+../Core/Src/gps.c:81:5:hexCharToInt	32	static
+../Core/Src/gps.c:99:6:readSentence	152	static
+../Core/Src/gps.c:157:6:test3	160	static

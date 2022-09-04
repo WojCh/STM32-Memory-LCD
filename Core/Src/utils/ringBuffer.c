@@ -15,6 +15,7 @@ void init_ring_buffer(RingBuffer_t* b, uint16_t maxSize){
 	b->num_entries = 0;
 	b->head = 0;
 	b->tail = 0;
+	b->isReady = 1;
 }
 
 uint8_t ring_buffer_empty(RingBuffer_t* b){
