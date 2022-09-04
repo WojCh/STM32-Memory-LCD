@@ -1,4 +1,4 @@
 ../Core/Src/pageModules/gpsModule.c:15:6:readGps	4	static
 ../Core/Src/pageModules/gpsModule.c:20:13:setDefaultClbcks	4	static
 ../Core/Src/pageModules/gpsModule.c:27:6:gpsSetup	8	static
-../Core/Src/pageModules/gpsModule.c:32:6:gpsMain	64	static
+../Core/Src/pageModules/gpsModule.c:32:6:gpsMain	296	static

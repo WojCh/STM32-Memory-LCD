@@ -52,7 +52,7 @@ Core/Src/pageModules/gpsModule.o: ../Core/Src/pageModules/gpsModule.c \
  ../Core/Inc/fonts/font_zekton12.h ../Core/Inc/fonts/font_zekton12bold.h \
  ../Core/Inc/fonts/minimalFont.h ../Core/Inc/fonts/ocrFont.h \
  ../Core/Inc/fonts/zekton24.h ../Core/Inc/fonts/zekton45.h \
- ../Core/Inc/fonts/zekton84.h
+ ../Core/Inc/fonts/zekton84.h ../Core/Inc/gps2.h
 ../Core/Src/pageModules/gpsModule.h:
 ../Core/Inc/buttons.h:
 ../Core/Inc/gpio.h:
@@ -124,3 +124,4 @@ Core/Src/pageModules/gpsModule.o: ../Core/Src/pageModules/gpsModule.c \
 ../Core/Inc/fonts/zekton24.h:
 ../Core/Inc/fonts/zekton45.h:
 ../Core/Inc/fonts/zekton84.h:
+../Core/Inc/gps2.h:

@@ -1,1 +1,3 @@
-../Core/Src/gps2.c:10:12:getLocation	40	static
+../Core/Src/gps2.c:14:7:strtoke	24	static
+../Core/Src/gps2.c:46:6:getAllMessages	16	static
+../Core/Src/gps2.c:51:12:getLocation	440	static

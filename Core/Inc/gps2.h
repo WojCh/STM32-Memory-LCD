@@ -34,13 +34,11 @@ typedef enum nmeaSentenceType{
 	GPTXT,
 }nmea_t;
 
-typedef struct nmeaInfo_t{
-//	gpsSentence gngga
-
-}nmeaInfo_t;
 
 typedef struct location_t{
 	double latitude, longitude, elevation;
+	char debug[86];
+	uint8_t chk;
 } location_t;
 
 typedef struct course_t{

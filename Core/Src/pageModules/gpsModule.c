@@ -7,7 +7,7 @@
 
 #include "gpsModule.h"
 #include "fonts/fonts.h"
-
+#include "gps2.h"
 //#include <fonts/font_calibri13.h>
 
 extern gpsDevice_t gpsDev;
@@ -32,7 +32,18 @@ void gpsSetup(void){
 void gpsMain(void){
 	char tempStr[51] = {0};
 	sprintf(&tempStr, "GPS will be shown");
+
 	lcdPutStr(0, 0, tempStr, font_13_calibri);
+//	location_t loc = getLocation(&gpsDev);
+//	double lat = 17.8;
+//	sprintf(&tempStr, "lat: %f", getLocation(&gpsDev).latitude);
+//	sprintf(&tempStr, "lat: %f", lat);
+//	lcdPutStr(0, 220, tempStr, font_13_calibri);
+	lcdPutStr(0, 25, getLocation(&gpsDev).debug, smallestFont);
+
+	sprintf(&tempStr, "%x", getLocation(&gpsDev).chk);
+	lcdPutStr(0, 50, tempStr, smallestFont);
+
 //	for(uint8_t i=0; i<6; i++){
 //		strncpy(&tempStr, &dmaBuffer[50*i], 50);
 ////		strncpy(&tempStr, &(gpsDev.buffer[50*i]), 50);
@@ -43,6 +54,7 @@ void gpsMain(void){
 		strncpy(&tempStr, &gpsDev.buffer[50*i], 50);
 		lcdPutStr(0,120+14*i, tempStr, smallestFont);
 	}
+
 //	gpsSentence gpsData;
 //	readSentence(&dmaBuffer, &gpsData);
 //	sprintf(&tempStr, "%d", gpsData.isValid);
