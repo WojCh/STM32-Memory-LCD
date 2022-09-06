@@ -1,7 +1,7 @@
 #ifndef INC_GPS_H_
 #define INC_GPS_H_
 
-#define GPS_BUFFER_SIZE 300
+#define GPS_BUFFER_SIZE 500
 
 typedef struct gpsDevice gpsDevice_t;
 

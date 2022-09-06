@@ -1,3 +1,6 @@
 ../Core/Src/gps2.c:14:7:strtoke	24	static
-../Core/Src/gps2.c:46:6:getAllMessages	16	static
-../Core/Src/gps2.c:51:12:getLocation	440	static
+../Core/Src/gps2.c:32:9:validateChecksum	24	static
+../Core/Src/gps2.c:45:6:getAllMessages	16	static
+../Core/Src/gps2.c:48:9:getMessage	32	static
+../Core/Src/gps2.c:65:21:tokenizeSentence	192	static
+../Core/Src/gps2.c:80:12:getLocation	1128	static

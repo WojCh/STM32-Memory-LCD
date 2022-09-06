@@ -8,6 +8,8 @@
 #ifndef INC_GPS2_H_
 #define INC_GPS2_H_
 
+#define NMEA_MAX_SENTENCE_LENGTH 82
+
 //temporary include - before local, improved implementation of gpsSentence parsing
 #include "gps.h"
 
@@ -21,24 +23,30 @@
 //GNVTG - Track made good and ground speed
 //GNZDA - Time and Date
 //GPTXT - Device message
-static const char gpsCmds[][6] = {"GNGSA", "GNGLL", "GNGGA", "GPTXT", "GNZDA", "GNVTG", "GNRMC", "GPGSV", "BDGSV"};
+#define NMEA_MSG_TYPE_NUM 9
+static const char gpsCmd[NMEA_MSG_TYPE_NUM][6] = {"GNGGA", "GNGLL", "GNGSA", "GPGSV", "BDGSV", "GNRMC", "GNVTG", "GNZDA", "GPTXT"};
 typedef enum nmeaSentenceType{
-	GNGGA,
-	GNGLL,
-	GNGSA,
-	GPGSV,
-	BDGSV,
-	GNRMC,
-	GNVTG,
-	GNZDA,
-	GPTXT,
-}nmea_t;
+	NMEA_GNGGA,
+	NMEA_GNGLL,
+	NMEA_GNGSA,
+	NMEA_GPGSV,
+	NMEA_BDGSV,
+	NMEA_GNRMC,
+	NMEA_GNVTG,
+	NMEA_GNZDA,
+	NMEA_GPTXT,
+}nmeaSentence_t;
 
 
 typedef struct location_t{
-	double latitude, longitude, elevation;
 	char debug[86];
-	uint8_t chk;
+	char words[15][15];
+	uint8_t isValid;
+	uint8_t utc_hour, utc_min, utc_sec;
+	uint8_t hasFix;
+	double latitude, longitude, elevation;
+
+
 } location_t;
 
 typedef struct course_t{

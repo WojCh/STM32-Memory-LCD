@@ -40,47 +40,26 @@ void gpsMain(void){
 //	sprintf(&tempStr, "lat: %f", lat);
 //	lcdPutStr(0, 220, tempStr, font_13_calibri);
 	lcdPutStr(0, 25, getLocation(&gpsDev).debug, smallestFont);
+	lcdPutStr(0, 40, getLocation(&gpsDev).words[0], smallestFont);
+	lcdPutStr(0, 55, getLocation(&gpsDev).words[1], smallestFont);
+	lcdPutStr(0, 70, getLocation(&gpsDev).words[2], smallestFont);
+	lcdPutStr(0, 85, getLocation(&gpsDev).words[3], smallestFont);
+	lcdPutStr(0, 100, getLocation(&gpsDev).words[4], smallestFont);
+	lcdPutStr(100, 25, getLocation(&gpsDev).words[5], smallestFont);
+	lcdPutStr(100, 40, getLocation(&gpsDev).words[6], smallestFont);
+	lcdPutStr(100, 55, getLocation(&gpsDev).words[7], smallestFont);
+	lcdPutStr(100, 70, getLocation(&gpsDev).words[8], smallestFont);
+	lcdPutStr(100, 85, getLocation(&gpsDev).words[9], smallestFont);
+	lcdPutStr(100, 100, getLocation(&gpsDev).words[10], smallestFont);
+	lcdPutStr(200, 25, getLocation(&gpsDev).words[11], smallestFont);
+	lcdPutStr(200, 40, getLocation(&gpsDev).words[12], smallestFont);
 
-	sprintf(&tempStr, "%x", getLocation(&gpsDev).chk);
-	lcdPutStr(0, 50, tempStr, smallestFont);
 
-//	for(uint8_t i=0; i<6; i++){
-//		strncpy(&tempStr, &dmaBuffer[50*i], 50);
-////		strncpy(&tempStr, &(gpsDev.buffer[50*i]), 50);
-//		lcdPutStr(0,25+14*i, tempStr, smallestFont);
-//	}
+
+
+	// show gpsDev buffer in many lines
 	for(uint8_t i=0; i<6; i++){
-//		strncpy(&tempStr, &dmaBuffer[50*i], 50);
 		strncpy(&tempStr, &gpsDev.buffer[50*i], 50);
 		lcdPutStr(0,120+14*i, tempStr, smallestFont);
 	}
-
-//	gpsSentence gpsData;
-//	readSentence(&dmaBuffer, &gpsData);
-//	sprintf(&tempStr, "%d", gpsData.isValid);
-//	lcdPutStr(300,0, tempStr, font_13_calibri);
-//	sprintf(&tempStr, "%s", gpsData.words[0]);
-//	lcdPutStr(0,30, tempStr, font_13_calibri);
-//	sprintf(&tempStr, "%s", gpsData.words[1]);
-//	lcdPutStr(0,50, tempStr, font_13_calibri);
-//	sprintf(&tempStr, "%s", gpsData.words[2]);
-//	lcdPutStr(0,70, tempStr, font_13_calibri);
-//	sprintf(&tempStr, "%s", gpsData.words[3]);
-//	lcdPutStr(0,90, tempStr, font_13_calibri);
-//	sprintf(&tempStr, "%s", gpsData.words[4]);
-//	lcdPutStr(0,110, tempStr, font_13_calibri);
-//	sprintf(&tempStr, "%s", gpsData.words[5]);
-//	lcdPutStr(0,130, tempStr, font_13_calibri);
-//	sprintf(&tempStr, "%s", gpsData.words[6]);
-//	lcdPutStr(0,150, tempStr, font_13_calibri);
-//	sprintf(&tempStr, "%s", gpsData.words[7]);
-//	lcdPutStr(0,170, tempStr, font_13_calibri);
-//	sprintf(&tempStr, "%s", gpsData.words[8]);
-//	lcdPutStr(0,190, tempStr, font_13_calibri);
-//	sprintf(&tempStr, "%s", gpsData.words[9]);
-//	lcdPutStr(0,210, tempStr, font_13_calibri);
-//	sprintf(&tempStr, "%s", gpsDev.buffer);
-
-
-
 }
