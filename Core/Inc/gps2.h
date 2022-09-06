@@ -44,7 +44,9 @@ typedef struct location_t{
 	uint8_t isValid;
 	uint8_t utc_hour, utc_min, utc_sec;
 	uint8_t hasFix;
+	uint8_t satNum;
 	double latitude, longitude, elevation;
+	char n_s, w_e;
 
 
 } location_t;
