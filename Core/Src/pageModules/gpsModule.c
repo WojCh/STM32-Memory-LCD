@@ -58,7 +58,7 @@ void gpsMain(void){
 			lcdPutStr(0, 0, tempStr, ocrFont);
 			sprintf(&tempStr, "Latitude: %2.3f%c", location.latitude, location.n_s);
 			lcdPutStr(0, 60, tempStr, ocrFont);
-			sprintf(&tempStr, "Longitude: %3.3f%c", location.latitude, location.w_e);
+			sprintf(&tempStr, "Longitude: %.3f%c", location.longitude, location.w_e);
 			lcdPutStr(0, 90, tempStr, ocrFont);
 			sprintf(&tempStr, "Altitude: %f", location.elevation);
 			lcdPutStr(0, 120, tempStr, ocrFont);
@@ -66,7 +66,7 @@ void gpsMain(void){
 			sprintf(&tempStr, "No fix - %d satellites", location.satNum);
 			lcdPutStr(0, 0, tempStr, ocrFont);
 		}
-			sprintf(&tempStr, "UTC time: %d:%d %02d", location.utc_hour, location.utc_min, location.utc_sec);
+			sprintf(&tempStr, "UTC time: %02d:%02d %02d", location.utc_hour, location.utc_min, location.utc_sec);
 			lcdPutStr(0, 30, tempStr, ocrFont);
 		break;
 	}

@@ -6,6 +6,7 @@
  */
 
 /* strtoke example */
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -128,7 +129,8 @@ location_t getLocation(struct gpsDevice* dev){
 	parsePointer = strtoke(NULL, ",");
 	strcpy(&position.words[6][0], parsePointer);
 	if(*parsePointer=='0'){
-		position.hasFix = 0;
+		position.hasFix = 1;
+//		position.hasFix = 0;
 	} else {
 		position.hasFix = 1;
 	}
@@ -142,7 +144,7 @@ location_t getLocation(struct gpsDevice* dev){
 	// Altitude above mean sea level
 	parsePointer = strtoke(NULL, ",");
 	strcpy(&position.words[9][0], parsePointer);
-	position.altitude = atof(parsePointer);
+	position.elevation = atof(parsePointer);
 	// Altitude units
 	parsePointer = strtoke(NULL, ",");
 	strcpy(&position.words[10][0], parsePointer);
