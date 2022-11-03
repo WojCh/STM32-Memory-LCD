@@ -5,5 +5,5 @@
 ../Core/Src/pageModules/submodules/dateInputScreen.c:65:13:cursorPrev	4	static
 ../Core/Src/pageModules/submodules/dateInputScreen.c:69:13:increment	4	static
 ../Core/Src/pageModules/submodules/dateInputScreen.c:85:13:decrement	4	static
-../Core/Src/pageModules/submodules/dateInputScreen.c:101:13:exit	8	static
+../Core/Src/pageModules/submodules/dateInputScreen.c:101:13:exitScr	8	static
 ../Core/Src/pageModules/submodules/dateInputScreen.c:104:13:accept	8	static

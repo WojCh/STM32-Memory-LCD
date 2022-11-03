@@ -47,7 +47,6 @@ void saveStopwatch(){
 }
 
 static void setDefaultClbcks(void){
-//	btn_B3.onSingleLongPressHandler = &returnToMenu;
 	btn_B3.onSinglePressHandler = &resetPos;
 	btn_BA.onSinglePressHandler = &nextScreen;
 	btn_BC.onSinglePressHandler = &prevScreen;
@@ -61,6 +60,7 @@ static void setDefaultClbcks(void){
 	}
 }
 
+// initialize stopwatch values
 struct stopwatch_t stw_val = {0, 0, 0, 0};
 
 struct stopwatch_t convertTicks(uint32_t ticks){
@@ -78,10 +78,14 @@ uint8_t* stwString(struct stopwatch_t stw, char* str){
 	return str;
 }
 void updateStopwatch(void){
-	stw_val.hours = stwS.cnt/(100*60*60);
-	stw_val.min = stwS.cnt%(100*60*60)/(60*100);
-	stw_val.sec = stwS.cnt%(60*100)/(100);
-	stw_val.csec = stwS.cnt%100;
+//	stw_val.hours = stwS.cnt/(100*60*60);
+//	stw_val.min = stwS.cnt%(100*60*60)/(60*100);
+//	stw_val.sec = stwS.cnt%(60*100)/(100);
+//	stw_val.csec = stwS.cnt%100;
+	stw_val.hours = stwS.cnt/(60*60);
+	stw_val.min = stwS.cnt%(60*60)/(60);
+	stw_val.sec = stwS.cnt%60;
+	stw_val.csec = (uint8_t)getStw();
 }
 
 void stwSetup(void){
@@ -96,6 +100,14 @@ void stwMain(void){
 	lcdPutStr(400 - 10 - (*zekton24font.font_Width) * strlen(guiPos), 10, guiPos, zekton24font);
 
 	updateStopwatch();
+
+	char tempStr3[30] = {0};
+	sprintf(&tempStr3, "%d", (uint16_t)getStw());
+	lcdPutStr(0, 0, tempStr3, font_12_zekton);
+	char tempStr4[30] = {0};
+	sprintf(&tempStr4, "%d", stwS.cnt);
+	lcdPutStr(0, 20, tempStr4, font_12_zekton);
+
 	char tempStr2[30] = {0};
 	if(stw_val.hours != 0){
 		sprintf(&tempStr2, "%01dh", stw_val.hours);
@@ -119,9 +131,4 @@ void stwMain(void){
 			lcdPutStr(225, 130+i*16, stwString(convertTicks(stwT.stwArray[i]), &tempStr2), font_12_zekton);
 		}
 	}
-
-//	sprintf(&tempStr2, "%d", stwS.cnt);
-//	lcdPutStr(0, 130, tempStr2, zecton45font);
-//	sprintf(&tempStr2, "%d", stwS.state);
-//	lcdPutStr(0, 184, tempStr2, zecton45font);
 }

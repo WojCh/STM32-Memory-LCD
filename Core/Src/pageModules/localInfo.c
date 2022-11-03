@@ -82,19 +82,34 @@ void localMain(void){
 	uint8_t hhour = testTime.tm_hour;
 	uint8_t mmin = testTime.tm_min;
 	uint8_t ssec = testTime.tm_sec;
-	int timezone = 2;		// [h] east+ west-
+//	int GLOBAL_timezone = 2;		// [h] east+ west-
 	int dayOfTheYear = testTime.tm_yday+1;
 	// fractional year = gamma [rad]
-	float fyear = (2*M_PI/365)*(dayOfTheYear-1+(hhour-timezone-12)/24);
+	float fyear = (2*M_PI/365)*(dayOfTheYear-1+(hhour-GLOBAL_timezone-12)/24);
 	// equation of time [min]
 	float eqtime = 229.18*(0.000075+0.001868*cos(fyear)-0.032077*sin(fyear)-0.014615*cos(2*fyear)-0.040849*sin(2*fyear));
 	// solar declination angle [rad]
 	float decl = 0.006918-0.399912*cos(fyear)+0.070257*sin(fyear)-0.006758*cos(2*fyear)+0.000907*sin(2*fyear)-0.002697*cos(3*fyear)+0.00148*sin(3*fyear);
 
+	double longitude; 	// [deg]
+	double latitude;	// [deg]
+	if(location.hasFix){
+		longitude = (double)location.longitudeDeg+location.longitudeMin/60; 	// [deg]
+		latitude = (double)location.latitudeDeg+location.latitudeMin/60;	// [deg]
+		if(location.n_s == 'S') longitude = longitude*(-1);
+		if(location.w_e == 'W') latitude = latitude*(-1);
+	} else {
+		longitude = 17; 	// [deg]
+		latitude = 51;	// [deg]
+		if(longitude>=0) location.n_s = 'N';
+		if(latitude>=0) location.w_e = 'E';
+	}
+	sprintf(&textBuffer, "%c %.3f ", location.n_s, latitude);
+	lcdPutStr(170, 34, textBuffer, smallestFont);
+	sprintf(&textBuffer, "%c %.3f", location.w_e, longitude);
+	lcdPutStr(170, 46, textBuffer, smallestFont);
 
-	double longitude = 17; 	// [deg]
-	double latitude = 51;	// [deg]
-	float time_off = eqtime+4*longitude-60*timezone; // time offset [min]
+	float time_off = eqtime+4*longitude-60*GLOBAL_timezone; // time offset [min]
 	float tst = hhour*60+mmin+(float)ssec/60+time_off; // true solar time [min]
 	// solar hour angle [deg]
 	float sha = (tst/4)-180;
@@ -112,9 +127,9 @@ void localMain(void){
 	float cha = acos(cos(zenith)/(cos(latitude*M_PI/180)*cos(decl))-tan(latitude*M_PI/180)*tan(decl));
 
 	//sunrise/sunset/noon times [min]
-	int sunrise = 720-4*(longitude+cha*180/M_PI)-eqtime+60*timezone;
-	int sunset = 720-4*(longitude-cha*180/M_PI)-eqtime+60*timezone;
-	int noon = 720-4*longitude-eqtime+60*timezone;
+	int sunrise = 720-4*(longitude+cha*180/M_PI)-eqtime+60*GLOBAL_timezone;
+	int sunset = 720-4*(longitude-cha*180/M_PI)-eqtime+60*GLOBAL_timezone;
+	int noon = 720-4*longitude-eqtime+60*GLOBAL_timezone;
 
 //	debugging values
 //	sprintf(&textBuffer, "g:%f et:%f decl:%f to:%0.2f", fyear, eqtime, decl, time_off);

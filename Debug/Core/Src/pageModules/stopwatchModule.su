@@ -5,6 +5,6 @@
 ../Core/Src/pageModules/stopwatchModule.c:49:13:setDefaultClbcks	4	static
 ../Core/Src/pageModules/stopwatchModule.c:66:20:convertTicks	24	static
 ../Core/Src/pageModules/stopwatchModule.c:76:10:stwString	24	static
-../Core/Src/pageModules/stopwatchModule.c:80:6:updateStopwatch	4	static
-../Core/Src/pageModules/stopwatchModule.c:87:6:stwSetup	8	static
-../Core/Src/pageModules/stopwatchModule.c:93:6:stwMain	80	static
+../Core/Src/pageModules/stopwatchModule.c:80:6:updateStopwatch	8	static
+../Core/Src/pageModules/stopwatchModule.c:91:6:stwSetup	8	static
+../Core/Src/pageModules/stopwatchModule.c:97:6:stwMain	144	static

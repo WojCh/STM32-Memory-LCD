@@ -20,7 +20,7 @@ static void cursorNext(void);
 static void cursorPrev(void);
 static void increment(void);
 static void decrement(void);
-static void exit(void);
+static void exitScr(void);
 static void accept(void);
 
 extern struct Module dateInputModule;

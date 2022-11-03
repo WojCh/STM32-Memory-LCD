@@ -169,6 +169,36 @@ void lcdPutStr(uint16_t x, uint8_t y, const char *chr, const Font_TypeDef *font)
 //		  HAL_Delay(1);
 		  }
 }
+// multiline
+void lcdPutStrML(uint16_t x, uint8_t y, const char *chr, const Font_TypeDef *font){
+//	uint8_t charNum = (SCR_W-x)/font->font_Width;
+//	for(uint8_t j = 0; j < (strlen(chr)/charNum); j++){
+//		for(uint8_t i = 0; i < charNum; i++){
+//			// version with y meaning lcd row
+//			  lcdPutChar(x+font->font_Width*i, y+j*font->font_Height, chr[i+j*charNum], font);
+//			  }
+//	}
+	// number of chars in line
+	uint8_t lineNum = (SCR_W-x)/font->font_Width;
+	uint8_t yPos = y;
+	uint16_t xPos = x;
+	for(uint16_t i = 0; i < strlen(chr); i++){
+		if(xPos > (SCR_W-font->font_Width)){
+			yPos += font->font_Height;
+			xPos = x;
+		}
+		if(chr[i] == 10){
+			xPos = x;
+			yPos += font->font_Height;
+//			i++;
+		} else {
+			lcdPutChar(xPos, yPos, chr[i], font);
+			xPos += font->font_Width;
+		}
+
+	}
+}
+
 void lcdVLine(uint16_t x, uint16_t y1, uint8_t y2, uint8_t mode){
 	uint8_t block = x/8;
 	uint8_t offset = x%8;

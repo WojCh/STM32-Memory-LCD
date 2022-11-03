@@ -2,4 +2,4 @@
 ../Core/Src/pageModules/localInfo.c:30:6:remDay	8	static
 ../Core/Src/pageModules/localInfo.c:36:13:setDefaultClbcks	4	static
 ../Core/Src/pageModules/localInfo.c:43:6:localSetup	8	static
-../Core/Src/pageModules/localInfo.c:58:6:localMain	296	static
+../Core/Src/pageModules/localInfo.c:58:6:localMain	312	static

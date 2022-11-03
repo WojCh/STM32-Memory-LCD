@@ -1,18 +1,18 @@
 #ifndef INC_GPS_H_
 #define INC_GPS_H_
 
-#define GPS_BUFFER_SIZE 500
+#define GPS_BUFFER_SIZE 600
 
 typedef struct gpsDevice gpsDevice_t;
 
 #include "usart.h"
 
-struct gpsDevice{
-	UART_HandleTypeDef* uartPort;
-	char buffer[GPS_BUFFER_SIZE];
-	void (*getData)(struct gpsDevice*);
-	uint8_t isReady;
-};
+//struct gpsDevice{
+//	UART_HandleTypeDef* uartPort;
+//	char buffer[GPS_BUFFER_SIZE];
+//	void (*getData)(struct gpsDevice*);
+//	uint8_t isReady;
+//};
 
 extern char gpsBuffer[];
 

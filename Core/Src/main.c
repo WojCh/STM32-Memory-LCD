@@ -18,9 +18,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "dma.h"
+#include "fatfs.h"
 #include "i2c.h"
 #include "rtc.h"
+#include "sdio.h"
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
@@ -34,6 +35,8 @@
 #include "buttons.h"
 #include "gui.h"
 #include "fonts/fonts.h"
+#include "fatfs.h"
+#include "File_Handling.h"
 
 
 /* USER CODE END Includes */
@@ -55,6 +58,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+	int GLOBAL_timezone = 2;		// [h] east+ west-
+	location_t location;
 
 	RTC_TimeTypeDef RtcTime;
 	RTC_DateTypeDef RtcDate;
@@ -64,6 +69,7 @@
 	RingBuffer_t tempRing;
 	gpsDevice_t gpsDev;
 //	char dmaBuffer[GPS_BUFFER_SIZE];
+
 
 /* USER CODE END PV */
 
@@ -109,23 +115,24 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
   MX_USART3_UART_Init();
   MX_SPI1_Init();
   MX_TIM1_Init();
   MX_TIM10_Init();
-  MX_USART6_UART_Init();
   MX_I2C1_Init();
   MX_TIM11_Init();
   MX_RTC_Init();
   MX_TIM13_Init();
+  MX_SDIO_SD_Init();
+  MX_FATFS_Init();
+  MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
   //  Initialize VCOMIN pulse on CH1 (PIN PE9) for Sharp Memory LCD
   HAL_TIM_Base_Init(&htim1);
   HAL_TIM_Base_Start_IT(&htim1);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   // Initialize Timer 10 - generating LCD refresh Interrupt
-  HAL_TIM_Base_Start_IT(&htim10);
+//  HAL_TIM_Base_Start_IT(&htim10);
 
   // TIMER 11 - 20Hz button scanner
   HAL_TIM_Base_Start_IT(&htim11);
@@ -140,6 +147,14 @@ int main(void)
   init_ring_buffer(&tempRing, 399);
   cbuf_init(&baroRing, sizeof(uint16_t), 399);
 
+	HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_SET);
+
+	printf("Hello");
+
+  	Mount_SD("/");
+  	Create_File("FILE1.TXT");
+  	Create_File("FILE2.TXT");
+  	Unmount_SD("/");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -214,13 +229,13 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	// APB2 168MHz -> after PSCL 100Hz
+	// APB2 168MHz -> after PSCL 1Hz
 	if(htim->Instance == TIM10){
 		if(stwS.state){
 			stwTick();
 		}
 	}
-	// APB2 168MHz -> after PSCL 20Hz
+	// APB2 168MHz -> after PSCL 100Hz
 	if(htim->Instance == TIM11){
 		scanButtons(btnsPtrs);
 	}

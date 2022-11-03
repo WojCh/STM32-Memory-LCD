@@ -7,9 +7,10 @@
 ../Core/Src/lcd.c:119:6:lcdPutChar	32	static
 ../Core/Src/lcd.c:142:6:lcdPutIcon	40	static
 ../Core/Src/lcd.c:163:6:lcdPutStr	40	static
-../Core/Src/lcd.c:172:6:lcdVLine	24	static
-../Core/Src/lcd.c:198:6:lcdHLine2	32	static
-../Core/Src/lcd.c:348:6:lcdHLine	32	static
-../Core/Src/lcd.c:387:6:lcdRefresh	16	static
-../Core/Src/lcd.c:400:6:lcdRect	32	static
-../Core/Src/lcd.c:405:6:lcdRect2	40	static
+../Core/Src/lcd.c:173:6:lcdPutStrML	40	static
+../Core/Src/lcd.c:202:6:lcdVLine	24	static
+../Core/Src/lcd.c:228:6:lcdHLine2	32	static
+../Core/Src/lcd.c:378:6:lcdHLine	32	static
+../Core/Src/lcd.c:417:6:lcdRefresh	16	static
+../Core/Src/lcd.c:430:6:lcdRect	32	static
+../Core/Src/lcd.c:435:6:lcdRect2	40	static

@@ -21,7 +21,7 @@ static uint16_t cursorXarr[5] = {20, 85, 170, 235, 315};
 
 static void setDefaultClbcks(void){
 // exit edit mode
-	btn_B3.onSinglePressHandler = &exit;
+	btn_B3.onSinglePressHandler = &exitScr;
 //	cursor left
 	btn_B2.onSinglePressHandler = &cursorPrev;
 //	btn_B2.onContinuousShortPressHandler = &cursorPrev;
@@ -116,7 +116,7 @@ static void decrement(void){
 				break;
 		}
 }
-static void exit(void){
+static void exitScr(void){
 	applySelectedScreen();
 }
 static void accept(void){
@@ -138,7 +138,7 @@ static void accept(void){
 //	{
 //	Error_Handler();
 //	}
-	exit();
+	exitScr();
 }
 
 struct Module timeInputModule = {"Time input", &timeInputSetup, &timeInputMain, NULL};

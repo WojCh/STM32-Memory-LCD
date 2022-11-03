@@ -9,6 +9,26 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "gps2.h"
+
+char gpsBuffer[GPS_BUFFER_SIZE] = {0};
+
+void getDataFromUart(gpsDevice_t* gps){
+//	  HAL_UART_Receive(&huart6, &gps->buffer, GPS_BUFFER_SIZE, 1000);
+////	  HAL_UART_Receive(&huart6, &gpsModule.buffer, 600, 1000);
+	HAL_UART_Receive_DMA(&huart6, &gps->buffer, GPS_BUFFER_SIZE);
+
+}
+
+gpsDevice_t initGps(UART_HandleTypeDef* uartPort){
+	gpsDevice_t gpsModule;
+	gpsModule.uartPort = uartPort;
+	strncpy(&gpsModule.buffer, 0, GPS_BUFFER_SIZE);
+	gpsModule.getData = &getDataFromUart;
+	gpsModule.isReady = 1;
+	return(gpsModule);
+}
+
 
 /* behaves like strtok() except that it returns empty tokens also
  */
@@ -40,7 +60,6 @@ uint8_t validateChecksum(char* nmeaSentence){
 	return hexCharToInt(&nmeaSentence[i+1])==chksum;
 }
 
-#include "gps2.h"
 
 
 void getAllMessages(char* buffer){
@@ -78,84 +97,128 @@ struct nmeaSentence tokenizeSentence(char* sentence){
 
 
 
-location_t getLocation(struct gpsDevice* dev){
+uint8_t getLocation(struct gpsDevice* dev, location_t* position){
 //	copy buffer - prevent from mutating (when DMA updated)
 	char tmpBuf[GPS_BUFFER_SIZE];
-	strncpy(&tmpBuf, dev->buffer, GPS_BUFFER_SIZE);
 
-	location_t position;
+	// don't write to buffer while copying
+	dev->isReady = 0;
+	strncpy(&tmpBuf, dev->buffer, GPS_BUFFER_SIZE);
+	dev->isReady = 1;
+
+
+//	location_t position;
 	char sentence[NMEA_MAX_SENTENCE_LENGTH+1];
 	// receive and validate message
 	if(getMessage(&sentence, &tmpBuf, NMEA_GNGGA) == NULL){
-		strcpy(&position.debug, "invalid sentence");
-		position.isValid = 0;
-		return position;
+		strcpy(position->debug, "invalid sentence");
+//		strcpy(&position.debug, "invalid sentence");
+//		position.isValid = 0;
+//		position.utc_hour = 0;
+//		position.utc_min = 0;
+//		position.utc_sec = 0;
+//		return position;
+		return 0;
 	}
 
 	// test tokenization function
-	struct nmeaSentence snt = tokenizeSentence(sentence);
+//	struct nmeaSentence snt = tokenizeSentence(sentence);
 
 	//write to struct whole sentence
-	strcpy(&position.debug, sentence);
+//	strcpy(&position.debug, sentence);
+	strcpy(position->debug, sentence);
 
 	// tokenize
 	// GNGGA
 	char* parsePointer = strtoke(sentence, ",");
-	strcpy(&position.words[0][0], parsePointer);
+	strcpy(position->words[0][0], parsePointer);
+
 	// UTC Time
 	parsePointer = strtoke(NULL, ",");
-	strcpy(&position.words[1][0], parsePointer);
+	strcpy(position->words[1][0], parsePointer);
 	uint32_t utcTime=atoi(parsePointer);
-	position.utc_hour = (utcTime/10000)%100;
-	position.utc_min = (utcTime/100)%100;
-	position.utc_sec = utcTime%100;
-	// DDMM.MMM Latitude
+	position->utc_hour = (utcTime/10000)%100;
+	position->utc_min = (utcTime/100)%100;
+	position->utc_sec = utcTime%100;
+
+	// DDMM.MMMMM Latitude
 	parsePointer = strtoke(NULL, ",");
-	strcpy(&position.words[2][0], parsePointer);
-	position.latitude = atof(parsePointer);
+	strcpy(position->words[2][0], parsePointer);
+	double latitude = atof(parsePointer);
+	position->latitudeDeg = latitude/100;
+	position->latitudeMin = latitude-position->latitudeDeg*100;
+
 	// Latitude N/S
 	parsePointer = strtoke(NULL, ",");
-	strcpy(&position.words[3][0], parsePointer);
-	position.n_s = *parsePointer;
-	// DDDMM.MMM Longitude
+	strcpy(position->words[3][0], parsePointer);
+	position->n_s = *parsePointer;
+
+	// DDDMM.MMMMM Longitude
 	parsePointer = strtoke(NULL, ",");
-	strcpy(&position.words[4][0], parsePointer);
-	position.longitude = atof(parsePointer);
+	strcpy(position->words[4][0], parsePointer);
+	double longitude = atof(parsePointer);
+	position->longitudeDeg = longitude/100;
+	position->longitudeMin = longitude-position->longitudeDeg*100;
+
 	// Longitude W/E
 	parsePointer = strtoke(NULL, ",");
-	strcpy(&position.words[5][0], parsePointer);
-	position.w_e = *parsePointer;
+	strcpy(position->words[5][0], parsePointer);
+	position->w_e = *parsePointer;
+
 	// Fix type - 0-nofix, 1-GPS, 2-DGPS
 	parsePointer = strtoke(NULL, ",");
-	strcpy(&position.words[6][0], parsePointer);
+	strcpy(position->words[6][0], parsePointer);
 	if(*parsePointer=='0'){
-		position.hasFix = 1;
-//		position.hasFix = 0;
+//		position->hasFix = 0;
+
+		// testing purposes
+//		position->hasFix = 1;
+//		position->latitudeDeg = 51;
+//		position->latitudeMin = 12.345;
+//		position->longitudeDeg = 127;
+//		position->longitudeMin = 56.789;
+//		position->w_e = 'W';
+//		position->n_s = 'S';
+
+//		position->latitudeDeg = 51;
+//		position->latitudeMin = 15;
+//		position->longitudeDeg = 17;
+//		position->longitudeMin = 30;
+//		position->w_e = 'E';
+//		position->n_s = 'N';
 	} else {
-		position.hasFix = 1;
+		position->hasFix = 1;
 	}
+
 	// Number of used satellites
 	parsePointer = strtoke(NULL, ",");
-	strcpy(&position.words[7][0], parsePointer);
-	position.satNum = atoi(parsePointer);
+	strcpy(position->words[7][0], parsePointer);
+	position->satNum = atoi(parsePointer);
+
 	// HDOP
 	parsePointer = strtoke(NULL, ",");
-	strcpy(&position.words[8][0], parsePointer);
+	strcpy(position->words[8][0], parsePointer);
+
 	// Altitude above mean sea level
 	parsePointer = strtoke(NULL, ",");
-	strcpy(&position.words[9][0], parsePointer);
-	position.elevation = atof(parsePointer);
+	strcpy(position->words[9][0], parsePointer);
+	position->elevation = atof(parsePointer);
+
 	// Altitude units
 	parsePointer = strtoke(NULL, ",");
-	strcpy(&position.words[10][0], parsePointer);
+	strcpy(position->words[10][0], parsePointer);
+
 	// Height of mean sea level above WGS-84 earth ellipsoid
 	parsePointer = strtoke(NULL, ",");
-	strcpy(&position.words[11][0], parsePointer);
+	strcpy(position->words[11][0], parsePointer);
+
 	// Units of the above geoid separation (M for meters)
 	parsePointer = strtoke(NULL, ",");
-	strcpy(&position.words[12][0], parsePointer);
+	strcpy(position->words[12][0], parsePointer);
 
-	return position;
+	//	mark position as valid
+	position->isValid = 1;
+	return 1;
 }
 
 // get multiple sentences - test

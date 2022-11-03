@@ -1,7 +1,9 @@
-../Core/Src/stw.c:16:6:clearTable	8	static
-../Core/Src/stw.c:20:6:addItem	16	static
-../Core/Src/stw.c:25:6:stwStart	4	static
-../Core/Src/stw.c:28:6:stwTick	4	static
-../Core/Src/stw.c:31:6:stwStop	4	static
-../Core/Src/stw.c:34:6:stwClear	4	static
-../Core/Src/stw.c:37:6:stwSave	8	static
+../Core/Src/stw.c:18:6:clearTable	8	static
+../Core/Src/stw.c:22:6:addItem	16	static
+../Core/Src/stw.c:27:6:stwStart	8	static
+../Core/Src/stw.c:32:6:stwTick	4	static
+../Core/Src/stw.c:35:6:stwStop	8	static
+../Core/Src/stw.c:40:6:stwClear	4	static
+../Core/Src/stw.c:44:6:stwSave	8	static
+../Core/Src/stw.c:49:10:getStw	4	static
+../Core/Src/stw.c:53:6:initStw	4	static

@@ -7,8 +7,6 @@
 #include "contextMenu.h"
 
 // fonts
-//#include <fonts/font_zekton12.h>
-//#include "fonts/zekton24.h"
 #include "fonts/fonts.h"
 
 static uint8_t cntxPosition = 0;

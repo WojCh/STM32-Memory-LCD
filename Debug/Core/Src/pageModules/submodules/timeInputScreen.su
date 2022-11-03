@@ -5,5 +5,5 @@
 ../Core/Src/pageModules/submodules/timeInputScreen.c:64:13:cursorPrev	4	static
 ../Core/Src/pageModules/submodules/timeInputScreen.c:68:13:increment	4	static
 ../Core/Src/pageModules/submodules/timeInputScreen.c:91:13:decrement	8	static
-../Core/Src/pageModules/submodules/timeInputScreen.c:119:13:exit	8	static
+../Core/Src/pageModules/submodules/timeInputScreen.c:119:13:exitScr	8	static
 ../Core/Src/pageModules/submodules/timeInputScreen.c:122:13:accept	8	static
