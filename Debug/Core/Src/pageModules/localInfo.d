@@ -48,6 +48,7 @@ Core/Src/pageModules/localInfo.o: ../Core/Src/pageModules/localInfo.c \
  ../Core/Inc/stw.h ../Core/Inc/../Src/pageModules/gpsModule.h \
  ../Core/Inc/../Src/pageModules/localInfo.h \
  ../Core/Inc/../Src/pageModules/settingsModule.h \
+ ../Core/Inc/../Src/pageModules/sdcardModule.h \
  ../Core/Inc/../Src/utils/timeUtils.h ../Core/Inc/main.h \
  ../Core/Inc/fonts/fonts.h ../Core/Inc/lcd.h ../Core/Inc/spi.h \
  ../Core/Inc/fonts/font_12.h ../Core/Inc/fonts/font_calibri13.h \
@@ -114,6 +115,7 @@ Core/Src/pageModules/localInfo.o: ../Core/Src/pageModules/localInfo.c \
 ../Core/Inc/../Src/pageModules/gpsModule.h:
 ../Core/Inc/../Src/pageModules/localInfo.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:
+../Core/Inc/../Src/pageModules/sdcardModule.h:
 ../Core/Inc/../Src/utils/timeUtils.h:
 ../Core/Inc/main.h:
 ../Core/Inc/fonts/fonts.h:

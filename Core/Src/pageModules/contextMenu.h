@@ -12,7 +12,7 @@
 
 static uint8_t isCntxOpen = 0;
 
-const struct ContextAction{
+static const struct ContextAction{
 	// name of the menu
 	const char name[30];
 	// action pointer

@@ -47,7 +47,8 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/gui.h ../Core/Inc/buttons.h \
  ../Core/Inc/stw.h ../Core/Inc/../Src/pageModules/gpsModule.h \
  ../Core/Inc/../Src/pageModules/localInfo.h \
  ../Core/Inc/../Src/utils/timeUtils.h ../Core/Inc/main.h \
- ../Core/Inc/../Src/pageModules/settingsModule.h
+ ../Core/Inc/../Src/pageModules/settingsModule.h \
+ ../Core/Inc/../Src/pageModules/sdcardModule.h
 ../Core/Inc/gui.h:
 ../Core/Inc/buttons.h:
 ../Core/Inc/gpio.h:
@@ -108,3 +109,4 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/gui.h ../Core/Inc/buttons.h \
 ../Core/Inc/../Src/utils/timeUtils.h:
 ../Core/Inc/main.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:
+../Core/Inc/../Src/pageModules/sdcardModule.h:

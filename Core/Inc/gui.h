@@ -8,7 +8,7 @@
 #ifndef INC_GUI_H_
 #define INC_GUI_H_
 
-#define MENU_ITEM_NUM 6
+#define MENU_ITEM_NUM 7
 
 //#include "main.h"
 //#include "font13.h"
@@ -20,6 +20,7 @@
 #include "../Src/pageModules/gpsModule.h"
 #include "../Src/pageModules/localInfo.h"
 #include "../Src/pageModules/settingsModule.h"
+#include "../Src/pageModules/sdcardModule.h"
 //#include "icons/icons_small.h"
 
 

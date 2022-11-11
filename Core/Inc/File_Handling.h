@@ -13,12 +13,13 @@
 #include "stdio.h"
 #include "fatfs.h"
 
+void SD_logger(char *msg);
 
 /* mounts the sd card*/
-void Mount_SD (const TCHAR* path);
+uint8_t Mount_SD (const TCHAR* path);
 
 /* unmounts the sd card*/
-void Unmount_SD (const TCHAR* path);
+uint8_t Unmount_SD (const TCHAR* path);
 
 /* Start node to be scanned (***also used as work area***) */
 FRESULT Scan_SD (char* pat);
@@ -32,7 +33,7 @@ FRESULT Write_File (char *name, char *data);
 
 /* read data from the file
  * @ name : is the path to the file*/
-FRESULT Read_File (char *name);
+FRESULT Read_File (char *name, char *outputBuffer);
 
 /* creates the file, if it does not exists
  * @ name : is the path to the file*/
@@ -48,7 +49,7 @@ FRESULT Remove_File (char *name);
 FRESULT Create_Dir (char *name);
 
 /* checks the free space in the sd card*/
-void Check_SD_Space (void);
+void Check_SD_Space (char* free_total);
 
 /* updates the file. write pointer is set to the end of the file
  * @ name : is the path to the file

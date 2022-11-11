@@ -24,15 +24,16 @@ const struct Module baroModule = {"Atmo", &baroSetup, &baroMain};
 const struct Module localModule = {"Local", &localSetup, &localMain};
 const struct Module gpsModule = {"GPS", &gpsSetup, &gpsMain};
 const struct Module settingsModule = {"Settings", &settingsSetup, &settingsMain};
+const struct Module sdcardModule = {"SD card", &sdcardSetup, &sdcardMain};
 
-struct Module menuItems[MENU_ITEM_NUM] = {faceModule, stwModule, baroModule, localModule, gpsModule, settingsModule};
+struct Module menuItems[MENU_ITEM_NUM] = {faceModule, stwModule, baroModule, localModule, gpsModule, settingsModule, sdcardModule};
 
 // default screens and displays/values
-uint8_t position = 0;
+uint8_t position = 6;
 #if LCD_DEBUGGING
-	void (*moduleMainPtr)(void) = gpsModule.main;
-	void (*moduleSetupPtr)(void) = gpsSetup;
-	void (*currentModulePtr)(void) = gpsMain;
+	void (*moduleMainPtr)(void) = sdcardModule.main;
+	void (*moduleSetupPtr)(void) = sdcardSetup;
+	void (*currentModulePtr)(void) = sdcardMain;
 #else
 	void (*moduleMainPtr)(void) = faceModule.main;
 	void (*moduleSetupPtr)(void) = faceSetup;

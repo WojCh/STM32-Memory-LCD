@@ -57,7 +57,7 @@ Core/Src/pageModules/stopwatchModule.o: \
  ../Core/Inc/../Src/pageModules/localInfo.h \
  ../Core/Inc/../Src/utils/timeUtils.h ../Core/Inc/main.h \
  ../Core/Inc/../Src/pageModules/settingsModule.h ../Core/Inc/rtc.h \
- ../Core/Inc/stw.h
+ ../Core/Inc/../Src/pageModules/sdcardModule.h ../Core/Inc/stw.h
 ../Core/Inc/icons/icons_small.h:
 ../Core/Inc/lcd.h:
 ../Core/Inc/spi.h:
@@ -133,4 +133,5 @@ Core/Src/pageModules/stopwatchModule.o: \
 ../Core/Inc/main.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:
 ../Core/Inc/rtc.h:
+../Core/Inc/../Src/pageModules/sdcardModule.h:
 ../Core/Inc/stw.h:

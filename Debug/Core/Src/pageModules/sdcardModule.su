@@ -1,0 +1,3 @@
+../Core/Src/pageModules/sdcardModule.c:14:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/sdcardModule.c:34:6:sdcardSetup	8	static
+../Core/Src/pageModules/sdcardModule.c:39:6:sdcardMain	168	static

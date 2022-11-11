@@ -148,13 +148,20 @@ int main(void)
   cbuf_init(&baroRing, sizeof(uint16_t), 399);
 
 	HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_SET);
-
-	printf("Hello");
-
   	Mount_SD("/");
   	Create_File("FILE1.TXT");
-  	Create_File("FILE2.TXT");
-  	Unmount_SD("/");
+  	Update_File("FILE1.TXT", "Hello world, SD cart write \n");
+  	Create_File("FILE4.TXT");
+  	char fileText[50];
+  	Read_File("config.txt", &fileText);
+
+  	// log state after reset
+  	HAL_RTC_GetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN);
+	HAL_RTC_GetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN);
+	char tmpl[50] = {0};
+	sprintf(&tmpl, "%02d:%02d:%02d --- Initialized ---\n", RtcTime.Hours, RtcTime.Minutes, RtcTime.Seconds);
+	SD_logger(tmpl);
+//  	Unmount_SD("/");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -243,7 +250,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM13){
 //		HAL_UART_Receive_DMA(&huart6, &dmaBuffer, GPS_BUFFER_SIZE);
 		if(gpsDev.isReady != 0) gpsDev.getData(&gpsDev);
-
 
 		HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
 		if(tempRing.isReady) add_ovw_ring_buffer(&tempRing, (int)(10*bmpData.temperature));
