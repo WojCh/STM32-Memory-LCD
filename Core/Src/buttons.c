@@ -50,7 +50,7 @@ char buttonHandlers[50] = {0};
 char buttonHandler2[50] = {0};
 
 // settings for timer cycles needed for a long threshold and freq of pulse on long press
-struct PressSetting pressSetting = {8, 2};
+struct PressSetting pressSetting = {40, 20};
 void setPressSetting(uint16_t shortPress, uint16_t longPressPulse){
 	pressSetting.shortTreshold = shortPress;
 	pressSetting.longPulseTreshold = longPressPulse;

@@ -1,0 +1,8 @@
+../Core/Src/pageModules/altitudeModule.c:14:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/altitudeModule.c:26:6:altiSetup	8	static
+../Core/Src/pageModules/altitudeModule.c:32:6:altiMain	88	static
+../Core/Src/pageModules/altitudeModule.c:78:6:setRefAltitude	4	static
+../Core/Src/pageModules/altitudeModule.c:81:6:clearRefAltitude	4	static
+../Core/Src/pageModules/altitudeModule.c:84:6:changeAltiMode	4	static
+../Core/Src/pageModules/altitudeModule.c:93:6:increaseAltitude	4	static
+../Core/Src/pageModules/altitudeModule.c:96:6:decreaseAltitude	4	static

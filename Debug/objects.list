@@ -20,6 +20,7 @@
 "./Core/Src/system_stm32f4xx.o"
 "./Core/Src/tim.o"
 "./Core/Src/usart.o"
+"./Core/Src/pageModules/altitudeModule.o"
 "./Core/Src/pageModules/baroModule.o"
 "./Core/Src/pageModules/contextMenu.o"
 "./Core/Src/pageModules/gpsModule.o"

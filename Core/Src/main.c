@@ -58,7 +58,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-	int GLOBAL_timezone = 2;		// [h] east+ west-
+	int GLOBAL_timezone = 1;		// [h] east+ west-
 	location_t location;
 
 	RTC_TimeTypeDef RtcTime;
@@ -250,6 +250,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM13){
 //		HAL_UART_Receive_DMA(&huart6, &dmaBuffer, GPS_BUFFER_SIZE);
 		if(gpsDev.isReady != 0) gpsDev.getData(&gpsDev);
+
 
 		HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
 		if(tempRing.isReady) add_ovw_ring_buffer(&tempRing, (int)(10*bmpData.temperature));

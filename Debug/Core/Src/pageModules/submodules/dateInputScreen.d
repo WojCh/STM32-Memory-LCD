@@ -39,8 +39,14 @@ Core/Src/pageModules/submodules/dateInputScreen.o: \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Core/Inc/globals.h ../Core/Inc/../Src/utils/ringBuffer.h \
  ../Core/Inc/../Src/utils/cbuffer.h ../Core/Inc/gps2.h \
- ../Core/Inc/usart.h ../Core/Inc/gui.h ../Core/Inc/buttons.h \
- ../Core/Inc/bmp180.h ../Core/Inc/../Src/pageModules/watchfaceModule.h \
+ ../Core/Inc/usart.h ../Core/Inc/gui.h ../Core/Inc/fonts/fonts.h \
+ ../Core/Inc/lcd.h ../Core/Inc/spi.h ../Core/Inc/fonts/font_12.h \
+ ../Core/Inc/fonts/font_calibri13.h ../Core/Inc/fonts/font_zekton12.h \
+ ../Core/Inc/fonts/font_zekton12bold.h ../Core/Inc/fonts/minimalFont.h \
+ ../Core/Inc/fonts/ocrFont.h ../Core/Inc/fonts/zekton24.h \
+ ../Core/Inc/fonts/zekton45.h ../Core/Inc/fonts/zekton84.h \
+ ../Core/Inc/buttons.h ../Core/Inc/bmp180.h \
+ ../Core/Inc/../Src/pageModules/watchfaceModule.h \
  ../Core/Inc/../Src/pageModules/submodules/timeInputScreen.h \
  ../Core/Inc/../Src/pageModules/submodules/dateInputScreen.h \
  ../Core/Inc/../Src/pageModules/baroModule.h ../Core/Inc/bmp180.h \
@@ -50,12 +56,9 @@ Core/Src/pageModules/submodules/dateInputScreen.o: \
  ../Core/Inc/../Src/pageModules/localInfo.h \
  ../Core/Inc/../Src/utils/timeUtils.h ../Core/Inc/main.h \
  ../Core/Inc/../Src/pageModules/settingsModule.h \
- ../Core/Inc/../Src/pageModules/sdcardModule.h ../Core/Inc/fonts/fonts.h \
- ../Core/Inc/lcd.h ../Core/Inc/spi.h ../Core/Inc/fonts/font_12.h \
- ../Core/Inc/fonts/font_calibri13.h ../Core/Inc/fonts/font_zekton12.h \
- ../Core/Inc/fonts/font_zekton12bold.h ../Core/Inc/fonts/minimalFont.h \
- ../Core/Inc/fonts/ocrFont.h ../Core/Inc/fonts/zekton24.h \
- ../Core/Inc/fonts/zekton45.h ../Core/Inc/fonts/zekton84.h
+ ../Core/Inc/../Src/pageModules/sdcardModule.h \
+ ../Core/Inc/../Src/pageModules/altitudeModule.h \
+ ../Core/Inc/fonts/fonts.h
 ../Core/Src/pageModules/submodules/dateInputScreen.h:
 ../Core/Inc/buttons.h:
 ../Core/Inc/gpio.h:
@@ -101,6 +104,18 @@ Core/Src/pageModules/submodules/dateInputScreen.o: \
 ../Core/Inc/gps2.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/gui.h:
+../Core/Inc/fonts/fonts.h:
+../Core/Inc/lcd.h:
+../Core/Inc/spi.h:
+../Core/Inc/fonts/font_12.h:
+../Core/Inc/fonts/font_calibri13.h:
+../Core/Inc/fonts/font_zekton12.h:
+../Core/Inc/fonts/font_zekton12bold.h:
+../Core/Inc/fonts/minimalFont.h:
+../Core/Inc/fonts/ocrFont.h:
+../Core/Inc/fonts/zekton24.h:
+../Core/Inc/fonts/zekton45.h:
+../Core/Inc/fonts/zekton84.h:
 ../Core/Inc/buttons.h:
 ../Core/Inc/bmp180.h:
 ../Core/Inc/../Src/pageModules/watchfaceModule.h:
@@ -118,15 +133,5 @@ Core/Src/pageModules/submodules/dateInputScreen.o: \
 ../Core/Inc/main.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:
 ../Core/Inc/../Src/pageModules/sdcardModule.h:
+../Core/Inc/../Src/pageModules/altitudeModule.h:
 ../Core/Inc/fonts/fonts.h:
-../Core/Inc/lcd.h:
-../Core/Inc/spi.h:
-../Core/Inc/fonts/font_12.h:
-../Core/Inc/fonts/font_calibri13.h:
-../Core/Inc/fonts/font_zekton12.h:
-../Core/Inc/fonts/font_zekton12bold.h:
-../Core/Inc/fonts/minimalFont.h:
-../Core/Inc/fonts/ocrFont.h:
-../Core/Inc/fonts/zekton24.h:
-../Core/Inc/fonts/zekton45.h:
-../Core/Inc/fonts/zekton84.h:

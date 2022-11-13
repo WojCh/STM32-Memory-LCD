@@ -8,10 +8,11 @@
 #ifndef INC_GUI_H_
 #define INC_GUI_H_
 
-#define MENU_ITEM_NUM 7
+#define MENU_ITEM_NUM 8
 
 //#include "main.h"
 //#include "font13.h"
+#include "fonts/fonts.h"
 #include "buttons.h"
 #include "bmp180.h"
 #include "../Src/pageModules/watchfaceModule.h"
@@ -21,6 +22,7 @@
 #include "../Src/pageModules/localInfo.h"
 #include "../Src/pageModules/settingsModule.h"
 #include "../Src/pageModules/sdcardModule.h"
+#include "../Src/pageModules/altitudeModule.h"
 //#include "icons/icons_small.h"
 
 
@@ -49,6 +51,7 @@ void applySelectedScreen(void);
 void selectScreen(void);
 void returnToMenu(void);
 void showGui(void);
+
 
 
 #endif /* INC_GUI_H_ */

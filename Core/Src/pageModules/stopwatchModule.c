@@ -16,12 +16,6 @@
 
 
 #include "icons/icons_small.h"
-//#include <fonts/font_calibri13.h>
-//#include "fonts/minimalFont.h"
-//#include "fonts/fonts.h"
-//#include "fonts/ocrFont.h"
-//#include "fonts/font_zekton12bold.h"
-//#include "fonts/zekton24.h"
 #include "fonts/fonts.h"
 
 #include <fonts/zekton45.h>
@@ -100,13 +94,6 @@ void stwMain(void){
 	lcdPutStr(400 - 10 - (*zekton24font.font_Width) * strlen(guiPos), 10, guiPos, zekton24font);
 
 	updateStopwatch();
-
-	char tempStr3[30] = {0};
-	sprintf(&tempStr3, "%d", (uint16_t)getStw());
-	lcdPutStr(0, 0, tempStr3, font_12_zekton);
-	char tempStr4[30] = {0};
-	sprintf(&tempStr4, "%d", stwS.cnt);
-	lcdPutStr(0, 20, tempStr4, font_12_zekton);
 
 	char tempStr2[30] = {0};
 	if(stw_val.hours != 0){

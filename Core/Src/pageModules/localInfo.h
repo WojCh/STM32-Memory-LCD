@@ -14,8 +14,13 @@
 #include <time.h>
 #include <math.h>
 
+struct sunParameters{
+
+};
+
 static void setDefaultClbcks(void);
 void localSetup(void);
 void localMain(void);
+
 
 #endif /* SRC_PAGEMODULES_LOCALINFOMODULE_H_ */
