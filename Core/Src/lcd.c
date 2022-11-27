@@ -202,6 +202,11 @@ void lcdPutStrML(uint16_t x, uint8_t y, const char *chr, const Font_TypeDef *fon
 void lcdVLine(uint16_t x, uint16_t y1, uint8_t y2, uint8_t mode){
 	uint8_t block = x/8;
 	uint8_t offset = x%8;
+	if(y1 > y2){
+		uint8_t temp = y1;
+		y1 = y2;
+		y2 = temp;
+	}
 	for(uint8_t y = y1; y <= y2; y++){
 		uint8_t content = lcdBuffer[y*SCR_W/8+block];
 		switch(mode){

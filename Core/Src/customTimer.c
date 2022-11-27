@@ -10,9 +10,9 @@ void initTimer(void){
 	HAL_TIM_Base_Init(&htim11);
 }
 
-void setTimeout(int count){
-	htim11.Init.Period = 65000;
-}
+//void setTimeout(int count){
+//	htim11.Init.Period = 65000;
+//}
 
 void setFunction(void (*handler)(void)){
 

@@ -1,5 +1,4 @@
 ../Core/Src/customTimer.c:9:6:initTimer	8	static
-../Core/Src/customTimer.c:13:6:setTimeout	16	static
 ../Core/Src/customTimer.c:17:6:setFunction	16	static
 ../Core/Src/customTimer.c:21:6:timerFunction	8	static
 ../Core/Src/customTimer.c:26:6:startClock	8	static

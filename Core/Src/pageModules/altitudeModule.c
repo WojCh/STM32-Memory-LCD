@@ -26,10 +26,13 @@ static void setDefaultClbcks(void){
 void altiSetup(void){
 	setDefaultClbcks();
 	minAltitude = bmpData.altitude;
+	minPressure = bmpData.slpress;
 }
 
 // main function
 void altiMain(void){
+	bmpData = getBmpData(&bmp180module);
+
 	// header bar temperature - time
 	char guiPos[6] = {0};
 	sprintf(&guiPos, "%02d:%02d", RtcTime.Hours, RtcTime.Minutes);
@@ -61,17 +64,26 @@ void altiMain(void){
 		sprintf(&tmpStr, "%.1fm/%.1fm", minAltitude, maxAltitude);
 		lcdPutStr(410-(*(zekton24font.font_Width)*(strlen(tmpStr)+1)), 210, tmpStr, zekton24font);
 	} else {
-		// altitude - pressure at the sea level
+		// pressure at the sea level
 		char tmpStr[50] = {0};
-		sprintf(&tmpStr, "%d", bmpData.pressure/100);
+		sprintf(&tmpStr, "%d", (uint16_t)(bmpData.slpress/100));
 		lcdPutStr(350-(*(zekton84font.font_Width)*(strlen(tmpStr)+1)), 66, tmpStr, zekton84font);
-		sprintf(&tmpStr, ".%d ", bmpData.pressure%100/10);
+		sprintf(&tmpStr, ".%d ", ((uint16_t)(bmpData.slpress/10))%10);
 		lcdPutStr(420-(*(zekton45font.font_Width)*(strlen(tmpStr)+1)), 66, tmpStr, zekton45font);
 		sprintf(&tmpStr, "hpa", bmpData.pressure%100/10);
 		lcdPutStr(432-(*(zekton45font.font_Width)*(strlen(tmpStr)+1)), 112, tmpStr, zekton45font);
+
+		sprintf(&tmpStr, "ambient: %6.1f hPa", ((float)bmpData.pressure/100));
+		lcdPutStr(0, 165, tmpStr, font_12_zekton);
+		sprintf(&tmpStr, "elevation: %.1fm", fixedAltitude);
+		lcdPutStr(0, 180, tmpStr, font_12_zekton);
 		sprintf(&tmpStr, "ASL: %6.1f hPa", (BMP_PRESS_CONST_SEA_LEVEL/100));
 		lcdPutStr(395-(*(font_12_zekton.font_Width)*(strlen(tmpStr)+1)), 165, tmpStr, font_12_zekton);
-
+		// update minimum/maximum/diff
+		if(bmpData.slpress < minPressure) minPressure = bmpData.slpress;
+		if(bmpData.slpress > maxPressure) maxPressure = bmpData.slpress;
+		sprintf(&tmpStr, "%.1fhPa/%.1fhPa", minPressure/100, maxPressure/100);
+		lcdPutStr(410-(*(zekton24font.font_Width)*(strlen(tmpStr)+1)), 210, tmpStr, zekton24font);
 	}
 }
 
@@ -83,16 +95,24 @@ void clearRefAltitude(void){
 }
 void changeAltiMode(void){
 	if(altitudeMode == 1){
-//		BMP_PRESS_CONST_SEA_LEVEL = bmpData.slpress;
+		fixedAltitude = bmpData.altitude;
 		altitudeMode = 0;
 	} else {
-//		fixedAltitude = bmpData.altitude;
+		BMP_PRESS_CONST_SEA_LEVEL = bmpData.slpress;
 		altitudeMode = 1;
 	}
 }
 void increaseAltitude(void){
-	BMP_PRESS_CONST_SEA_LEVEL += 1;
+	if(altitudeMode == 1){
+		BMP_PRESS_CONST_SEA_LEVEL += 1;
+	} else {
+		fixedAltitude += 1;
+	}
 }
 void decreaseAltitude(void){
-	BMP_PRESS_CONST_SEA_LEVEL -= 1;
+	if(altitudeMode == 1){
+		BMP_PRESS_CONST_SEA_LEVEL -= 1;
+	} else {
+		fixedAltitude -= 1;
+	}
 }

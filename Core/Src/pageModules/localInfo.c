@@ -13,6 +13,12 @@
 // fonts
 #include "fonts/fonts.h"
 
+#define SOLAR_DISC_ANGLE 			0.833
+#define GEOMETRICAL_TWILIGHT_DEG	0.833
+#define CIVIL_TWILIGHT_DEG 			6
+#define NAUTICAL_TWILIGHT_DEG 		12
+#define ASTRONOMICAL_TWILIGHT_DEG 	18
+
 struct tm testTime;
 uint8_t localModuleNum = 0;
 
@@ -96,6 +102,30 @@ struct sunEventsTimes{
 	int sunrise, noon, sunset; //[min]
 };
 
+struct solarAngles{
+	float za, sa;
+};
+
+void calcSolarAngles(struct solarAngles *output, struct tm *timeStr, struct local_location *location){
+	// fractional year = gamma [rad]
+	float fyear = fractionalYear(timeStr, location);
+	// equation of time [min]
+	float eqtime = equationOfTime(fyear);
+	// solar declination angle [rad]
+	float decl = solarDeclination(fyear);
+
+	float time_off = timeOffset(location, fyear);
+	float tst = trueSolarTime(timeStr, time_off);
+	// solar hour angle [deg]
+	float sha = (tst/4)-180;
+	// solar zenith angle = phi [rad]
+	float cosphi = sin(location->latitude*M_PI/180)*sin(decl)+cos(location->latitude*M_PI/180)*cos(decl)*cos(sha*M_PI/180);
+	output->za = acos(cosphi);
+	float sinphi = sqrt(1-cosphi*cosphi);
+	// solar azimuth = theta [rad]
+	output->sa = -acos(-(sin(location->latitude*M_PI/180)*cosphi-sin(decl))/(cos(location->latitude*M_PI/180)*sinphi));
+}
+
 
 
 void localMain(void){
@@ -140,9 +170,13 @@ void localMain(void){
 	// solar azimuth = theta [rad]
 	float sa = -acos(-(sin(latitude*M_PI/180)*cosphi-sin(decl))/(cos(latitude*M_PI/180)*sinphi));
 
+//	struct solarAngles angles = {0,0};
+//	calcSolarAngles(&angles, &testTime, &location);
+//	float phi = angles.za;
+//	float sa = angles.sa;
+
 	// setting for sunrise/sunset zenith angle [rad]
-	double twilightType[] = {0.833, 6, 12, 18}; // twilight, civil, nautical, astronomical
-	double zenith = (90+twilightType[0])*M_PI/180;
+	double zenith = (90+GEOMETRICAL_TWILIGHT_DEG)*M_PI/180;
 	// calculated hour angle [rad]
 	float cha = acos(cos(zenith)/(cos(latitude*M_PI/180)*cos(decl))-tan(latitude*M_PI/180)*tan(decl));
 
@@ -154,7 +188,7 @@ void localMain(void){
 
 
 	double saDeg;
-	if(cha<0) saDeg = -sa*180/M_PI;
+	if(sha>180) saDeg = -sa*180/M_PI;
 	else saDeg = 360+sa*180/M_PI;
 
 	char textBuffer[50] = {0};
@@ -170,42 +204,105 @@ void localMain(void){
 		sprintf(&textBuffer, "%02.3f`", saDeg);
 		lcdPutStr(420-(*(zekton45font.font_Width)*(strlen(textBuffer)+1)), 115, textBuffer, zekton45font);
 
-		sprintf(&textBuffer, "%c%.3f %c%.3f", location.n_s, latitude, location.w_e, longitude);
+		sprintf(&textBuffer, "%c%.3f %c%.3f, day length:%02dh %02dmin", location.n_s, latitude, location.w_e, longitude, (sunset-sunrise)/60, (sunset-sunrise)%60);
 		lcdPutStr(10, 25, textBuffer, font_12_zekton);
 
-		drawSunlightGraph(215, 10, 399-10, 50, &suntimes);
+		drawSunlightGraph(200, 10, 399-10, 50, &suntimes, &myLocation);
 		break;
 		}
 	case 1:
+		sprintf(&textBuffer, "%02d:%02d", sunrise/60, sunrise%60);
+		lcdPutStr(10, 10, textBuffer, zekton24font);
+		sprintf(&textBuffer, "SUNRISE");
+		lcdPutStr(10, 35, textBuffer, font_12_zekton);
+		sprintf(&textBuffer, "%02d:%02d", noon/60, noon%60);
+		lcdPutStr(200-(*(zekton24font.font_Width)*(strlen(textBuffer)))/2, 10, textBuffer, zekton24font);
+		sprintf(&textBuffer, "NOON");
+		lcdPutStr(200-(*(font_12_zekton.font_Width)*(strlen(textBuffer)))/2, 35, textBuffer, font_12_zekton);
+		sprintf(&textBuffer, "%02d:%02d", sunset/60, sunset%60);
+		lcdPutStr(390-(*(zekton24font.font_Width)*(strlen(textBuffer))), 10, textBuffer, zekton24font);
+		sprintf(&textBuffer, "SUNSET");
+		lcdPutStr(390-(*(font_12_zekton.font_Width)*(strlen(textBuffer))), 35, textBuffer, font_12_zekton);
+
+		// setting for sunrise/sunset zenith angle [rad]
+		double zenith = (90+CIVIL_TWILIGHT_DEG)*M_PI/180;
+		// calculated hour angle [rad]
+		float cha = acos(cos(zenith)/(cos(latitude*M_PI/180)*cos(decl))-tan(latitude*M_PI/180)*tan(decl));
+		//sunrise/sunset/noon times [min]
+		int civil_sunrise = solarEventTime(SOLAR_SUNRISE, &testTime, &myLocation, cha);
+		int civil_sunset = solarEventTime(SOLAR_SUNSET, &testTime, &myLocation, cha);
+		sprintf(&textBuffer, "CIVIL");
+		lcdPutStr(200-(*(font_12_zekton.font_Width)*(strlen(textBuffer)))/2, 80, textBuffer, font_12_zekton);
+		sprintf(&textBuffer, "%02d:%02d", civil_sunrise/60, civil_sunrise%60);
+		lcdPutStr(10, 80, textBuffer, zekton24font);
+		sprintf(&textBuffer, "%02d:%02d", civil_sunset/60, civil_sunset%60);
+		lcdPutStr(390-(*(zekton24font.font_Width)*(strlen(textBuffer))), 80, textBuffer, zekton24font);
+
+		// setting for sunrise/sunset zenith angle [rad]
+		zenith = (90+NAUTICAL_TWILIGHT_DEG)*M_PI/180;
+		// calculated hour angle [rad]
+		cha = acos(cos(zenith)/(cos(latitude*M_PI/180)*cos(decl))-tan(latitude*M_PI/180)*tan(decl));
+		//sunrise/sunset/noon times [min]
+		int naut_sunrise = solarEventTime(SOLAR_SUNRISE, &testTime, &myLocation, cha);
+		int naut_sunset = solarEventTime(SOLAR_SUNSET, &testTime, &myLocation, cha);
+		sprintf(&textBuffer, "NAUTICAL");
+		lcdPutStr(200-(*(font_12_zekton.font_Width)*(strlen(textBuffer)))/2, 120, textBuffer, font_12_zekton);
+		sprintf(&textBuffer, "%02d:%02d", naut_sunrise/60, naut_sunrise%60);
+		lcdPutStr(10, 120, textBuffer, zekton24font);
+		sprintf(&textBuffer, "%02d:%02d", naut_sunset/60, naut_sunset%60);
+		lcdPutStr(390-(*(zekton24font.font_Width)*(strlen(textBuffer))), 120, textBuffer, zekton24font);
+
+		// setting for sunrise/sunset zenith angle [rad]
+		zenith = (90+ASTRONOMICAL_TWILIGHT_DEG)*M_PI/180;
+		// calculated hour angle [rad]
+		cha = acos(cos(zenith)/(cos(latitude*M_PI/180)*cos(decl))-tan(latitude*M_PI/180)*tan(decl));
+		//sunrise/sunset/noon times [min]
+		int astro_sunrise = solarEventTime(SOLAR_SUNRISE, &testTime, &myLocation, cha);
+		int astro_sunset = solarEventTime(SOLAR_SUNSET, &testTime, &myLocation, cha);
+		sprintf(&textBuffer, "ASTRONOMICAL");
+		lcdPutStr(200-(*(font_12_zekton.font_Width)*(strlen(textBuffer)))/2, 160, textBuffer, font_12_zekton);
+		sprintf(&textBuffer, "%02d:%02d", astro_sunrise/60, astro_sunrise%60);
+		lcdPutStr(10, 160, textBuffer, zekton24font);
+		sprintf(&textBuffer, "%02d:%02d", astro_sunset/60, astro_sunset%60);
+		lcdPutStr(390-(*(zekton24font.font_Width)*(strlen(textBuffer))), 160, textBuffer, zekton24font);
+
+
+		sprintf(&textBuffer, "SUNSET");
+		lcdPutStr(390-(*(font_12_zekton.font_Width)*(strlen(textBuffer))), 35, textBuffer, font_12_zekton);
 		break;
 	case 2:
-		sprintf(&textBuffer, "Sunrise: %02d:%02d", sunrise/60, sunrise%60);
-		lcdPutStr(10, 28, textBuffer, font_12_zekton_bold);
-		sprintf(&textBuffer, "Noon: %02d:%02d", noon/60, noon%60);
-		lcdPutStr(10, 44, textBuffer, font_12_zekton_bold);
-		sprintf(&textBuffer, "Sunset: %02d:%02d", sunset/60, sunset%60);
-		lcdPutStr(10, 60, textBuffer, font_12_zekton_bold);
-		break;
-	case 3:
-		sprintf(&textBuffer, "solar elevation angle: %02.3f deg", 90-phi*180/M_PI);
-		lcdPutStr(10, 80, textBuffer, font_12_zekton_bold);
-		sprintf(&textBuffer, "solar azimuth angle: %02.3f deg", saDeg);
-	//	sprintf(&textBuffer, "solar azimuth angle: %02.3f deg", fmod(360+sa*180/M_PI, 360));
-		lcdPutStr(10, 96, textBuffer, font_12_zekton_bold);
-
+	{
 		double perc = (testTime.tm_hour*60+testTime.tm_min+(double)testTime.tm_sec/60-sunrise)*100/(sunset-sunrise);
-		sprintf(&textBuffer, "percentage daylight: %2.3f%%", perc);
+		sprintf(&textBuffer, "percentage daylight:");
 		lcdPutStr(10, 116, textBuffer, font_12_zekton_bold);
-		sprintf(&textBuffer, "day length: %02dh %02dmin", (sunset-sunrise)/60, (sunset-sunrise)%60);
-		lcdPutStr(10, 132, textBuffer, font_12_zekton_bold);
+		sprintf(&textBuffer, "%2.3f%%", perc);
+		lcdPutStr(390-(*(zekton24font.font_Width)*(strlen(textBuffer))), 116, textBuffer, zekton24font);
+		sprintf(&textBuffer, "day length:");
+		lcdPutStr(10, 160, textBuffer, font_12_zekton_bold);
+		sprintf(&textBuffer, "%02dh %02dmin", (sunset-sunrise)/60, (sunset-sunrise)%60);
+		lcdPutStr(390-(*(zekton24font.font_Width)*(strlen(textBuffer))), 160, textBuffer, zekton24font);
+		break;
+	}
+	case 3:
+
+		drawSunlightGraph(120, 5, 395, 160, &suntimes, &myLocation);
 		break;
 	case 4:{
+		sprintf(&textBuffer, "18250d");
+		lcdPutStr(420-(*(zekton45font.font_Width)*(strlen(textBuffer)+1)), 30, textBuffer, zekton45font);
+		sprintf(&textBuffer, "20h");
+		lcdPutStr(420-(*(zekton45font.font_Width)*(strlen(textBuffer)+1)), 80, textBuffer, zekton45font);
+		sprintf(&textBuffer, "54min");
+		lcdPutStr(420-(*(zekton45font.font_Width)*(strlen(textBuffer)+1)), 130, textBuffer, zekton45font);
+		sprintf(&textBuffer, "12s");
+		lcdPutStr(420-(*(zekton45font.font_Width)*(strlen(textBuffer)+1)), 180, textBuffer, zekton45font);
+
 		break;
 		}
 	}
 }
 
-void drawSunlightGraph(uint8_t yPos, uint16_t x1, uint16_t x2, uint8_t height, struct sunEventsTimes *suntimes){
+void drawSunlightGraph(uint8_t yPos, uint16_t x1, uint16_t x2, uint8_t height, struct sunEventsTimes *suntimes, struct local_location *location){
 	lcdHLine(x1,x2,yPos,1);
 	lcdVLine(x1, yPos-2, yPos+2, 1);
 	lcdVLine(x2, yPos-2, yPos+2, 1);
@@ -215,21 +312,37 @@ void drawSunlightGraph(uint8_t yPos, uint16_t x1, uint16_t x2, uint8_t height, s
 	uint16_t scaleXnoon = x1+(x2-x1+1)*suntimes->noon/(24*60-0);
 	uint16_t scaleXnow = x1+(x2-x1+1)*(testTime.tm_hour*60+testTime.tm_min)/(24*60-0);
 	lcdVLine(scaleXrise, yPos-5, yPos+5, 2);
-	lcdVLine(scaleXset, yPos-5, yPos+5, 2);
+	lcdVLine(scaleXset, yPos, yPos+5, 2);
 	lcdVLine(scaleXnoon, yPos-5, yPos+5, 2);
-	lcdVLine(scaleXnow, yPos-10, yPos+10, 2);
+//	lcdVLine(scaleXnow, yPos-10, yPos+10, 2);
 
 	char textBuffer[50] = {0};
 	sprintf(&textBuffer, "%02d:%02d", suntimes->sunrise/60, suntimes->sunrise%60);
-	lcdPutStr(scaleXrise-19, yPos+5, textBuffer, smallestFont);
+	lcdPutStr(scaleXrise-42, yPos-15, textBuffer, smallestFont);
 	sprintf(&textBuffer, "%02d:%02d", suntimes->sunset/60, suntimes->sunset%60);
 	lcdPutStr(scaleXset-19, yPos+5, textBuffer, smallestFont);
 	sprintf(&textBuffer, "%02d:%02d", suntimes->noon/60, suntimes->noon%60);
-	lcdPutStr(scaleXnoon-19, yPos+5, textBuffer, smallestFont);
-//	int sunElev = (90-phi(testTime)*180/M_PI)*height/90;
-//	for(uint16_t pix = x1; pix <= x2; pix++){
-//		lcdPutPix(pix, sunElev, 1);
-//	}
+	lcdPutStr(scaleXnoon+4, yPos-15, textBuffer, smallestFont);
+	struct solarAngles angles = {0,0};
+	struct tm myTime;
+	myTime = testTime;
+	int sunElev;
+
+	calcSolarAngles(&angles, &testTime, location);
+	sunElev = (90-angles.za*180/M_PI)*height/90;
+	lcdRect(scaleXnow-1, scaleXnow+1, yPos-sunElev-1, yPos-sunElev+1, 1);
+
+	for(uint16_t pix = x1; pix <= x2; pix+=3){
+		uint16_t min_sum = (pix-x1)*24*60/(x2-x1);
+		uint8_t hrs = min_sum/60;
+		uint8_t min = min_sum%60;
+		myTime.tm_hour = hrs;
+		myTime.tm_min = min;
+		calcSolarAngles(&angles, &myTime, location);
+		sunElev = (90-angles.za*180/M_PI)*height/90;
+		lcdPutPix(pix, yPos-sunElev, 1);
+		if(pix < scaleXnow) lcdVLine(pix, yPos-sunElev, yPos, 1);
+	}
 }
 
 void localScreen1(void){

@@ -117,6 +117,7 @@ void scanButton(Button* btn){
 			if(btn->shortSingleHandled == 0){
 				// to do after press											<------ single press handler
 				if(btn->onSinglePressHandler != NULL){
+					pulseVib(5, 100);
 					btn->onSinglePressHandler(NULL);
 				}
 				btn->shortSingleOn++;

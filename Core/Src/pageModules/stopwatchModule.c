@@ -93,9 +93,12 @@ void stwMain(void){
 	sprintf(&guiPos, "%02d:%02d", RtcTime.Hours, RtcTime.Minutes);
 	lcdPutStr(400 - 10 - (*zekton24font.font_Width) * strlen(guiPos), 10, guiPos, zekton24font);
 
+	char tempStr2[30] = {0};
+	sprintf(&guiPos, "Stopwatch");
+	lcdPutStr(0, 10, guiPos, zekton24font);
+
 	updateStopwatch();
 
-	char tempStr2[30] = {0};
 	if(stw_val.hours != 0){
 		sprintf(&tempStr2, "%01dh", stw_val.hours);
 	}

@@ -6,11 +6,6 @@
  */
 
 #include "baroModule.h"
-//#include <fonts/font_calibri13.h>
-//#include <fonts/zekton45.h>
-//#include "fonts/zekton24.h"
-//#include "fonts/font_zekton12.h"
-//#include "fonts/font_zekton12bold.h"
 #include "fonts/fonts.h"
 
 
@@ -39,6 +34,10 @@ uint8_t minHeight = 110;
 
 // main function
 void baroMain(void){
+	// update data
+	bmpData = getBmpData(&bmp180module);
+
+
 	uint16_t minBaro = (*(uint16_t*)(cbuf_readn(&baroRing, 0)));
 	uint16_t maxBaro = (*(uint16_t*)(cbuf_readn(&baroRing, 0)));
 	uint16_t minTemp = read_nth_ring_buffer(&tempRing, 0);
@@ -103,6 +102,9 @@ void changeBaroMode(void){
 		fixedAltitude = bmpData.altitude;
 		baroMode = BARO_MODE_FIXED_ALTITUDE;
 	}
+//	toggleVib();
+//	setTimeout(10, &toggleVib);
+	pulseVib(5, 100);
 }
 void addBaro(void){
 	if(baroMode == BARO_MODE_FIXED_ALTITUDE){

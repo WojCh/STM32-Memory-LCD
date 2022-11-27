@@ -69,6 +69,10 @@
 	RingBuffer_t tempRing;
 	gpsDevice_t gpsDev;
 //	char dmaBuffer[GPS_BUFFER_SIZE];
+	uint8_t tim13_prescaler = 3; // 1Hz/(x+1) = 1Hz/4 = 4s period
+	uint8_t tim13_counter = 0; // 1Hz/4 = 4s period
+	// flag to execute BMP180 update in the main program loop
+	uint8_t updateBmpData_flag = 1;
 
 
 /* USER CODE END PV */
@@ -85,6 +89,75 @@ int __io_putchar(int ch){
 	ITM_SendChar(ch);
 	return(ch);
 }
+
+uint8_t vibPower = 99;
+void enableVib(void){
+	TIM14->CCR1 = vibPower;
+}
+void disableVib(void){
+	TIM14->CCR1 = 0;
+}
+void toggleVib(void){
+	if(TIM14->CCR1 == 0){
+		TIM14->CCR1 = vibPower;
+	} else {
+		TIM14->CCR1 = 0;
+	}
+}
+uint8_t timeoutState = 0;
+uint16_t timeoutValue;
+uint16_t timeoutSetpoint;
+void (*timeoutClbkPtr)(void);
+void setTimeout(uint16_t ms,  void (*callback)(void)){
+	// set timeout setpoint
+	timeoutSetpoint = ms;
+	// reset timeout value
+	timeoutValue = 0;
+	// set callback function
+	timeoutClbkPtr = callback;
+	// flag timeout running
+	timeoutState = 1;
+}
+void pulseVib(uint16_t duration, uint8_t power){
+	vibPower = power;
+	enableVib();
+	setTimeout(duration, &disableVib);
+}
+uint8_t patternStep = 0;
+uint8_t patternState = 0;
+void patternVib(void){
+	if(patternState){
+		switch(patternStep){
+		case 0:
+			patternState = 0;
+			toggleVib();
+			setTimeout(10, &toggleVib);
+			break;
+		case 1:
+			patternState = 0;
+			setTimeout(10, &toggleVib);
+			break;
+		case 2:
+			patternState = 0;
+			setTimeout(50, &toggleVib);
+			break;
+		case 3:
+			patternState = 0;
+			setTimeout(10, &toggleVib);
+			break;
+		case 4:
+			patternState = 0;
+			setTimeout(10, &toggleVib);
+			break;
+		default:
+			patternState = 0;
+			patternStep = 0;
+		}
+
+	}
+
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -126,6 +199,7 @@ int main(void)
   MX_SDIO_SD_Init();
   MX_FATFS_Init();
   MX_USART6_UART_Init();
+  MX_TIM14_Init();
   /* USER CODE BEGIN 2 */
   //  Initialize VCOMIN pulse on CH1 (PIN PE9) for Sharp Memory LCD
   HAL_TIM_Base_Init(&htim1);
@@ -133,6 +207,8 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   // Initialize Timer 10 - generating LCD refresh Interrupt
 //  HAL_TIM_Base_Start_IT(&htim10);
+  // Vibration motor PWM
+  HAL_TIM_PWM_Start(&htim14, TIM_CHANNEL_1);
 
   // TIMER 11 - 20Hz button scanner
   HAL_TIM_Base_Start_IT(&htim11);
@@ -170,10 +246,19 @@ int main(void)
   lcdRefresh();
   while (1)
   {
-	  // functions executed along with the menu
+	  // periodic execution driven by flag modified inside of timer interrupt
+	  if(updateBmpData_flag){
 		bmpData = getBmpData(&bmp180module);
+		updateBmpData_flag = 0;
+	  }
+	  // functions executed along with the menu
 		HAL_RTC_GetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN);
+		if(RtcTime.Minutes == 0 && RtcTime.Seconds==0){
+//			pulseVib(20, 60);
+			patternState = 1;
+			patternVib();
+		}
 	  lcdClearBuffer();
 	  // functions executed through GUI
 	  showGui();
@@ -245,6 +330,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	// APB2 168MHz -> after PSCL 100Hz
 	if(htim->Instance == TIM11){
 		scanButtons(btnsPtrs);
+		// check timeouts
+		if(timeoutState){
+			if(timeoutValue == timeoutSetpoint){
+				(*timeoutClbkPtr)();
+				timeoutState = 0;
+				patternStep++;
+				patternState = 1;
+			} else {
+				timeoutValue++;
+			}
+		}
 	}
 	// APB1 84MHz -> after PSCL 1Hz
 	if(htim->Instance == TIM13){
@@ -256,6 +352,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 		if(tempRing.isReady) add_ovw_ring_buffer(&tempRing, (int)(10*bmpData.temperature));
 		uint16_t aaa = (uint16_t)(bmpData.pressure/10);
 		if(baroRing.isReady) cbuf_ovw(&baroRing, &aaa);
+
+		tim13_counter++;
+		if(tim13_counter == tim13_prescaler){
+			HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+			// set flag up - causes to update temp/baro data to update in the main loop
+			updateBmpData_flag = 1;
+//			bmpData = getBmpData(&bmp180module);
+			tim13_counter = 0;
+
+		}
 
 	}
 }
