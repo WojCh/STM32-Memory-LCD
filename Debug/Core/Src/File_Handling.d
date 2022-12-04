@@ -47,8 +47,8 @@ Core/Src/File_Handling.o: ../Core/Src/File_Handling.c \
  ../Core/Inc/fonts/font_12.h ../Core/Inc/fonts/font_calibri13.h \
  ../Core/Inc/fonts/font_zekton12.h ../Core/Inc/fonts/font_zekton12bold.h \
  ../Core/Inc/fonts/minimalFont.h ../Core/Inc/fonts/ocrFont.h \
- ../Core/Inc/fonts/zekton24.h ../Core/Inc/fonts/zekton45.h \
- ../Core/Inc/fonts/zekton84.h
+ ../Core/Inc/fonts/zekton24.h ../Core/Inc/fonts/zekton18.h \
+ ../Core/Inc/fonts/zekton45.h ../Core/Inc/fonts/zekton84.h
 ../Core/Inc/File_Handling.h:
 ../FATFS/App/fatfs.h:
 ../Middlewares/Third_Party/FatFs/src/ff.h:
@@ -111,5 +111,6 @@ Core/Src/File_Handling.o: ../Core/Src/File_Handling.c \
 ../Core/Inc/fonts/minimalFont.h:
 ../Core/Inc/fonts/ocrFont.h:
 ../Core/Inc/fonts/zekton24.h:
+../Core/Inc/fonts/zekton18.h:
 ../Core/Inc/fonts/zekton45.h:
 ../Core/Inc/fonts/zekton84.h:

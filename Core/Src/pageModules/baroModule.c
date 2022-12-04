@@ -102,9 +102,6 @@ void changeBaroMode(void){
 		fixedAltitude = bmpData.altitude;
 		baroMode = BARO_MODE_FIXED_ALTITUDE;
 	}
-//	toggleVib();
-//	setTimeout(10, &toggleVib);
-	pulseVib(5, 100);
 }
 void addBaro(void){
 	if(baroMode == BARO_MODE_FIXED_ALTITUDE){

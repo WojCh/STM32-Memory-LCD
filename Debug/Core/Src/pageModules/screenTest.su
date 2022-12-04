@@ -1,0 +1,12 @@
+../Core/Src/pageModules/screenTest.c:12:6:prevPage	4	static
+../Core/Src/pageModules/screenTest.c:19:6:nextPage	4	static
+../Core/Src/pageModules/screenTest.c:27:6:showPage1	80	static
+../Core/Src/pageModules/screenTest.c:40:6:showPage2	40	static
+../Core/Src/pageModules/screenTest.c:49:6:showPage3	40	static
+../Core/Src/pageModules/screenTest.c:58:6:showPage4	40	static
+../Core/Src/pageModules/screenTest.c:67:6:showPage5	40	static
+../Core/Src/pageModules/screenTest.c:83:6:showPage6	24	static
+../Core/Src/pageModules/screenTest.c:114:6:showPage	16	static
+../Core/Src/pageModules/screenTest.c:137:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/screenTest.c:147:6:screentestSetup	8	static
+../Core/Src/pageModules/screenTest.c:151:6:screentestMain	40	static

@@ -17,6 +17,7 @@
 #include "minimalFont.h"
 #include "ocrFont.h"
 #include "zekton24.h"
+#include "zekton18.h"
 #include "zekton45.h"
 #include "zekton84.h"
 

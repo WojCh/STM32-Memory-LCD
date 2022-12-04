@@ -1,0 +1,3 @@
+../Core/Src/pageModules/guiUtils/valueSelector.c:19:6:numberSelectorInc	16	static
+../Core/Src/pageModules/guiUtils/valueSelector.c:22:6:numberSelectorDec	16	static
+../Core/Src/pageModules/guiUtils/valueSelector.c:26:6:drawNumberSelector	80	static

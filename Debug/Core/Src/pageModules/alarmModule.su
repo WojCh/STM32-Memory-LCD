@@ -1,0 +1,14 @@
+../Core/Src/pageModules/alarmModule.c:13:6:addAlarm	24	static
+../Core/Src/pageModules/alarmModule.c:23:19:createAlarm	24	static
+../Core/Src/pageModules/alarmModule.c:30:9:remAlarm	16	static
+../Core/Src/pageModules/alarmModule.c:34:9:setAlarm	16	static
+../Core/Src/pageModules/alarmModule.c:39:9:enableAlarm	16	static
+../Core/Src/pageModules/alarmModule.c:42:9:disableAlarm	16	static
+../Core/Src/pageModules/alarmModule.c:47:6:selectAlarm	8	static
+../Core/Src/pageModules/alarmModule.c:60:6:nextPosition	4	static
+../Core/Src/pageModules/alarmModule.c:67:6:prevPosition	4	static
+../Core/Src/pageModules/alarmModule.c:74:6:toggleEditAlarmMode	8	static
+../Core/Src/pageModules/alarmModule.c:86:6:setEditModeClbcks	8	static
+../Core/Src/pageModules/alarmModule.c:95:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/alarmModule.c:102:6:alarmSetup	8	static
+../Core/Src/pageModules/alarmModule.c:107:6:alarmMain	72	static

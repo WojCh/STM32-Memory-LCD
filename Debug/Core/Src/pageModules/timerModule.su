@@ -1,0 +1,6 @@
+../Core/Src/pageModules/timerModule.c:15:6:startPauseTimer	8	static
+../Core/Src/pageModules/timerModule.c:22:6:resetTim	8	static
+../Core/Src/pageModules/timerModule.c:25:6:setTim	8	static
+../Core/Src/pageModules/timerModule.c:29:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/timerModule.c:37:6:timerSetup	8	static
+../Core/Src/pageModules/timerModule.c:41:6:timerMain	96	static

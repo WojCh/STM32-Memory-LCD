@@ -10,11 +10,9 @@
 
 #include "buttons.h"
 #include "gui.h"
-#include "rtc.h"
 //#include "main.h"
 
 static void setDefaultClbcks(void);
-
 void settingsSetup(void);
 void settingsMain(void);
 

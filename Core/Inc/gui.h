@@ -8,7 +8,7 @@
 #ifndef INC_GUI_H_
 #define INC_GUI_H_
 
-#define MENU_ITEM_NUM 8
+#define MENU_ITEM_NUM 12
 
 //#include "main.h"
 //#include "font13.h"
@@ -23,6 +23,10 @@
 #include "../Src/pageModules/settingsModule.h"
 #include "../Src/pageModules/sdcardModule.h"
 #include "../Src/pageModules/altitudeModule.h"
+#include "../Src/pageModules/alarmModule.h"
+#include "../Src/pageModules/worldtimeModule.h"
+#include "../Src/pageModules/timerModule.h"
+#include "../Src/pageModules/screenTest.h"
 //#include "icons/icons_small.h"
 
 
@@ -35,7 +39,7 @@ const struct Module{
 	const void (*main)(void);
 };
 
-extern struct Module menuItems[MENU_ITEM_NUM];
+extern const struct Module menuItems[MENU_ITEM_NUM];
 
 extern uint8_t position;
 extern void (*moduleMainPtr)(void);

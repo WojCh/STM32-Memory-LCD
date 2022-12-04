@@ -1,0 +1,5 @@
+../Core/Src/countdownTImer.c:10:9:isTimerRunning	16	static
+../Core/Src/countdownTImer.c:14:6:setTimer	16	static
+../Core/Src/countdownTImer.c:19:6:startTimer	16	static
+../Core/Src/countdownTImer.c:22:6:pauseTimer	16	static
+../Core/Src/countdownTImer.c:25:6:resetTimer	16	static

@@ -1,0 +1,6 @@
+../Core/Src/vibrationMotor.c:14:6:setVibrationPower	16	static
+../Core/Src/vibrationMotor.c:18:6:enableVib	4	static
+../Core/Src/vibrationMotor.c:21:6:disableVib	4	static
+../Core/Src/vibrationMotor.c:24:6:toggleVib	4	static
+../Core/Src/vibrationMotor.c:31:6:pulseVib	16	static
+../Core/Src/vibrationMotor.c:38:6:patternVib	8	static

@@ -17,6 +17,7 @@ RM := rm -rf
 -include Core/Startup/subdir.mk
 -include Core/Src/utils/subdir.mk
 -include Core/Src/pageModules/submodules/subdir.mk
+-include Core/Src/pageModules/guiUtils/subdir.mk
 -include Core/Src/pageModules/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk

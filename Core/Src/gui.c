@@ -26,15 +26,21 @@ const struct Module localModule = {"Local", &localSetup, &localMain};
 const struct Module gpsModule = {"GPS", &gpsSetup, &gpsMain};
 const struct Module settingsModule = {"Settings", &settingsSetup, &settingsMain};
 const struct Module sdcardModule = {"SD card", &sdcardSetup, &sdcardMain};
+const struct Module alarmModule = {"Alarms", &alarmSetup, &alarmMain};
+const struct Module worldtimeModule = {"World time", &worldtimeSetup, &worldtimeMain};
+const struct Module timerModule = {"Timer", &timerSetup, &timerMain};
+const struct Module screentestModule = {"Screen test", &screentestSetup, &screentestMain};
 
-struct Module menuItems[MENU_ITEM_NUM] = {faceModule, stwModule, altiModule, baroModule, localModule, gpsModule, settingsModule, sdcardModule};
+const struct Module menuItems[MENU_ITEM_NUM] = {faceModule, alarmModule, worldtimeModule, stwModule, timerModule, altiModule, baroModule, localModule, gpsModule, screentestModule, settingsModule, sdcardModule};
 
 // default screens and displays/values
-uint8_t position = 4;
+#define START_MENU_POSITION 10
+uint8_t position = START_MENU_POSITION;
 #if LCD_DEBUGGING
-	void (*moduleMainPtr)(void) = localModule.main;
-	void (*moduleSetupPtr)(void) = localSetup;
-	void (*currentModulePtr)(void) = localMain;
+	void (*moduleMainPtr)(void) = menuItems[START_MENU_POSITION].main;
+//	void (*moduleMainPtr)(void) = localModule.main;
+	void (*moduleSetupPtr)(void) = menuItems[START_MENU_POSITION].setup;
+	void (*currentModulePtr)(void) = menuItems[START_MENU_POSITION].main;
 #else
 	void (*moduleMainPtr)(void) = faceModule.main;
 	void (*moduleSetupPtr)(void) = faceSetup;
@@ -101,9 +107,9 @@ void returnToMenu(void){
 }
 
 // function to display alert message over current gui
-void showAlert(){
-
-}
+//void showAlert(){
+//
+//}
 
 void showGui(void){
 	if(isModuleSet == 0){
@@ -111,6 +117,6 @@ void showGui(void){
 		isModuleSet = 1;
 	}
 	if(currentModulePtr != NULL) currentModulePtr();
-	lcdRefresh();
+//	lcdRefresh();
 }
 

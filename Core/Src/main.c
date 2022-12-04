@@ -37,6 +37,7 @@
 #include "fonts/fonts.h"
 #include "fatfs.h"
 #include "File_Handling.h"
+#include "countdownTimer.h"
 
 
 /* USER CODE END Includes */
@@ -73,6 +74,8 @@
 	uint8_t tim13_counter = 0; // 1Hz/4 = 4s period
 	// flag to execute BMP180 update in the main program loop
 	uint8_t updateBmpData_flag = 1;
+	countdown_t countDown1 = {5, 5, 0};
+
 
 
 /* USER CODE END PV */
@@ -90,20 +93,7 @@ int __io_putchar(int ch){
 	return(ch);
 }
 
-uint8_t vibPower = 99;
-void enableVib(void){
-	TIM14->CCR1 = vibPower;
-}
-void disableVib(void){
-	TIM14->CCR1 = 0;
-}
-void toggleVib(void){
-	if(TIM14->CCR1 == 0){
-		TIM14->CCR1 = vibPower;
-	} else {
-		TIM14->CCR1 = 0;
-	}
-}
+
 uint8_t timeoutState = 0;
 uint16_t timeoutValue;
 uint16_t timeoutSetpoint;
@@ -118,44 +108,14 @@ void setTimeout(uint16_t ms,  void (*callback)(void)){
 	// flag timeout running
 	timeoutState = 1;
 }
-void pulseVib(uint16_t duration, uint8_t power){
-	vibPower = power;
-	enableVib();
-	setTimeout(duration, &disableVib);
+
+uint8_t alertFlag = 0;
+void showAlert(void){
+	lcdRect2(50, 350, 50, 190, 3, 0, 1);
+	lcdPutStr(90, 90, "Alert!", zekton24font);
 }
-uint8_t patternStep = 0;
-uint8_t patternState = 0;
-void patternVib(void){
-	if(patternState){
-		switch(patternStep){
-		case 0:
-			patternState = 0;
-			toggleVib();
-			setTimeout(10, &toggleVib);
-			break;
-		case 1:
-			patternState = 0;
-			setTimeout(10, &toggleVib);
-			break;
-		case 2:
-			patternState = 0;
-			setTimeout(50, &toggleVib);
-			break;
-		case 3:
-			patternState = 0;
-			setTimeout(10, &toggleVib);
-			break;
-		case 4:
-			patternState = 0;
-			setTimeout(10, &toggleVib);
-			break;
-		default:
-			patternState = 0;
-			patternStep = 0;
-		}
-
-	}
-
+void hideAlert(void){
+	alertFlag = 0;
 }
 
 /* USER CODE END 0 */
@@ -255,13 +215,17 @@ int main(void)
 		HAL_RTC_GetTime(&hrtc, &RtcTime, RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc, &RtcDate, RTC_FORMAT_BIN);
 		if(RtcTime.Minutes == 0 && RtcTime.Seconds==0){
-//			pulseVib(20, 60);
-			patternState = 1;
-			patternVib();
+			pulseVib(40, 60);
 		}
 	  lcdClearBuffer();
 	  // functions executed through GUI
 	  showGui();
+
+	  if(alertFlag){
+		  showAlert();
+		btn_B2.onSinglePressHandler = &hideAlert;
+
+	  }
 
 	  lcdRefresh();
 
@@ -335,8 +299,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 			if(timeoutValue == timeoutSetpoint){
 				(*timeoutClbkPtr)();
 				timeoutState = 0;
-				patternStep++;
-				patternState = 1;
 			} else {
 				timeoutValue++;
 			}
@@ -361,6 +323,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 //			bmpData = getBmpData(&bmp180module);
 			tim13_counter = 0;
 
+		}
+		if(isTimerRunning(&countDown1)){
+			if(countDown1.remainingSec == 0){
+				alertFlag = 1;
+				pauseTimer(&countDown1);
+			} else {
+				countDown1.remainingSec--;
+			}
 		}
 
 	}

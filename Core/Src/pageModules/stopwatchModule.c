@@ -95,7 +95,7 @@ void stwMain(void){
 
 	char tempStr2[30] = {0};
 	sprintf(&guiPos, "Stopwatch");
-	lcdPutStr(0, 10, guiPos, zekton24font);
+	lcdPutStr(10, 10, guiPos, zekton24font);
 
 	updateStopwatch();
 
@@ -106,8 +106,6 @@ void stwMain(void){
 	sprintf(&tempStr2, "%02d'%02d.%02d\"", stw_val.min, stw_val.sec, stw_val.csec);
 	lcdPutStr(380-(*(zekton45font.font_Width)*strlen(tempStr2)), 76, tempStr2, zekton45font);
 	for(uint8_t i = 0; i < 7; i++){
-//		sprintf(&tempStr2, "%d. %d\"", i, stwT.stwArray[i]%(60*100)/100);
-//		sprintf(&tempStr2, "%d. %s", i, stwString(convertTicks(stwT.stwArray[i])));
 		if(stwT.stwArray[i] != 0){
 			sprintf(&tempStr2, "Lap %d:", i+1);
 			lcdPutStr(0, 130+i*16, tempStr2, font_12_zekton);

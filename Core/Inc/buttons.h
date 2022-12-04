@@ -56,6 +56,21 @@ typedef struct Button{
 	void* (*onReleaseHandler)(void*);
 } Button;
 
+// handler types
+// onPress - triggered on the first falling edge, immediate reaction, always executed (independent from other handlers)
+// onRelease - triggered on the first rising edge after debouncing period, immediate reaction
+// onShortPress - triggered when pressed time: pt > debounce period and pt < longPressed period, exclusive with longPress handler
+// onLongPress - triggered when pressed time: pt > longPressed threshold, exclusive with short pressed handler, returns pressed time
+// onContinuousPress - triggered repeatedly with custom interval period, for fast functions, executed independently, returns number of execution
+// onRepeatedPress - triggered after set number of short presses with custom interval in between, exclusive with shortPress (? not necessarily)
+
+// settings:
+// debouncingTime - time required for bounce to stop
+// longPressThreshold - minimal time to recognize press as long, maximal time for short press
+// continuousPressInterval - interval between consecutive triggers of handler
+// repeatedPressCount (?) - number of repeated presses to be recognized (? to rethink)
+// repeatedBreakInterval - interval in between presses to recognize as repeatedPress
+
 extern Button btn_BA, btn_BB, btn_BC, btn_B1, btn_B2, btn_B3;
 extern Button* btnsPtrs[];
 

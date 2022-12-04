@@ -24,4 +24,5 @@ extern gpsDevice_t gpsDev;
 extern location_t location;
 extern int GLOBAL_timezone;
 
+
 #endif /* SRC_GLOBALS_H_ */

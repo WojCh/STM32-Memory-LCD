@@ -42,9 +42,9 @@ Core/Src/pageModules/stopwatchModule.o: \
  ../Core/Inc/fonts/font_12.h ../Core/Inc/fonts/font_calibri13.h \
  ../Core/Inc/fonts/font_zekton12.h ../Core/Inc/fonts/font_zekton12bold.h \
  ../Core/Inc/fonts/minimalFont.h ../Core/Inc/fonts/ocrFont.h \
- ../Core/Inc/fonts/zekton24.h ../Core/Inc/fonts/zekton45.h \
- ../Core/Inc/fonts/zekton84.h ../Core/Inc/fonts/zekton45.h \
- ../Core/Inc/fonts/font_zekton12.h \
+ ../Core/Inc/fonts/zekton24.h ../Core/Inc/fonts/zekton18.h \
+ ../Core/Inc/fonts/zekton45.h ../Core/Inc/fonts/zekton84.h \
+ ../Core/Inc/fonts/zekton45.h ../Core/Inc/fonts/font_zekton12.h \
  ../Core/Src/pageModules/stopwatchModule.h ../Core/Inc/buttons.h \
  ../Core/Inc/gpio.h ../Core/Inc/gui.h ../Core/Inc/fonts/fonts.h \
  ../Core/Inc/buttons.h ../Core/Inc/bmp180.h \
@@ -57,9 +57,14 @@ Core/Src/pageModules/stopwatchModule.o: \
  ../Core/Inc/../Src/pageModules/gpsModule.h \
  ../Core/Inc/../Src/pageModules/localInfo.h \
  ../Core/Inc/../Src/utils/timeUtils.h ../Core/Inc/main.h \
- ../Core/Inc/../Src/pageModules/settingsModule.h ../Core/Inc/rtc.h \
+ ../Core/Inc/../Src/pageModules/settingsModule.h \
  ../Core/Inc/../Src/pageModules/sdcardModule.h \
- ../Core/Inc/../Src/pageModules/altitudeModule.h ../Core/Inc/stw.h
+ ../Core/Inc/../Src/pageModules/altitudeModule.h \
+ ../Core/Inc/../Src/pageModules/alarmModule.h \
+ ../Core/Inc/../Src/pageModules/worldtimeModule.h \
+ ../Core/Inc/../Src/pageModules/timerModule.h \
+ ../Core/Inc/countdownTimer.h ../Core/Inc/../Src/pageModules/screenTest.h \
+ ../Core/Inc/rtc.h ../Core/Inc/stw.h
 ../Core/Inc/icons/icons_small.h:
 ../Core/Inc/lcd.h:
 ../Core/Inc/spi.h:
@@ -112,6 +117,7 @@ Core/Src/pageModules/stopwatchModule.o: \
 ../Core/Inc/fonts/minimalFont.h:
 ../Core/Inc/fonts/ocrFont.h:
 ../Core/Inc/fonts/zekton24.h:
+../Core/Inc/fonts/zekton18.h:
 ../Core/Inc/fonts/zekton45.h:
 ../Core/Inc/fonts/zekton84.h:
 ../Core/Inc/fonts/zekton45.h:
@@ -135,7 +141,12 @@ Core/Src/pageModules/stopwatchModule.o: \
 ../Core/Inc/../Src/utils/timeUtils.h:
 ../Core/Inc/main.h:
 ../Core/Inc/../Src/pageModules/settingsModule.h:
-../Core/Inc/rtc.h:
 ../Core/Inc/../Src/pageModules/sdcardModule.h:
 ../Core/Inc/../Src/pageModules/altitudeModule.h:
+../Core/Inc/../Src/pageModules/alarmModule.h:
+../Core/Inc/../Src/pageModules/worldtimeModule.h:
+../Core/Inc/../Src/pageModules/timerModule.h:
+../Core/Inc/countdownTimer.h:
+../Core/Inc/../Src/pageModules/screenTest.h:
+../Core/Inc/rtc.h:
 ../Core/Inc/stw.h:

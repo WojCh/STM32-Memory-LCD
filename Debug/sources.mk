@@ -23,6 +23,7 @@ C_DEPS :=
 SUBDIRS := \
 Core/Src \
 Core/Src/pageModules \
+Core/Src/pageModules/guiUtils \
 Core/Src/pageModules/submodules \
 Core/Src/utils \
 Core/Startup \

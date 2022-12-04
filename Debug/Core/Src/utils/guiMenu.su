@@ -1,0 +1,2 @@
+../Core/Src/utils/guiMenu.c:13:13:createGuiMenu	16	static
+../Core/Src/utils/guiMenu.c:25:6:addMenuItem	24	static
