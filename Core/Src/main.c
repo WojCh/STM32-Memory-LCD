@@ -75,6 +75,7 @@
 	// flag to execute BMP180 update in the main program loop
 	uint8_t updateBmpData_flag = 1;
 	countdown_t countDown1 = {5, 5, 0};
+	extern uint8_t animationFrameNum;
 
 
 
@@ -290,6 +291,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 		if(stwS.state){
 			stwTick();
 		}
+		animationFrameNum++;
 	}
 	// APB2 168MHz -> after PSCL 100Hz
 	if(htim->Instance == TIM11){

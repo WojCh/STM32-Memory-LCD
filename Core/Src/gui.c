@@ -34,7 +34,7 @@ const struct Module screentestModule = {"Screen test", &screentestSetup, &screen
 const struct Module menuItems[MENU_ITEM_NUM] = {faceModule, alarmModule, worldtimeModule, stwModule, timerModule, altiModule, baroModule, localModule, gpsModule, screentestModule, settingsModule, sdcardModule};
 
 // default screens and displays/values
-#define START_MENU_POSITION 10
+#define START_MENU_POSITION 9
 uint8_t position = START_MENU_POSITION;
 #if LCD_DEBUGGING
 	void (*moduleMainPtr)(void) = menuItems[START_MENU_POSITION].main;

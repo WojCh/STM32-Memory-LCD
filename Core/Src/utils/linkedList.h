@@ -40,16 +40,4 @@ for (i=0; i<data_size; i++)
 (*head_ref)    = new_node;
 }
 
-/* Function to print nodes in a given linked list. fpitr is used
-   to access the function to be used for printing current node data.
-   Note that different data types need different specifier in printf() */
-void printList(struct Node *node, void (*fptr)(void *))
-{
-while (node != NULL)
-{
-(*fptr)(node->data);
-node = node->next;
-}
-}
-
 #endif /* SRC_UTILS_LINKEDLIST_H_ */

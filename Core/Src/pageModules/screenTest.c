@@ -8,6 +8,26 @@
 
 uint8_t currentPage = 0;
 uint8_t PAGES_NUM = 6;
+char btnStr[30] = {0};
+
+void quickPressH(void){
+	sprintf(&btnStr, "Button p. for %.2f s", ((float)btn_B2.pressedFor)/100);
+}
+void quickReleaseH(void){
+	sprintf(&btnStr, "Button rel. %.2f s", ((float)btn_B2.pressedFor)/100);
+}
+void shortPressH(void){
+	sprintf(&btnStr, "Short press");
+}
+void longPressH(void){
+	sprintf(&btnStr, "Long press");
+}
+void doublePressH(void){
+	sprintf(&btnStr, "Double press");
+}
+void triplePressH(void){
+	sprintf(&btnStr, "Triple press");
+}
 
 void prevPage(void){
 	if(currentPage>0){
@@ -24,6 +44,19 @@ void nextPage(void){
 	}
 }
 
+static void setDefaultClbcks(void){
+//	btn_B2.onSinglePressHandler = &quickPressH;
+//	btn_B2.onReleaseHandler = &quickReleaseH;
+//	btn_B2.onPress = &quickPressH;
+//	btn_B2.onRelease = &quickReleaseH;
+//	btn_BB.onSinglePressHandler = &showOptions;
+
+	btn_BA.onSinglePressHandler = &nextScreen;
+	btn_BC.onSinglePressHandler = &prevScreen;
+	btn_B3.onSinglePressHandler = &prevPage;
+	btn_B1.onSinglePressHandler = &nextPage;
+}
+
 void showPage1(void){
 	char fracStr[30] = {0};
 		char timeStr[30] = {0};
@@ -36,6 +69,9 @@ void showPage1(void){
 		lcdVLine(2, 1*6-1, 1*6-1+35, 1);
 		lcdVLine(3, 1*6-1, 1*6-1+35, 1);
 		lcdVLine(4, 1*6, 1*6+33, 1);
+
+
+		lcdPutStr(14, 60, btnStr, zekton24font);
 }
 void showPage2(void){
 	char fracStr[30] = {0};
@@ -133,16 +169,6 @@ void showPage(uint8_t pageNum){
 		break;
 	}
 }
-
-static void setDefaultClbcks(void){
-//	btn_B2.onSinglePressHandler = &returnToMenu;
-	btn_BA.onSinglePressHandler = &nextScreen;
-	btn_BC.onSinglePressHandler = &prevScreen;
-	btn_B3.onSinglePressHandler = &prevPage;
-	btn_B1.onSinglePressHandler = &nextPage;
-//	btn_BB.onSinglePressHandler = &showOptions;
-}
-
 
 void screentestSetup(void){
 	setDefaultClbcks();

@@ -11,6 +11,38 @@
 #include <stdint.h>
 #include "gui.h"
 
+const enum MENU_ITEM_TYPE {
+	MENU_ITEM_TYPE_GENERIC = 0,
+	MENU_ITEM_TYPE_SUBMENU,
+	MENU_ITEM_TYPE_LIST_SELECTOR,
+	MENU_ITEM_TYPE_VAR_SELECTOR,
+	MENU_ITEM_TYPE_TOGGLE,
+//	DROPDOWN
+};
+typedef struct guiMenuItem_t{
+	const char label[30];						// name
+	enum MENU_ITEM_TYPE type;			// type of item
+	void (*actionCallback)(void);
+//	void (*genericAction)(void);		// action callback when clicked on
+//	struct guiMenu_t *submenuPtr;	// submenu pointer
+//	uint8_t toggleState;				// state
+}guiMenuItem_t;
+
+typedef struct guiMenu_t{
+	uint16_t x;					// x position of the menu
+	uint16_t y;					// y position of the menu
+//	uint16_t height;			// max height of the menu
+//	uint16_t width;				// max width of the menu
+//	uint8_t showScroll;			// showing scrollbar
+//	uint8_t wrappingEnabled;	// when reached end of the list, wrap to start
+//	Font_TypeDef *font;			// font used for labels
+//	uint8_t listItemHeight;		// height of single list item
+
+	uint8_t selectedItem;
+	uint8_t itemCount;
+	guiMenuItem_t **itemList;
+}guiMenu_t;
+
 
 #define MENU_SHOW_SCROLL 		1
 #define MENU_HIDE_SCROLL 		0

@@ -62,7 +62,8 @@ Core/Src/pageModules/settingsModule.o: \
  ../Core/Inc/../Src/pageModules/worldtimeModule.h \
  ../Core/Inc/../Src/pageModules/timerModule.h \
  ../Core/Inc/countdownTimer.h ../Core/Inc/../Src/pageModules/screenTest.h \
- ../Core/Inc/fonts/fonts.h ../Core/Inc/../Src/utils/guiMenu.h
+ ../Core/Inc/fonts/fonts.h ../Core/Inc/icons/circleLoader.h \
+ ../Core/Inc/../Src/utils/guiMenu.h
 ../Core/Src/pageModules/settingsModule.h:
 ../Core/Inc/buttons.h:
 ../Core/Inc/gpio.h:
@@ -145,4 +146,5 @@ Core/Src/pageModules/settingsModule.o: \
 ../Core/Inc/countdownTimer.h:
 ../Core/Inc/../Src/pageModules/screenTest.h:
 ../Core/Inc/fonts/fonts.h:
+../Core/Inc/icons/circleLoader.h:
 ../Core/Inc/../Src/utils/guiMenu.h:

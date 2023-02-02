@@ -1,15 +1,13 @@
 #include "buttons.h"
 
-buttons btns;
-
 // initialization of all buttons
 Button btn_BA, btn_BB, btn_BC, btn_B1, btn_B2, btn_B3;
-GPIO_TypeDef* ports[6] = {BA_GPIO_Port, BB_GPIO_Port, BC_GPIO_Port, B1_GPIO_Port, B2_GPIO_Port, B3_GPIO_Port};
-uint16_t pins[6] = {BA_Pin, BB_Pin, BC_Pin, B1_Pin, B2_Pin, B3_Pin};
-Button* btnsPtrs[6] = {&btn_BA, &btn_BB, &btn_BC, &btn_B1, &btn_B2, &btn_B3};
-void initButtons(Button* btns[6]){
+GPIO_TypeDef* ports[BTN_NUMBER] = {BA_GPIO_Port, BB_GPIO_Port, BC_GPIO_Port, B1_GPIO_Port, B2_GPIO_Port, B3_GPIO_Port};
+uint16_t pins[BTN_NUMBER] = {BA_Pin, BB_Pin, BC_Pin, B1_Pin, B2_Pin, B3_Pin};
+Button* btnsPtrs[BTN_NUMBER] = {&btn_BA, &btn_BB, &btn_BC, &btn_B1, &btn_B2, &btn_B3};
+void initButtons(Button* btns[BTN_NUMBER]){
 	uint8_t i = 0;
-	while(i < 6){
+	while(i < BTN_NUMBER){
 		btns[i]->pin = pins[i];
 		btns[i]->port = ports[i];
 		btns[i]->prevStatus = 0;
@@ -29,25 +27,37 @@ void initButtons(Button* btns[6]){
 		btns[i]->onContinuousShortPressHandler = NULL;
 		btns[i]->onContinuousLongPressHandler = NULL;
 		btns[i]->onReleaseHandler = NULL;
-//		btns[i]-> = NULL;
+		// new handlers
+		btns[i]->onPress = NULL;
+		btns[i]->onRelease = NULL;
+		btns[i]->onShortPress = NULL;
+		btns[i]->onLongPress = NULL;
+		btns[i]->onContinuousPress = NULL;
+		btns[i]->onRepeatedPress = NULL;
+		//
 		i++;
 	}
 }
 
 void resetButtonHandlers(void){
 	uint8_t i = 0;
-	while(i < 6){
+	while(i < BTN_NUMBER){
 		btnsPtrs[i]->onSinglePressHandler = NULL;
 		btnsPtrs[i]->onSingleLongPressHandler = NULL;
 		btnsPtrs[i]->onContinuousShortPressHandler = NULL;
 		btnsPtrs[i]->onContinuousLongPressHandler = NULL;
 		btnsPtrs[i]->onReleaseHandler = NULL;
+		// new handlers
+		btnsPtrs[i]->onPress = NULL;
+		btnsPtrs[i]->onRelease = NULL;
+		btnsPtrs[i]->onShortPress = NULL;
+		btnsPtrs[i]->onLongPress = NULL;
+		btnsPtrs[i]->onContinuousPress = NULL;
+		btnsPtrs[i]->onRepeatedPress = NULL;
+
 		i++;
 	}
 }
-
-char buttonHandlers[50] = {0};
-char buttonHandler2[50] = {0};
 
 // settings for timer cycles needed for a long threshold and freq of pulse on long press
 struct PressSetting pressSetting = {40, 20};
@@ -69,6 +79,7 @@ void scanButton(Button* btn){
 		// stable state pressed or released
 		if(currStatus == 1){
 			// stable pressed state
+			btn->pressedFor++;
 			btn->shortContinuous++;
 			if(btn->shortContinuous >= 10000) btn->shortContinuous = pressSetting.shortTreshold;
 			// short continuous press handler
@@ -117,7 +128,7 @@ void scanButton(Button* btn){
 			if(btn->shortSingleHandled == 0){
 				// to do after press											<------ single press handler
 				if(btn->onSinglePressHandler != NULL){
-					pulseVib(5, 100);
+					pulseVib(5, 75);
 					btn->onSinglePressHandler(NULL);
 				}
 				btn->shortSingleOn++;
@@ -131,6 +142,7 @@ void scanButton(Button* btn){
 				if(btn->onReleaseHandler != NULL){
 					btn->onReleaseHandler(NULL);
 				}
+				btn->pressedFor = 0;
 				btn->shortSingleOff++;
 				// set handled flag
 				btn->releaseHandled = 1;
@@ -138,6 +150,7 @@ void scanButton(Button* btn){
 		}
 	}
 }
+
 
 void scanButtons(Button* btns[6]){
 	uint8_t i = 0;

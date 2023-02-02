@@ -1,2 +1,5 @@
-../Core/Src/utils/guiMenu.c:13:13:createGuiMenu	16	static
-../Core/Src/utils/guiMenu.c:25:6:addMenuItem	24	static
+../Core/Src/utils/guiMenu.c:12:13:createGuiMenu	16	static
+../Core/Src/utils/guiMenu.c:18:6:addMenuItem	24	static
+../Core/Src/utils/guiMenu.c:23:6:nextMenuItem	16	static
+../Core/Src/utils/guiMenu.c:32:6:prevMenuItem	16	static
+../Core/Src/utils/guiMenu.c:41:6:drawGuiMenu	56	static
