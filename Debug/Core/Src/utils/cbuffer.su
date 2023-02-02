@@ -4,4 +4,4 @@
 ../Core/Src/utils/cbuffer.c:39:9:cbuf_isFull	16	static
 ../Core/Src/utils/cbuffer.c:44:9:cbuf_append	16	static
 ../Core/Src/utils/cbuffer.c:54:9:cbuf_ovw	16	static
-../Core/Src/utils/cbuffer.c:69:7:cbuf_readn	16	static
+../Core/Src/utils/cbuffer.c:70:7:cbuf_readn	16	static

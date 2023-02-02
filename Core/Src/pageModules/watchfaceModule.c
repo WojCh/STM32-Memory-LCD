@@ -7,16 +7,49 @@
  *      module displaying watchfaces
  */
 #include "watchfaceModule.h"
-#include "contextMenu.h"
+#include "../utils/timerUtils.h"
 
 // fonts
 #include "fonts/fonts.h"
 
+void timerElap(void){
+	lcdRect(10, 20, 10, 20, 1);
+}
+
+timer_T* testTimerPtr = NULL;
+static void testTimerAction(void){
+	if(testTimerPtr == NULL){
+		testTimerPtr = createTimer();
+		setTimerAAA(testTimerPtr, 10, &timerElap);
+	}
+}
+static void testTimerStartAction(void){
+	runTimerAAA(testTimerPtr);
+}
+static void testTimerPauseAction(void){
+	pauseTimerAAA(testTimerPtr);
+}
+static void testTimerResetAction(void){
+	resetTimerAAA(testTimerPtr);
+}
+static void testTimerDeleteAction(void){
+	deleteTimer(testTimerPtr);
+	testTimerPtr = NULL;
+}
+void tickTimAAA(void){
+	tickTimer(testTimerPtr);
+}
+
 static void setDefaultClbcks(void){
 	// module callbacks
-	btn_B2.onSinglePressHandler = &showCntxMenu;
-	btn_BA.onSinglePressHandler = &nextScreen;
-	btn_BC.onSinglePressHandler = &prevScreen;
+	btn_BB.onSinglePressHandler = &testTimerAction;
+//	btn_BA.onSinglePressHandler = &nextScreen;
+//	btn_BC.onSinglePressHandler = &prevScreen;
+	btn_BC.onSinglePressHandler = &testTimerDeleteAction;
+
+	btn_B1.onSinglePressHandler = &testTimerStartAction;
+	btn_B2.onSinglePressHandler = &testTimerPauseAction;
+	btn_B3.onSinglePressHandler = &testTimerResetAction;
 }
 
 static void setTimeAction(void){
@@ -26,19 +59,23 @@ static void setDateAction(void){
 	guiApplyView(&dateInputModule);
 }
 
-const struct ContextAction action1 = {"Set time", &setTimeAction};
-const struct ContextAction action2 = {"Set date", &setDateAction};
-const struct ContextAction action3 = {"Customize", &setTimeAction};
-const struct ContextAction action4 = {"Lock", &setTimeAction};
-struct ContextAction* ContextActions[] = {&action1, &action2, &action3, &action4};
-
 void faceSetup(void){
 	setDefaultClbcks();
-	setupCntxMenu(&setDefaultClbcks);
-//	setupCntxMenu(&setDefaultClbcks, cntxActions, 3);
+
 }
 
 void faceMain(void){
+	// callback execution when timer elapsed
+	timerElapsedClbk(testTimerPtr);
+
+	char testTimStr[30] = {0};
+	sprintf(&testTimStr, "%3d", testTimerPtr->targetValue);
+	lcdPutStr(310, 0, testTimStr, zekton24font);
+	sprintf(&testTimStr, "%3d", testTimerPtr->currentValue);
+	lcdPutStr(310, 24, testTimStr, zekton24font);
+	sprintf(&testTimStr, "%3d", testTimerPtr->timerStatus);
+	lcdPutStr(310, 48, testTimStr, zekton24font);
+
 	char temperature[30] = {0};
 	sprintf(&temperature, "%4.1f`C", bmpData.temperature);
 	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(temperature))), 14, temperature, zekton24font);
@@ -62,8 +99,6 @@ void faceMain(void){
 	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(buffString))), 174, buffString, zekton24font);
 	sprintf(&buffString, "%s %d", weekDays[RtcDate.WeekDay], RtcDate.Date);
 	lcdPutStr(35+(*(zekton24font.font_Width)*(13-strlen(buffString))), 202, buffString, zekton24font);
-
-	enableCntxMenu();
 }
 
 

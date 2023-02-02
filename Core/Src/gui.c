@@ -19,22 +19,23 @@
 #include "gui.h"
 
 const struct Module faceModule = {"Watchface", &faceSetup, &faceMain};
-const struct Module stwModule = {"Stopwatch", &stwSetup, &stwMain};
-const struct Module altiModule = {"Alti", &altiSetup, &altiMain};
-const struct Module baroModule = {"Atmo", &baroSetup, &baroMain};
-const struct Module localModule = {"Local", &localSetup, &localMain};
-const struct Module gpsModule = {"GPS", &gpsSetup, &gpsMain};
-const struct Module settingsModule = {"Settings", &settingsSetup, &settingsMain};
-const struct Module sdcardModule = {"SD card", &sdcardSetup, &sdcardMain};
-const struct Module alarmModule = {"Alarms", &alarmSetup, &alarmMain};
-const struct Module worldtimeModule = {"World time", &worldtimeSetup, &worldtimeMain};
-const struct Module timerModule = {"Timer", &timerSetup, &timerMain};
-const struct Module screentestModule = {"Screen test", &screentestSetup, &screentestMain};
+//const struct Module stwModule = {"Stopwatch", &stwSetup, &stwMain};
+//const struct Module altiModule = {"Alti", &altiSetup, &altiMain};
+//const struct Module baroModule = {"Atmo", &baroSetup, &baroMain};
+//const struct Module localModule = {"Local", &localSetup, &localMain};
+//const struct Module gpsModule = {"GPS", &gpsSetup, &gpsMain};
+//const struct Module settingsModule = {"Settings", &settingsSetup, &settingsMain};
+//const struct Module sdcardModule = {"SD card", &sdcardSetup, &sdcardMain};
+//const struct Module alarmModule = {"Alarms", &alarmSetup, &alarmMain};
+//const struct Module worldtimeModule = {"World time", &worldtimeSetup, &worldtimeMain};
+//const struct Module timerModule = {"Timer", &timerSetup, &timerMain};
+//const struct Module screentestModule = {"Screen test", &screentestSetup, &screentestMain};
 
-const struct Module menuItems[MENU_ITEM_NUM] = {faceModule, alarmModule, worldtimeModule, stwModule, timerModule, altiModule, baroModule, localModule, gpsModule, screentestModule, settingsModule, sdcardModule};
+const struct Module menuItems[MENU_ITEM_NUM] = {faceModule};
+//const struct Module menuItems[MENU_ITEM_NUM] = {faceModule, alarmModule, worldtimeModule, stwModule, timerModule, altiModule, baroModule, localModule, gpsModule, screentestModule, settingsModule, sdcardModule};
 
 // default screens and displays/values
-#define START_MENU_POSITION 9
+#define START_MENU_POSITION 0
 uint8_t position = START_MENU_POSITION;
 #if LCD_DEBUGGING
 	void (*moduleMainPtr)(void) = menuItems[START_MENU_POSITION].main;

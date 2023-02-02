@@ -8,7 +8,7 @@
 #ifndef INC_GUI_H_
 #define INC_GUI_H_
 
-#define MENU_ITEM_NUM 12
+#define MENU_ITEM_NUM 1
 
 //#include "main.h"
 //#include "font13.h"

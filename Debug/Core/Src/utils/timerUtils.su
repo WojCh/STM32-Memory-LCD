@@ -1,0 +1,8 @@
+../Core/Src/utils/timerUtils.c:10:10:createTimer	16	static
+../Core/Src/utils/timerUtils.c:15:6:deleteTimer	16	static
+../Core/Src/utils/timerUtils.c:18:9:setTimerAAA	24	static
+../Core/Src/utils/timerUtils.c:25:9:runTimerAAA	16	static
+../Core/Src/utils/timerUtils.c:30:9:pauseTimerAAA	16	static
+../Core/Src/utils/timerUtils.c:36:9:resetTimerAAA	16	static
+../Core/Src/utils/timerUtils.c:41:6:tickTimer	16	static
+../Core/Src/utils/timerUtils.c:50:6:timerElapsedClbk	16	static

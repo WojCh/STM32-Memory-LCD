@@ -56,6 +56,7 @@ uint8_t cbuf_ovw(cbuf_t* b, void* element){
 		memcpy(b->elements+b->tail*b->elemSize, element, b->elemSize);
 		b->tail = (b->tail + 1) % b->maxSize;
 		b->head = (b->head + 1) % b->maxSize;
+		return 0;
 	} else{
 		memcpy(b->elements+b->tail*b->elemSize, element, b->elemSize);
 		b->elemNum++;

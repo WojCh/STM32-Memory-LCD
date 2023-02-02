@@ -8,7 +8,6 @@ C_SRCS += \
 ../Core/Src/pageModules/alarmModule.c \
 ../Core/Src/pageModules/altitudeModule.c \
 ../Core/Src/pageModules/baroModule.c \
-../Core/Src/pageModules/contextMenu.c \
 ../Core/Src/pageModules/gpsModule.c \
 ../Core/Src/pageModules/localInfo.c \
 ../Core/Src/pageModules/menuModule.c \
@@ -24,7 +23,6 @@ OBJS += \
 ./Core/Src/pageModules/alarmModule.o \
 ./Core/Src/pageModules/altitudeModule.o \
 ./Core/Src/pageModules/baroModule.o \
-./Core/Src/pageModules/contextMenu.o \
 ./Core/Src/pageModules/gpsModule.o \
 ./Core/Src/pageModules/localInfo.o \
 ./Core/Src/pageModules/menuModule.o \
@@ -40,7 +38,6 @@ C_DEPS += \
 ./Core/Src/pageModules/alarmModule.d \
 ./Core/Src/pageModules/altitudeModule.d \
 ./Core/Src/pageModules/baroModule.d \
-./Core/Src/pageModules/contextMenu.d \
 ./Core/Src/pageModules/gpsModule.d \
 ./Core/Src/pageModules/localInfo.d \
 ./Core/Src/pageModules/menuModule.d \
@@ -60,7 +57,7 @@ Core/Src/pageModules/%.o Core/Src/pageModules/%.su: ../Core/Src/pageModules/%.c 
 clean: clean-Core-2f-Src-2f-pageModules
 
 clean-Core-2f-Src-2f-pageModules:
-	-$(RM) ./Core/Src/pageModules/alarmModule.d ./Core/Src/pageModules/alarmModule.o ./Core/Src/pageModules/alarmModule.su ./Core/Src/pageModules/altitudeModule.d ./Core/Src/pageModules/altitudeModule.o ./Core/Src/pageModules/altitudeModule.su ./Core/Src/pageModules/baroModule.d ./Core/Src/pageModules/baroModule.o ./Core/Src/pageModules/baroModule.su ./Core/Src/pageModules/contextMenu.d ./Core/Src/pageModules/contextMenu.o ./Core/Src/pageModules/contextMenu.su ./Core/Src/pageModules/gpsModule.d ./Core/Src/pageModules/gpsModule.o ./Core/Src/pageModules/gpsModule.su ./Core/Src/pageModules/localInfo.d ./Core/Src/pageModules/localInfo.o ./Core/Src/pageModules/localInfo.su ./Core/Src/pageModules/menuModule.d ./Core/Src/pageModules/menuModule.o ./Core/Src/pageModules/menuModule.su ./Core/Src/pageModules/screenTest.d ./Core/Src/pageModules/screenTest.o ./Core/Src/pageModules/screenTest.su ./Core/Src/pageModules/sdcardModule.d ./Core/Src/pageModules/sdcardModule.o ./Core/Src/pageModules/sdcardModule.su ./Core/Src/pageModules/settingsModule.d ./Core/Src/pageModules/settingsModule.o ./Core/Src/pageModules/settingsModule.su ./Core/Src/pageModules/stopwatchModule.d ./Core/Src/pageModules/stopwatchModule.o ./Core/Src/pageModules/stopwatchModule.su ./Core/Src/pageModules/timerModule.d ./Core/Src/pageModules/timerModule.o ./Core/Src/pageModules/timerModule.su ./Core/Src/pageModules/watchfaceModule.d ./Core/Src/pageModules/watchfaceModule.o ./Core/Src/pageModules/watchfaceModule.su ./Core/Src/pageModules/worldtimeModule.d ./Core/Src/pageModules/worldtimeModule.o ./Core/Src/pageModules/worldtimeModule.su
+	-$(RM) ./Core/Src/pageModules/alarmModule.d ./Core/Src/pageModules/alarmModule.o ./Core/Src/pageModules/alarmModule.su ./Core/Src/pageModules/altitudeModule.d ./Core/Src/pageModules/altitudeModule.o ./Core/Src/pageModules/altitudeModule.su ./Core/Src/pageModules/baroModule.d ./Core/Src/pageModules/baroModule.o ./Core/Src/pageModules/baroModule.su ./Core/Src/pageModules/gpsModule.d ./Core/Src/pageModules/gpsModule.o ./Core/Src/pageModules/gpsModule.su ./Core/Src/pageModules/localInfo.d ./Core/Src/pageModules/localInfo.o ./Core/Src/pageModules/localInfo.su ./Core/Src/pageModules/menuModule.d ./Core/Src/pageModules/menuModule.o ./Core/Src/pageModules/menuModule.su ./Core/Src/pageModules/screenTest.d ./Core/Src/pageModules/screenTest.o ./Core/Src/pageModules/screenTest.su ./Core/Src/pageModules/sdcardModule.d ./Core/Src/pageModules/sdcardModule.o ./Core/Src/pageModules/sdcardModule.su ./Core/Src/pageModules/settingsModule.d ./Core/Src/pageModules/settingsModule.o ./Core/Src/pageModules/settingsModule.su ./Core/Src/pageModules/stopwatchModule.d ./Core/Src/pageModules/stopwatchModule.o ./Core/Src/pageModules/stopwatchModule.su ./Core/Src/pageModules/timerModule.d ./Core/Src/pageModules/timerModule.o ./Core/Src/pageModules/timerModule.su ./Core/Src/pageModules/watchfaceModule.d ./Core/Src/pageModules/watchfaceModule.o ./Core/Src/pageModules/watchfaceModule.su ./Core/Src/pageModules/worldtimeModule.d ./Core/Src/pageModules/worldtimeModule.o ./Core/Src/pageModules/worldtimeModule.su
 
 .PHONY: clean-Core-2f-Src-2f-pageModules
 

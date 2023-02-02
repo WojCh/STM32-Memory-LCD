@@ -1,5 +1,12 @@
-../Core/Src/pageModules/watchfaceModule.c:15:13:setDefaultClbcks	4	static
-../Core/Src/pageModules/watchfaceModule.c:22:13:setTimeAction	8	static
-../Core/Src/pageModules/watchfaceModule.c:25:13:setDateAction	8	static
-../Core/Src/pageModules/watchfaceModule.c:35:6:faceSetup	8	static
-../Core/Src/pageModules/watchfaceModule.c:41:6:faceMain	208	static
+../Core/Src/pageModules/watchfaceModule.c:15:6:timerElap	16	static
+../Core/Src/pageModules/watchfaceModule.c:20:13:testTimerAction	8	static
+../Core/Src/pageModules/watchfaceModule.c:26:13:testTimerStartAction	8	static
+../Core/Src/pageModules/watchfaceModule.c:29:13:testTimerPauseAction	8	static
+../Core/Src/pageModules/watchfaceModule.c:32:13:testTimerResetAction	8	static
+../Core/Src/pageModules/watchfaceModule.c:35:13:testTimerDeleteAction	8	static
+../Core/Src/pageModules/watchfaceModule.c:39:6:tickTimAAA	8	static
+../Core/Src/pageModules/watchfaceModule.c:43:13:setDefaultClbcks	4	static
+../Core/Src/pageModules/watchfaceModule.c:55:13:setTimeAction	8	static
+../Core/Src/pageModules/watchfaceModule.c:58:13:setDateAction	8	static
+../Core/Src/pageModules/watchfaceModule.c:62:6:faceSetup	8	static
+../Core/Src/pageModules/watchfaceModule.c:67:6:faceMain	240	static

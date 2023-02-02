@@ -5,4 +5,4 @@
 ../Core/Src/utils/ringBuffer.c:31:9:add_ring_buffer	16	static
 ../Core/Src/utils/ringBuffer.c:38:5:remove_ring_buffer	24	static
 ../Core/Src/utils/ringBuffer.c:47:9:add_ovw_ring_buffer	16	static
-../Core/Src/utils/ringBuffer.c:59:5:read_nth_ring_buffer	16	static
+../Core/Src/utils/ringBuffer.c:60:5:read_nth_ring_buffer	16	static

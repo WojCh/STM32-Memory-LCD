@@ -49,6 +49,7 @@ uint8_t add_ovw_ring_buffer(RingBuffer_t* b, int value){
 		b->values[b->tail] = value;
 		b->tail = (b->tail + 1) % b->size;
 		b->head = (b->head + 1) % b->size;
+		return 0;
 	} else{
 		b->values[b->tail] = value;
 		b->num_entries++;

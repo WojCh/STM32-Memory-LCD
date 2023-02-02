@@ -62,9 +62,8 @@ Core/Src/pageModules/sdcardModule.o: \
  ../Core/Inc/../Src/pageModules/worldtimeModule.h \
  ../Core/Inc/../Src/pageModules/timerModule.h \
  ../Core/Inc/countdownTimer.h ../Core/Inc/../Src/pageModules/screenTest.h \
- ../Core/Src/pageModules/contextMenu.h ../Core/Inc/fonts/fonts.h \
- ../Core/Inc/File_Handling.h ../FATFS/App/fatfs.h \
- ../Middlewares/Third_Party/FatFs/src/ff.h \
+ ../Core/Inc/fonts/fonts.h ../Core/Inc/File_Handling.h \
+ ../FATFS/App/fatfs.h ../Middlewares/Third_Party/FatFs/src/ff.h \
  ../Middlewares/Third_Party/FatFs/src/integer.h ../FATFS/Target/ffconf.h \
  ../FATFS/Target/bsp_driver_sd.h \
  ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
@@ -151,7 +150,6 @@ Core/Src/pageModules/sdcardModule.o: \
 ../Core/Inc/../Src/pageModules/timerModule.h:
 ../Core/Inc/countdownTimer.h:
 ../Core/Inc/../Src/pageModules/screenTest.h:
-../Core/Src/pageModules/contextMenu.h:
 ../Core/Inc/fonts/fonts.h:
 ../Core/Inc/File_Handling.h:
 ../FATFS/App/fatfs.h:

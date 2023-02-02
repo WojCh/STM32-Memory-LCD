@@ -39,6 +39,8 @@
 #include "File_Handling.h"
 #include "countdownTimer.h"
 
+#include "utils/timerUtils.h"
+
 
 /* USER CODE END Includes */
 
@@ -308,6 +310,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	}
 	// APB1 84MHz -> after PSCL 1Hz
 	if(htim->Instance == TIM13){
+		// watchface module timer value incrementing
+		tickTimAAA();
 //		HAL_UART_Receive_DMA(&huart6, &dmaBuffer, GPS_BUFFER_SIZE);
 		if(gpsDev.isReady != 0) gpsDev.getData(&gpsDev);
 

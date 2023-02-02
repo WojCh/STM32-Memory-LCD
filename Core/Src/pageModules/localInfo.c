@@ -95,6 +95,8 @@ int solarEventTime(enum SOLAR_EVENT event,struct tm *timeStr, struct local_locat
 			return 720-4*location->longitude-eqTime+60*location->timezone;
 		case SOLAR_SUNSET:
 			return 720-4*(location->longitude-cha*180/M_PI)-eqTime+60*location->timezone;
+		default:
+			return 0;
 	}
 }
 //sunrise/sunset/noon times [min]

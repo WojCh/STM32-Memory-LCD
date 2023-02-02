@@ -62,7 +62,7 @@ Core/Src/pageModules/watchfaceModule.o: \
  ../Core/Inc/countdownTimer.h ../Core/Inc/../Src/pageModules/screenTest.h \
  ../Core/Src/pageModules/submodules/timeInputScreen.h \
  ../Core/Src/pageModules/submodules/dateInputScreen.h \
- ../Core/Src/pageModules/contextMenu.h ../Core/Inc/fonts/fonts.h
+ ../Core/Src/pageModules/../utils/timerUtils.h ../Core/Inc/fonts/fonts.h
 ../Core/Src/pageModules/watchfaceModule.h:
 ../Core/Inc/buttons.h:
 ../Core/Inc/gpio.h:
@@ -144,5 +144,5 @@ Core/Src/pageModules/watchfaceModule.o: \
 ../Core/Inc/../Src/pageModules/screenTest.h:
 ../Core/Src/pageModules/submodules/timeInputScreen.h:
 ../Core/Src/pageModules/submodules/dateInputScreen.h:
-../Core/Src/pageModules/contextMenu.h:
+../Core/Src/pageModules/../utils/timerUtils.h:
 ../Core/Inc/fonts/fonts.h:

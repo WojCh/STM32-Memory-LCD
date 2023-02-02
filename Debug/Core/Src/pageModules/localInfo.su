@@ -9,9 +9,9 @@
 ../Core/Src/pageModules/localInfo.c:78:7:timeOffset	24	static
 ../Core/Src/pageModules/localInfo.c:82:7:trueSolarTime	16	static
 ../Core/Src/pageModules/localInfo.c:86:5:solarEventTime	40	static
-../Core/Src/pageModules/localInfo.c:109:6:calcSolarAngles	80	static
-../Core/Src/pageModules/localInfo.c:131:6:localMain	312	static
-../Core/Src/pageModules/localInfo.c:305:6:drawSunlightGraph	152	static
-../Core/Src/pageModules/localInfo.c:348:6:localScreen1	4	static
-../Core/Src/pageModules/localInfo.c:352:6:localScreen2	4	static
-../Core/Src/pageModules/localInfo.c:356:6:localScreen3	4	static
+../Core/Src/pageModules/localInfo.c:111:6:calcSolarAngles	80	static
+../Core/Src/pageModules/localInfo.c:133:6:localMain	312	static
+../Core/Src/pageModules/localInfo.c:307:6:drawSunlightGraph	152	static
+../Core/Src/pageModules/localInfo.c:350:6:localScreen1	4	static
+../Core/Src/pageModules/localInfo.c:354:6:localScreen2	4	static
+../Core/Src/pageModules/localInfo.c:358:6:localScreen3	4	static
