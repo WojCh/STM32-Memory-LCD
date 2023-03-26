@@ -6,10 +6,15 @@
  */
 
 #include "btns.h"
+
+// Number of buttons used in the project
 #define NUM_BUTTONS 6
+// Assigned Ports and Pin numbers
 GPIO_TypeDef* Button_Port[NUM_BUTTONS] = {BA_GPIO_Port, BB_GPIO_Port, BC_GPIO_Port, B1_GPIO_Port, B2_GPIO_Port, B3_GPIO_Port};
 uint16_t Button_Pin[NUM_BUTTONS] = {BA_Pin, BB_Pin, BC_Pin, B1_Pin, B2_Pin, B3_Pin};
 
+#define DEBOUNCE_THRESHOLD 8
+#define DOUBLE_PRESS_TIMEOUT 150
 
 
 // Button state structure
@@ -68,6 +73,12 @@ void button_set_handler(uint8_t button_num, Button_Event event_type, Button_Call
     }
 }
 
+void trigger_callback(uint8_t button_num, Button_Event event_type) {
+    if (button_handlers[button_num].callback[event_type] != NULL) {
+        button_handlers[button_num].callback[event_type](button_handlers[button_num].context[event_type]);
+    }
+}
+
 /**
  * @brief Scans and processes button states, detects button events, and triggers corresponding callbacks.
  *
@@ -75,9 +86,6 @@ void button_set_handler(uint8_t button_num, Button_Event event_type, Button_Call
  * long press, and double press events for a defined set of buttons, and triggers their respective callback functions.
  */
 void button_task(void) {
-    uint8_t debounce_threshold = 8; // Amount of HAL ticks to wait for button to stop bouncing
-    uint32_t double_press_timeout = 150; // Amount of HAL ticks to wait for a second press to be considered a double press
-
     for (uint8_t i = 0; i < NUM_BUTTONS; i++) {
 
         // Read the current state of the button (pressed or not pressed)
@@ -89,13 +97,15 @@ void button_task(void) {
             button_states[i].debounce_counter++;
 
             // Check if the debounce counter has reached the threshold
-            if (button_states[i].debounce_counter >= debounce_threshold) {
+            if (button_states[i].debounce_counter >= DEBOUNCE_THRESHOLD) {
 
                 // If the button has been released (state changed from pressed to not pressed)
                 if (button_states[i].pressed) {
                     // Trigger the release event callback
-                    button_handlers[i].callback[BUTTON_EVENT_RELEASE](button_handlers[i].context[BUTTON_EVENT_RELEASE]);
-
+//                	if(button_handlers[i].callback[BUTTON_EVENT_RELEASE] != NULL){
+//                		button_handlers[i].callback[BUTTON_EVENT_RELEASE](button_handlers[i].context[BUTTON_EVENT_RELEASE]);
+//                	}
+                	trigger_callback(i, BUTTON_EVENT_RELEASE);
                     // Reset cycle elapsed period value
                     button_states[i].cycle_time = 0;
 
@@ -105,19 +115,23 @@ void button_task(void) {
                     // Check if the button was pressed once and held longer than the long press time
                     if (button_states[i].press_count == 1 && time_since_press > button_handlers[i].long_press_time) {
                         // Trigger the long press event callback and reset the press count
-                        button_handlers[i].callback[BUTTON_EVENT_LONG_PRESS](button_handlers[i].context[BUTTON_EVENT_LONG_PRESS]);
+                    	trigger_callback(i, BUTTON_EVENT_LONG_PRESS);
+
                         button_states[i].press_count = 0;
                     }
                     // Check if the button was pressed once and released within the double press timeout
-                    else if (button_states[i].press_count == 1 && time_since_press > double_press_timeout) {
+                    else if (button_states[i].press_count == 1 && time_since_press > DOUBLE_PRESS_TIMEOUT) {
                         // Trigger the short press event callback and reset the press count
-                        button_handlers[i].callback[BUTTON_EVENT_SHORT_PRESS](button_handlers[i].context[BUTTON_EVENT_SHORT_PRESS]);
-                        button_states[i].press_count = 0;
+                    	trigger_callback(i, BUTTON_EVENT_SHORT_PRESS);
+
+
+                    	button_states[i].press_count = 0;
                     }
                     // Check if the button was pressed twice or more
                     else if (button_states[i].press_count >= 2) {
                         // Trigger the double press event callback and reset the press count
-                        button_handlers[i].callback[BUTTON_EVENT_DOUBLE_PRESS](button_handlers[i].context[BUTTON_EVENT_DOUBLE_PRESS]);
+                    	trigger_callback(i, BUTTON_EVENT_DOUBLE_PRESS);
+
                         button_states[i].press_count = 0;
                     }
                 }
@@ -130,7 +144,8 @@ void button_task(void) {
                 if (current_state) {
                     // Update press time, trigger the press event callback, and increment the press count
                     button_states[i].press_time = HAL_GetTick();
-                    button_handlers[i].callback[BUTTON_EVENT_DOWN](button_handlers[i].context[BUTTON_EVENT_DOWN]);
+                	trigger_callback(i, BUTTON_EVENT_DOWN);
+
                     button_states[i].press_count++;
                     // Save time of first cycle start
                     button_states[i].cycle_time = button_states[i].press_time;
@@ -138,15 +153,16 @@ void button_task(void) {
             }
         } else {
             // If the button was released after one press and double_press_timeout elapsed without press, trigger short_single_press
-            if (!button_states[i].pressed && button_states[i].press_count == 1 && HAL_GetTick() - button_states[i].press_time > double_press_timeout) {
+            if (!button_states[i].pressed && button_states[i].press_count == 1 && HAL_GetTick() - button_states[i].press_time > DOUBLE_PRESS_TIMEOUT) {
                 // Trigger the short press event and reset the press count
-                button_handlers[i].callback[BUTTON_EVENT_SHORT_PRESS](button_handlers[i].context[BUTTON_EVENT_SHORT_PRESS]);
+            	trigger_callback(i, BUTTON_EVENT_SHORT_PRESS);
+
                 button_states[i].press_count = 0;
             }
             // If the button is pressed and cycle period elapsed
             if (button_states[i].pressed && HAL_GetTick() - button_states[i].cycle_time >= button_handlers[i].cycle_period){
             	// Trigger the cyclic hold event and reset the counter
-                button_handlers[i].callback[BUTTON_EVENT_HOLD_CYCLIC](button_handlers[i].context[BUTTON_EVENT_HOLD_CYCLIC]);
+            	trigger_callback(i, BUTTON_EVENT_HOLD_CYCLIC);
                 button_states[i].cycle_time = HAL_GetTick();
             }
 

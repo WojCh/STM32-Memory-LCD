@@ -1,5 +1,6 @@
-../Core/Src/btns.c:40:6:button_set_long_press_time	16	static
-../Core/Src/btns.c:46:6:button_set_hold_cycle_time	16	static
-../Core/Src/btns.c:53:6:button_init	16	static
-../Core/Src/btns.c:64:6:button_set_handler	24	static
-../Core/Src/btns.c:77:6:button_task	32	static
+../Core/Src/btns.c:45:6:button_set_long_press_time	16	static
+../Core/Src/btns.c:51:6:button_set_hold_cycle_time	16	static
+../Core/Src/btns.c:58:6:button_init	16	static
+../Core/Src/btns.c:69:6:button_set_handler	24	static
+../Core/Src/btns.c:76:6:trigger_callback	24	static
+../Core/Src/btns.c:88:6:button_task	24	static

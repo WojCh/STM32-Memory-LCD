@@ -10,6 +10,16 @@
 
 #include "gpio.h"
 
+
+// Button names
+typedef enum {
+	BTN_BA,
+	BTN_BB,
+	BTN_BC,
+	BTN_B1,
+	BTN_B2,
+	BTN_B3
+} Button_Id;
 // Number of button event types
 #define BUTTON_EVENT_TYPE_COUNT 6
 // Button events

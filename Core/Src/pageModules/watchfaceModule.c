@@ -48,12 +48,12 @@ static void setDefaultClbcks(void){
 	//new button handlers
 	button_set_hold_cycle_time(1, 1000);
 	button_set_long_press_time(1, 500);
-	button_set_handler(1, BUTTON_EVENT_DOWN, add_counter_down, NULL);
-	button_set_handler(1, BUTTON_EVENT_SHORT_PRESS, add_counter_short, NULL);
-	button_set_handler(1, BUTTON_EVENT_DOUBLE_PRESS, add_counter_double, NULL);
-	button_set_handler(1, BUTTON_EVENT_LONG_PRESS, add_counter_long, NULL);
-	button_set_handler(1, BUTTON_EVENT_RELEASE, add_counter_release, NULL);
-	button_set_handler(1, BUTTON_EVENT_HOLD_CYCLIC, add_counter_cycle, NULL);
+	button_set_handler(BTN_BB, BUTTON_EVENT_DOWN, add_counter_down, NULL);
+	button_set_handler(BTN_BB, BUTTON_EVENT_SHORT_PRESS, add_counter_short, NULL);
+	button_set_handler(BTN_BB, BUTTON_EVENT_DOUBLE_PRESS, add_counter_double, NULL);
+	button_set_handler(BTN_BB, BUTTON_EVENT_LONG_PRESS, add_counter_long, NULL);
+	button_set_handler(BTN_BB, BUTTON_EVENT_RELEASE, add_counter_release, NULL);
+	button_set_handler(BTN_BB, BUTTON_EVENT_HOLD_CYCLIC, add_counter_cycle, NULL);
 
 }
 
