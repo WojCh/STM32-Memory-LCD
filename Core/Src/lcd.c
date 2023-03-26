@@ -380,6 +380,8 @@ void lcdHLine2(uint16_t x1, uint16_t x2, uint8_t y, uint8_t mode, uint8_t fill){
 }
 
 // Draw horizontal line
+// Should not be used, causes problems for lines shorter than 8px
+// use lcdHLine2 instead
 void lcdHLine(uint16_t x1, uint16_t x2, uint8_t y, uint8_t mode){
 	uint8_t x1block = x1/8;
 	uint8_t offset1 = x1%8;
@@ -437,6 +439,58 @@ void lcdRect(uint16_t x1, uint16_t x2, uint8_t y1, uint8_t y2, uint8_t mode){
 		lcdHLine(x1, x2, i, mode);
 	}
 }
+void lcdRoundedRect(uint16_t x1, uint16_t x2, uint8_t y1, uint8_t y2, uint8_t mode, uint8_t r){
+	for(uint8_t i = y1; i <= y2; i++){
+		if((i-y1)<r){
+			uint8_t off = (int)(sqrt(r*r-(r-i+y1)*(r-i+y1)));
+			lcdHLine(x1+r-off, x2-r+off, i, mode);
+		} else if((y2-i)<r){
+			uint8_t off = (int)(sqrt(r*r-(r-y2+i)*(r-y2+i)));
+			lcdHLine(x1+r-off, x2-r+off, i, mode);
+		} else {
+			lcdHLine(x1, x2, i, mode);
+		}
+	}
+}
+void lcdRoundedRect2(uint16_t x1, uint16_t x2, uint8_t y1, uint8_t y2, uint8_t mode, uint8_t fill, uint8_t outline, uint8_t r){
+	// check if radius not exceded
+	if((2*r>(x2-x1))||(2*r>(y2-y1))) r = 0;
+	if(x1!=x2 && y1!=y2){
+		for(uint8_t y = y1; y <= y2; y++){
+			if((y-y1)<r){
+				uint8_t off = (int)(sqrt(r*r-(r-y+y1)*(r-y+y1)));
+				lcdHLine2(x1+r-off, x2-r+off, y, mode, fill);
+			} else if((y2-y)<r){
+				uint8_t off = (int)(sqrt(r*r-(r-y2+y)*(r-y2+y)));
+				lcdHLine2(x1+r-off, x2-r+off, y, mode, fill);
+			} else {
+				lcdHLine2(x1, x2, y, mode, fill);
+			}
+		}
+		if(outline){
+			lcdHLine2(x1+r, x2-r, y1, mode,1);
+			lcdHLine2(x1+r, x2-r, y2, mode,1);
+			lcdVLine(x1, y1+r, y2-r, mode);
+			lcdVLine(x2, y1+r, y2-r, mode);
+//			uint16_t nextOff = 0;
+			for(uint16_t i = 0; i < (r-1); i++){
+				//corner line offsets from X of circle center
+				uint16_t off = (uint16_t)(sqrt(r*r-(r-i)*(r-i)));
+				uint16_t nextOff = (uint16_t)(sqrt(r*r-(r-i-1)*(r-i-1)));
+				//reduce corner pixel-lines overlapping
+				if((nextOff-off)>0) off++;
+				//left corners
+				lcdHLine2(x1+r-nextOff, x1+r-off, y1+i+1, mode, 1);
+				lcdHLine2(x1+r-nextOff, x1+r-off, y2-i-1, mode, 1);
+				//right corners
+				lcdHLine2(x2-r+off, x2-r+nextOff, y1+i+1, mode, 1);
+				lcdHLine2(x2-r+off, x2-r+nextOff, y2-i-1, mode, 1);
+			}
+		}
+	}
+}
+
+
 void lcdRect2(uint16_t x1, uint16_t x2, uint8_t y1, uint8_t y2, uint8_t mode, uint8_t fill, uint8_t outline){
 	if(x1!=x2 && y1!=y2){
 		for(uint8_t y = y1; y <= y2; y++){

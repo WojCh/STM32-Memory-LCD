@@ -8,10 +8,8 @@
 #ifndef INC_GUI_H_
 #define INC_GUI_H_
 
-#define MENU_ITEM_NUM 1
+#define MENU_ITEM_NUM 3
 
-//#include "main.h"
-//#include "font13.h"
 #include "fonts/fonts.h"
 #include "buttons.h"
 #include "bmp180.h"
@@ -27,7 +25,6 @@
 #include "../Src/pageModules/worldtimeModule.h"
 #include "../Src/pageModules/timerModule.h"
 #include "../Src/pageModules/screenTest.h"
-//#include "icons/icons_small.h"
 
 
 const struct Module{

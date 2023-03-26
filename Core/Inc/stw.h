@@ -11,12 +11,21 @@
 //#include "main.h"
 #include <stdint.h>
 
-typedef struct stw_t{
-	uint32_t cnt : 24;
-	uint8_t state : 1;
-}stw_struct;
+typedef struct stw_counter_t{
+	uint32_t sec;
+	uint16_t csec;
+}stw_counter_t;
 
-extern stw_struct stwS;
+typedef struct stw_t{
+	stw_counter_t* cnt;
+	uint8_t state;
+}stw_t;
+
+extern stw_counter_t currentStw;
+extern stw_t stwS;
+
+#define STW_SPLIT_MAX_NUM	30
+extern stw_counter_t stw_splits[STW_SPLIT_MAX_NUM];
 
 struct stopwatch_t{
 	uint8_t hours;
@@ -24,18 +33,6 @@ struct stopwatch_t{
 	uint8_t sec;
 	uint8_t csec;
 };
-
-// split/laptime array
-typedef struct stwTable{
-	uint32_t stwArray[10];
-	uint8_t position;
-	void (*clear)(void);
-	void (*add)(uint32_t);
-} stwTable;
-extern stwTable stwT;
-
-void clearTable(void);
-void addItem(stw_struct stwS);
 
 void stwStart(void);
 void stwStop(void);

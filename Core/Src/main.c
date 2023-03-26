@@ -168,8 +168,8 @@ int main(void)
   HAL_TIM_Base_Init(&htim1);
   HAL_TIM_Base_Start_IT(&htim1);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-  // Initialize Timer 10 - generating LCD refresh Interrupt
-//  HAL_TIM_Base_Start_IT(&htim10);
+  // Initialize Timer 10 (1Hz) - for stopwatch
+  stwInit(&htim10);
   // Vibration motor PWM
   HAL_TIM_PWM_Start(&htim14, TIM_CHANNEL_1);
 
@@ -289,13 +289,14 @@ void SystemClock_Config(void)
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	// APB2 168MHz -> after PSCL 1Hz
+	// used to time stopwatch
 	if(htim->Instance == TIM10){
-		if(stwS.state){
-			stwTick();
-		}
+		stwTick();
+		// animation frame tick
 		animationFrameNum++;
 	}
 	// APB2 168MHz -> after PSCL 100Hz
+	// button polling
 	if(htim->Instance == TIM11){
 		scanButtons(btnsPtrs);
 		// check timeouts
@@ -311,10 +312,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	// APB1 84MHz -> after PSCL 1Hz
 	if(htim->Instance == TIM13){
 		// watchface module timer value incrementing
-		tickTimAAA();
+		tickTimAAB();
 //		HAL_UART_Receive_DMA(&huart6, &dmaBuffer, GPS_BUFFER_SIZE);
 		if(gpsDev.isReady != 0) gpsDev.getData(&gpsDev);
-
 
 		HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
 		if(tempRing.isReady) add_ovw_ring_buffer(&tempRing, (int)(10*bmpData.temperature));
@@ -328,7 +328,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 			updateBmpData_flag = 1;
 //			bmpData = getBmpData(&bmp180module);
 			tim13_counter = 0;
-
 		}
 		if(isTimerRunning(&countDown1)){
 			if(countDown1.remainingSec == 0){
@@ -338,19 +337,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 				countDown1.remainingSec--;
 			}
 		}
-
 	}
 }
-
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 	if(huart->Instance == USART6){
 		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-
 	}
 }
-
-
 /* USER CODE END 4 */
 
 /**

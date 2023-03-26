@@ -22,6 +22,16 @@
 #include <fonts/font_zekton12.h>
 #include "stopwatchModule.h"
 
+uint8_t stwSubView = 0;
+void switchStwView(void){
+//	if(stwSubView<3){
+//		stwSubView++;
+//	} else {
+//		stwSubView = 0;
+//	}
+		stwSubView++;
+}
+
 void startStopwatch(){
 	stwStart();
 	btn_BB.onSinglePressHandler = &stopStopwatch;
@@ -34,7 +44,7 @@ void stopStopwatch(){
 }
 void resetStopwatch(){
 	stwClear();
-	stwT.clear();
+//	stwT.clear();
 }
 void saveStopwatch(){
 	stwSave();
@@ -44,6 +54,8 @@ static void setDefaultClbcks(void){
 	btn_B3.onSinglePressHandler = &resetPos;
 	btn_BA.onSinglePressHandler = &nextScreen;
 	btn_BC.onSinglePressHandler = &prevScreen;
+
+	btn_B1.onSinglePressHandler = &switchStwView;
 	// Start/pause stw
 	if(stwS.state){
 		btn_BB.onSinglePressHandler = &stopStopwatch;
@@ -56,67 +68,98 @@ static void setDefaultClbcks(void){
 
 // initialize stopwatch values
 struct stopwatch_t stw_val = {0, 0, 0, 0};
-
-struct stopwatch_t convertTicks(uint32_t ticks){
-	struct stopwatch_t bff = {
-		ticks/(100*60*60),
-		ticks%(100*60*60)/(60*100),
-		ticks%(60*100)/(100),
-		ticks%100
-	};
-	return bff;
-}
-
-uint8_t* stwString(struct stopwatch_t stw, char* str){
-	sprintf(str, "%dh%02d'%02d.%02d\"", stw.hours, stw.min, stw.sec, stw.csec);
-	return str;
-}
-void updateStopwatch(void){
-//	stw_val.hours = stwS.cnt/(100*60*60);
-//	stw_val.min = stwS.cnt%(100*60*60)/(60*100);
-//	stw_val.sec = stwS.cnt%(60*100)/(100);
-//	stw_val.csec = stwS.cnt%100;
-	stw_val.hours = stwS.cnt/(60*60);
-	stw_val.min = stwS.cnt%(60*60)/(60);
-	stw_val.sec = stwS.cnt%60;
-	stw_val.csec = (uint8_t)getStw();
-}
+struct stopwatch_t stw_lap_val = {0, 0, 0, 0};
 
 void stwSetup(void){
 	setDefaultClbcks();
 }
-
+// position of the top of the stopwatch total value
+uint8_t stw_time_y_pos = 40;
 
 // functions to execute when menu item entered
 void stwMain(void){
-	char guiPos[6] = {0};
-	sprintf(&guiPos, "%02d:%02d", RtcTime.Hours, RtcTime.Minutes);
-	lcdPutStr(400 - 10 - (*zekton24font.font_Width) * strlen(guiPos), 10, guiPos, zekton24font);
 
+//	lcdPutIcon(2, 200, accept_icon);
+//	lcdPutIcon(370, 106, play_pause_icon);
+//	lcdPutIcon(2, 106, cancel_icon);
+
+	// statusbar
+	lcdPutIcon(320, 5, full_battery_icon);
+	char timeString[6] = {0};
+	sprintf(&timeString, "%02d:%02d", RtcTime.Hours, RtcTime.Minutes);
+	lcdPutStr(400 - 5 - (*font_12_zekton.font_Width) * strlen(timeString), 5, timeString, font_12_zekton);
 	char tempStr2[30] = {0};
-	sprintf(&guiPos, "Stopwatch");
-	lcdPutStr(10, 10, guiPos, zekton24font);
+	sprintf(&tempStr2, "Stopwatch");
+	lcdPutStr(5, 5, tempStr2, font_12_zekton);
 
-	updateStopwatch();
+	// update stopwatch value
+	getStw(&stw_val, &stwS);
 
+	// main STW view
+	//show hours if exist
 	if(stw_val.hours != 0){
-		sprintf(&tempStr2, "%01dh", stw_val.hours);
+//	if(1){
+		sprintf(&tempStr2, "%02dh %02d'%02d\"", stw_val.hours, stw_val.min, stw_val.sec);
+		lcdPutStr(380-(*(zekton45font.font_Width)*strlen(tempStr2)), stw_time_y_pos, tempStr2, zekton45font);
+//	} else if(stw_val.min != 0){
+	} else {
+		sprintf(&tempStr2, "%02d'%02d.%02d\"", stw_val.min, stw_val.sec, stw_val.csec);
+		lcdPutStr(365-(*(zekton45font.font_Width)*strlen(tempStr2)), stw_time_y_pos, tempStr2, zekton45font);
 	}
-	lcdPutStr(20, 95, tempStr2, zekton24font);
-	sprintf(&tempStr2, "%02d'%02d.%02d\"", stw_val.min, stw_val.sec, stw_val.csec);
-	lcdPutStr(380-(*(zekton45font.font_Width)*strlen(tempStr2)), 76, tempStr2, zekton45font);
-	for(uint8_t i = 0; i < 7; i++){
-		if(stwT.stwArray[i] != 0){
-			sprintf(&tempStr2, "Lap %d:", i+1);
-			lcdPutStr(0, 130+i*16, tempStr2, font_12_zekton);
-			if(i>0){
-				lcdPutStr(55, 130+i*16, stwString(convertTicks(stwT.stwArray[i]-stwT.stwArray[i-1]), &tempStr2), font_12_zekton);
-			} else {
-				lcdPutStr(55, 130+i*16, stwString(convertTicks(stwT.stwArray[i]), &tempStr2), font_12_zekton);
+//	} else {
+//		sprintf(&tempStr2, "%02d.%02d\"", stw_val.sec, stw_val.csec);
+//		lcdPutStr(365-(*(zekton45font.font_Width)*strlen(tempStr2)), stw_time_y_pos, tempStr2, zekton45font);
+//	}
+
+	stw_counter_t lapTimeCnt;
+	switch(stwSubView){
+//		case 0:
+//			sprintf(&tempStr2, "Stopwatch ready", getLapNum());
+//			lcdPutStr(55, 100, tempStr2, zekton24font);
+//			break;
+		case 0:
+			if(getLapNum()>0){
+				sprintf(&tempStr2, "LAP %d", getLapNum());
+				lcdPutStr(250, 112, tempStr2, font_12_zekton);
+				counterDiff(&lapTimeCnt, stwS.cnt, &stw_splits[getLapNum()-1]);
+				counterToStopwatch(&stw_lap_val, &lapTimeCnt);
+				stwprintf(&tempStr2, &stw_lap_val);
+				lcdPutStr(60, 100, tempStr2, zekton24font);
+				lcdRoundedRect2(240, 305, 110, 124, 2, LCD_RECT_PATTERN_FILL, 0, 2);
 			}
-			sprintf(&tempStr2, "Split:");
-			lcdPutStr(165, 130+i*16, tempStr2, font_12_zekton);
-			lcdPutStr(225, 130+i*16, stwString(convertTicks(stwT.stwArray[i]), &tempStr2), font_12_zekton);
-		}
+			for(uint8_t i = 1; i<=4; i++){
+				if(getLapNum()>i){
+					sprintf(&tempStr2, "LAP %d", getLapNum()-i);
+					lcdPutStr(250, 112+i*28, tempStr2, font_12_zekton);
+					counterDiff(&lapTimeCnt, &stw_splits[getLapNum()-i], &stw_splits[getLapNum()-1-i]);
+					counterToStopwatch(&stw_lap_val, &lapTimeCnt);
+					stwprintf(&tempStr2, &stw_lap_val);
+					lcdPutStr(60, 100+28*i, tempStr2, zekton24font);
+				}
+			}
+			break;
+		case 1:
+			// split/lap table
+			for(uint8_t i = 1; i<=5; i++){
+				if(getLapNum()>i){
+					counterToStopwatch(&stw_lap_val, &stw_splits[getLapNum()-i]);
+					stwprintf(&tempStr2, &stw_lap_val);
+					lcdPutStr(60, 100+28*(i-1), tempStr2, zekton24font);
+
+					sprintf(&tempStr2, "SPLIT %d", getLapNum()-i);
+					lcdPutStr(250, 112+(i-1)*28, tempStr2, font_12_zekton);
+
+				}
+			}
+			break;
+		default:
+			stwSubView = 0;
 	}
+
+
+
+
+
+
+
 }

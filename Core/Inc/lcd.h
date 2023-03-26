@@ -21,10 +21,39 @@
 #ifndef INC_LCD_H_
 #define INC_LCD_H_
 
-//#include "main.h"
 #include "spi.h"
 
+// maybe using enums?
+#define LCD_RECT_PATTERN_CLEAR						0
+#define LCD_RECT_PATTERN_FILL						1
+#define LCD_RECT_PATTERN_VERTICAL_LINES				2
+#define LCD_RECT_PATTERN_HORIZONTAL_LINES			3
+#define LCD_RECT_PATTERN_CHECKER					4
+#define LCD_RECT_PATTERN_SHIFTED_DOTS				5
+#define LCD_RECT_PATTERN_DIAGONAL_LINES				6
+#define LCD_RECT_PATTERN_VERTICAL_RAIN				7
+#define LCD_RECT_PATTERN_DIAGONAL_CROSSES			8
+#define LCD_RECT_PATTERN_BIG_CHECKER				9
+#define LCD_RECT_PATTERN_VERTICAL_CROSSHATCH		10
+#define LCD_RECT_PATTERN_CORNERS					11
+#define LCD_RECT_PATTERN_BIG_CORNERS				12
+#define LCD_RECT_PATTERN_BIG_VERTICAL_CROSSHATCH	13
+#define LCD_RECT_PATTERN_POINTS						14
+#define LCD_RECT_PATTERN_CROSSES					15
+#define LCD_RECT_PATTERN_BOXES						16
+#define LCD_RECT_PATTERN_DIAMONDS					17
+#define LCD_RECT_PATTERN_WAVES						18
+#define LCD_RECT_PATTERN_BIG_WAVES					19
+#define LCD_RECT_PATTERN_CIRCLES					20
 
+// not used
+typedef struct rectangleProps_t{
+	uint16_t x, width;
+	uint8_t y, height;
+	uint8_t fill;
+	uint8_t rx;
+	uint8_t mode;
+};
 
 // Choose VCOM generation method
 //   0 - hardware VCOM generation, set when [EXTMODE = H]

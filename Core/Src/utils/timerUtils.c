@@ -43,7 +43,7 @@ void tickTimer(timer_T* timer){
 	if(timer->currentValue == timer->targetValue){
 		timer->timerStatus = TIMER_STATUS_ELAPSED;
 		// callback will be executed in the TMR interrupt!
-//		timer->callback(NULL);
+		timer->callback(NULL);
 	}
 }
 // check if elapsed and execute callback, TODO: var args in clbk

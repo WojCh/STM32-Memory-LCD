@@ -12,44 +12,13 @@
 // fonts
 #include "fonts/fonts.h"
 
-void timerElap(void){
-	lcdRect(10, 20, 10, 20, 1);
-}
 
-timer_T* testTimerPtr = NULL;
-static void testTimerAction(void){
-	if(testTimerPtr == NULL){
-		testTimerPtr = createTimer();
-		setTimerAAA(testTimerPtr, 10, &timerElap);
-	}
-}
-static void testTimerStartAction(void){
-	runTimerAAA(testTimerPtr);
-}
-static void testTimerPauseAction(void){
-	pauseTimerAAA(testTimerPtr);
-}
-static void testTimerResetAction(void){
-	resetTimerAAA(testTimerPtr);
-}
-static void testTimerDeleteAction(void){
-	deleteTimer(testTimerPtr);
-	testTimerPtr = NULL;
-}
-void tickTimAAA(void){
-	tickTimer(testTimerPtr);
-}
 
 static void setDefaultClbcks(void){
 	// module callbacks
-	btn_BB.onSinglePressHandler = &testTimerAction;
-//	btn_BA.onSinglePressHandler = &nextScreen;
-//	btn_BC.onSinglePressHandler = &prevScreen;
-	btn_BC.onSinglePressHandler = &testTimerDeleteAction;
+	btn_BA.onSinglePressHandler = &nextScreen;
+	btn_BC.onSinglePressHandler = &prevScreen;
 
-	btn_B1.onSinglePressHandler = &testTimerStartAction;
-	btn_B2.onSinglePressHandler = &testTimerPauseAction;
-	btn_B3.onSinglePressHandler = &testTimerResetAction;
 }
 
 static void setTimeAction(void){
@@ -61,20 +30,9 @@ static void setDateAction(void){
 
 void faceSetup(void){
 	setDefaultClbcks();
-
 }
 
 void faceMain(void){
-	// callback execution when timer elapsed
-	timerElapsedClbk(testTimerPtr);
-
-	char testTimStr[30] = {0};
-	sprintf(&testTimStr, "%3d", testTimerPtr->targetValue);
-	lcdPutStr(310, 0, testTimStr, zekton24font);
-	sprintf(&testTimStr, "%3d", testTimerPtr->currentValue);
-	lcdPutStr(310, 24, testTimStr, zekton24font);
-	sprintf(&testTimStr, "%3d", testTimerPtr->timerStatus);
-	lcdPutStr(310, 48, testTimStr, zekton24font);
 
 	char temperature[30] = {0};
 	sprintf(&temperature, "%4.1f`C", bmpData.temperature);

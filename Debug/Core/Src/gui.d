@@ -59,7 +59,8 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/gui.h \
  ../Core/Inc/../Src/pageModules/alarmModule.h \
  ../Core/Inc/../Src/pageModules/worldtimeModule.h \
  ../Core/Inc/../Src/pageModules/timerModule.h \
- ../Core/Inc/countdownTimer.h ../Core/Inc/../Src/pageModules/screenTest.h
+ ../Core/Inc/countdownTimer.h ../Core/Inc/../Src/pageModules/screenTest.h \
+ ../Core/Src/utils/timerUtils.h
 ../Core/Inc/gui.h:
 ../Core/Inc/fonts/fonts.h:
 ../Core/Inc/lcd.h:
@@ -140,3 +141,4 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/gui.h \
 ../Core/Inc/../Src/pageModules/timerModule.h:
 ../Core/Inc/countdownTimer.h:
 ../Core/Inc/../Src/pageModules/screenTest.h:
+../Core/Src/utils/timerUtils.h:
