@@ -10,6 +10,8 @@
 
 #include "gpio.h"
 
+// Number of button event types
+#define BUTTON_EVENT_TYPE_COUNT 6
 // Button events
 typedef enum {
     BUTTON_EVENT_DOWN,

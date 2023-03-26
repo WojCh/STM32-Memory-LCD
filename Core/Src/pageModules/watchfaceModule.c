@@ -20,30 +20,25 @@ uint8_t doublePressCount = 0;
 uint8_t releaseCount = 0;
 uint8_t holdCyclicCount = 0;
 
-void add_counter(Button_Event event){
-	switch (event) {
-	        case BUTTON_EVENT_DOWN:
+void add_counter_down(void){
 	        	singlePressCount++;
-	            break;
-	        case BUTTON_EVENT_SHORT_PRESS:
-	        	shortPressCount++;
-	            break;
-	        case BUTTON_EVENT_DOUBLE_PRESS:
-	        	doublePressCount++;
-	            break;
-	        case BUTTON_EVENT_LONG_PRESS:
-	        	longPressCount++;
-	            break;
-	        case BUTTON_EVENT_RELEASE:
-	        	releaseCount++;
-	            break;
-	        case BUTTON_EVENT_HOLD_CYCLIC:
-	        	holdCyclicCount++;
-	            break;
-	        default:
-	            break;
-	    }
 }
+void add_counter_short(void){
+	        	shortPressCount++;
+}
+void add_counter_long(void){
+	        	longPressCount++;
+}
+void add_counter_double(void){
+	        	doublePressCount++;
+}
+void add_counter_release(void){
+	        	releaseCount++;
+}
+void add_counter_cycle(void){
+	        	holdCyclicCount++;
+}
+
 
 static void setDefaultClbcks(void){
 	// module callbacks
@@ -53,7 +48,13 @@ static void setDefaultClbcks(void){
 	//new button handlers
 	button_set_hold_cycle_time(1, 1000);
 	button_set_long_press_time(1, 500);
-	button_set_handler(1, add_counter, NULL);
+	button_set_handler(1, BUTTON_EVENT_DOWN, add_counter_down, NULL);
+	button_set_handler(1, BUTTON_EVENT_SHORT_PRESS, add_counter_short, NULL);
+	button_set_handler(1, BUTTON_EVENT_DOUBLE_PRESS, add_counter_double, NULL);
+	button_set_handler(1, BUTTON_EVENT_LONG_PRESS, add_counter_long, NULL);
+	button_set_handler(1, BUTTON_EVENT_RELEASE, add_counter_release, NULL);
+	button_set_handler(1, BUTTON_EVENT_HOLD_CYCLIC, add_counter_cycle, NULL);
+
 }
 
 static void setTimeAction(void){

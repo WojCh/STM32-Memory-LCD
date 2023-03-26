@@ -1,6 +1,11 @@
-../Core/Src/pageModules/watchfaceModule.c:23:6:add_counter	16	static
-../Core/Src/pageModules/watchfaceModule.c:48:13:setDefaultClbcks	8	static
-../Core/Src/pageModules/watchfaceModule.c:59:13:setTimeAction	8	static
-../Core/Src/pageModules/watchfaceModule.c:62:13:setDateAction	8	static
-../Core/Src/pageModules/watchfaceModule.c:66:6:faceSetup	8	static
-../Core/Src/pageModules/watchfaceModule.c:71:6:faceMain	240	static
+../Core/Src/pageModules/watchfaceModule.c:23:6:add_counter_down	4	static
+../Core/Src/pageModules/watchfaceModule.c:26:6:add_counter_short	4	static
+../Core/Src/pageModules/watchfaceModule.c:29:6:add_counter_long	4	static
+../Core/Src/pageModules/watchfaceModule.c:32:6:add_counter_double	4	static
+../Core/Src/pageModules/watchfaceModule.c:35:6:add_counter_release	4	static
+../Core/Src/pageModules/watchfaceModule.c:38:6:add_counter_cycle	4	static
+../Core/Src/pageModules/watchfaceModule.c:43:13:setDefaultClbcks	8	static
+../Core/Src/pageModules/watchfaceModule.c:60:13:setTimeAction	8	static
+../Core/Src/pageModules/watchfaceModule.c:63:13:setDateAction	8	static
+../Core/Src/pageModules/watchfaceModule.c:67:6:faceSetup	8	static
+../Core/Src/pageModules/watchfaceModule.c:72:6:faceMain	240	static
