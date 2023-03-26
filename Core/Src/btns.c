@@ -21,7 +21,7 @@ typedef struct {
 } Button_State;
 
 // Button callback function type
-typedef void (*Button_Callback)(uint8_t button_num, Button_Event event);
+typedef void (*Button_Callback)(Button_Event event);
 
 // Button event handlers structure
 typedef struct {
@@ -59,59 +59,78 @@ void button_set_handler(uint8_t button_num, Button_Callback callback, void* cont
     }
 }
 
-void button_task(void){
-	uint8_t debounce_threshold = 8; // amount of HAL ticks to wait for button to stop bouncing
-    uint32_t double_press_timeout = 150; // amount of HAL ticks to wait for button to stop bouncing
-	for (uint8_t i = 0; i < NUM_BUTTONS; i++) {
-		uint8_t current_state = HAL_GPIO_ReadPin(Button_Port[i], Button_Pin[i]) == GPIO_PIN_RESET;
+/**
+ * @brief Scans and processes button states, detects button events, and triggers corresponding callbacks.
+ *
+ * This function should be called periodically in the main loop. It handles debouncing, press, release, short press,
+ * long press, and double press events for a defined set of buttons, and triggers their respective callback functions.
+ */
+void button_task(void) {
+    uint8_t debounce_threshold = 8; // Amount of HAL ticks to wait for button to stop bouncing
+    uint32_t double_press_timeout = 150; // Amount of HAL ticks to wait for a second press to be considered a double press
 
-		// check if button state changed
-		if (current_state != button_states[i].pressed) {
-			button_states[i].debounce_counter++;
-			// check if bouncing ended
-			if (button_states[i].debounce_counter >= debounce_threshold) {
+    for (uint8_t i = 0; i < NUM_BUTTONS; i++) {
+        // Read the current state of the button (pressed or not pressed)
+        uint8_t current_state = HAL_GPIO_ReadPin(Button_Port[i], Button_Pin[i]) == GPIO_PIN_RESET;
 
-				// If the button is released (state changed from pressed to not pressed)
-				if (button_states[i].pressed) {
-					// Trigger the release event
-					button_handlers[i].callback(i, BUTTON_EVENT_RELEASE);
+        // Check if the button state has changed
+        if (current_state != button_states[i].pressed) {
+            // Increment debounce counter
+            button_states[i].debounce_counter++;
+
+            // Check if the debounce counter has reached the threshold
+            if (button_states[i].debounce_counter >= debounce_threshold) {
+
+                // If the button has been released (state changed from pressed to not pressed)
+                if (button_states[i].pressed) {
+                    // Trigger the release event callback
+                    button_handlers[i].callback(BUTTON_EVENT_RELEASE);
+
+                    // Calculate the time since the button was last pressed
                     uint32_t time_since_press = HAL_GetTick() - button_states[i].press_time;
-					if (button_states[i].press_count == 1 && time_since_press > button_handlers[i].long_press_time) {
-						button_handlers[i].callback(i, BUTTON_EVENT_LONG_PRESS);
-						button_states[i].press_count = 0;
-					}
-                    // If a single press was detected and the double press timeout has passed
-					else if (button_states[i].press_count == 1 && time_since_press > double_press_timeout) {
-						// Trigger the short press event and reset the press count
-						button_handlers[i].callback(i, BUTTON_EVENT_SHORT_PRESS);
-						button_states[i].press_count = 0;
-					}
-					// If a double press was detected
-					else if (button_states[i].press_count >= 2) {
-						// Trigger the double press event and reset the press count
-						button_handlers[i].callback(i, BUTTON_EVENT_DOUBLE_PRESS);
-						button_states[i].press_count = 0;
-					}
-				}
-				button_states[i].pressed = current_state;
-				button_states[i].debounce_counter = 0;
 
-				if (current_state) {
-					button_states[i].press_time = HAL_GetTick();
-					button_handlers[i].callback(i, BUTTON_EVENT_DOWN);
+                    // Check if the button was pressed once and held longer than the long press time
+                    if (button_states[i].press_count == 1 && time_since_press > button_handlers[i].long_press_time) {
+                        // Trigger the long press event callback and reset the press count
+                        button_handlers[i].callback(BUTTON_EVENT_LONG_PRESS);
+                        button_states[i].press_count = 0;
+                    }
+                    // Check if the button was pressed once and released within the double press timeout
+                    else if (button_states[i].press_count == 1 && time_since_press > double_press_timeout) {
+                        // Trigger the short press event callback and reset the press count
+                        button_handlers[i].callback(BUTTON_EVENT_SHORT_PRESS);
+                        button_states[i].press_count = 0;
+                    }
+                    // Check if the button was pressed twice or more
+                    else if (button_states[i].press_count >= 2) {
+                        // Trigger the double press event callback and reset the press count
+                        button_handlers[i].callback(BUTTON_EVENT_DOUBLE_PRESS);
+                        button_states[i].press_count = 0;
+                    }
+                }
+
+                // Update button state and reset debounce counter
+                button_states[i].pressed = current_state;
+                button_states[i].debounce_counter = 0;
+
+                // If the button has been pressed
+                if (current_state) {
+                    // Update press time, trigger the press event callback, and increment the press count
+                    button_states[i].press_time = HAL_GetTick();
+                    button_handlers[i].callback(BUTTON_EVENT_DOWN);
                     button_states[i].press_count++;
-				}
-			}
-		}
-		else {
-			// if button was released after one press and double_press_timeout elapsed without press, trigger short_single_press
-			if (!button_states[i].pressed && button_states[i].press_count == 1 && HAL_GetTick() - button_states[i].press_time > double_press_timeout) {
-				// Trigger the short press event and reset the press count
-				button_handlers[i].callback(i, BUTTON_EVENT_SHORT_PRESS);
-				button_states[i].press_count = 0;
-			}
-			// this might be unnecessary
-			button_states[i].debounce_counter = 0;
-		}
-	}
+                }
+            }
+        } else {
+            // If the button was released after one press and double_press_timeout elapsed without press, trigger short_single_press
+            if (!button_states[i].pressed && button_states[i].press_count == 1 && HAL_GetTick() - button_states[i].press_time > double_press_timeout) {
+                // Trigger the short press event and reset the press count
+                button_handlers[i].callback(BUTTON_EVENT_SHORT_PRESS);
+                button_states[i].press_count = 0;
+            }
+
+            // Reset the debounce counter if the button state hasn't changed
+            button_states[i].debounce_counter = 0;
+        }
+    }
 }

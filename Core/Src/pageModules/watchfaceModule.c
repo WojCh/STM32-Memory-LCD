@@ -19,7 +19,7 @@ uint8_t longPressCount = 0;
 uint8_t doublePressCount = 0;
 uint8_t releaseCount = 0;
 
-void add_counter(uint8_t button_num, Button_Event event){
+void add_counter(Button_Event event){
 	switch (event) {
 	        case BUTTON_EVENT_DOWN:
 	        	singlePressCount++;
