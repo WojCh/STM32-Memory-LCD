@@ -1,6 +1,6 @@
-../Core/Src/pageModules/watchfaceModule.c:22:6:add_counter	16	static
-../Core/Src/pageModules/watchfaceModule.c:44:13:setDefaultClbcks	8	static
-../Core/Src/pageModules/watchfaceModule.c:54:13:setTimeAction	8	static
-../Core/Src/pageModules/watchfaceModule.c:57:13:setDateAction	8	static
-../Core/Src/pageModules/watchfaceModule.c:61:6:faceSetup	8	static
-../Core/Src/pageModules/watchfaceModule.c:66:6:faceMain	240	static
+../Core/Src/pageModules/watchfaceModule.c:23:6:add_counter	16	static
+../Core/Src/pageModules/watchfaceModule.c:48:13:setDefaultClbcks	8	static
+../Core/Src/pageModules/watchfaceModule.c:59:13:setTimeAction	8	static
+../Core/Src/pageModules/watchfaceModule.c:62:13:setDateAction	8	static
+../Core/Src/pageModules/watchfaceModule.c:66:6:faceSetup	8	static
+../Core/Src/pageModules/watchfaceModule.c:71:6:faceMain	240	static

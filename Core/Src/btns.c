@@ -16,6 +16,7 @@ uint16_t Button_Pin[NUM_BUTTONS] = {BA_Pin, BB_Pin, BC_Pin, B1_Pin, B2_Pin, B3_P
 typedef struct {
     uint8_t pressed;
     uint32_t press_time;
+    uint32_t cycle_time; //MCU time of last hold period trigger
     uint8_t press_count;
     uint8_t debounce_counter;
 } Button_State;
@@ -28,6 +29,7 @@ typedef struct {
     Button_Callback callback;
     void* context;
     uint32_t long_press_time;
+    uint32_t cycle_period;
 } Button_Handler;
 
 // Button states and handlers
@@ -40,12 +42,19 @@ void button_set_long_press_time(uint8_t button_num, uint32_t long_press_time) {
         button_handlers[button_num].long_press_time = long_press_time;
     }
 }
+// Set cyclic time period for a button, when held
+void button_set_hold_cycle_time(uint8_t button_num, uint32_t cycle_period) {
+    if (button_num < NUM_BUTTONS) {
+        button_handlers[button_num].cycle_period = cycle_period;
+    }
+}
 
 // Button initialization
 void button_init(void) {
     for (uint8_t i = 0; i < NUM_BUTTONS; i++) {
         button_states[i].pressed = 0;
         button_states[i].press_time = 0;
+        button_states[i].cycle_time = 0;
         button_states[i].press_count = 0;
         button_states[i].debounce_counter = 0;
     }
@@ -70,6 +79,9 @@ void button_task(void) {
     uint32_t double_press_timeout = 150; // Amount of HAL ticks to wait for a second press to be considered a double press
 
     for (uint8_t i = 0; i < NUM_BUTTONS; i++) {
+    	if (button_handlers[i].callback == NULL) {
+			continue;
+		}
         // Read the current state of the button (pressed or not pressed)
         uint8_t current_state = HAL_GPIO_ReadPin(Button_Port[i], Button_Pin[i]) == GPIO_PIN_RESET;
 
@@ -85,6 +97,9 @@ void button_task(void) {
                 if (button_states[i].pressed) {
                     // Trigger the release event callback
                     button_handlers[i].callback(BUTTON_EVENT_RELEASE);
+
+                    // Reset cycle elapsed period value
+                    button_states[i].cycle_time = 0;
 
                     // Calculate the time since the button was last pressed
                     uint32_t time_since_press = HAL_GetTick() - button_states[i].press_time;
@@ -119,6 +134,8 @@ void button_task(void) {
                     button_states[i].press_time = HAL_GetTick();
                     button_handlers[i].callback(BUTTON_EVENT_DOWN);
                     button_states[i].press_count++;
+                    // Save time of first cycle start
+                    button_states[i].cycle_time = button_states[i].press_time;
                 }
             }
         } else {
@@ -127,6 +144,12 @@ void button_task(void) {
                 // Trigger the short press event and reset the press count
                 button_handlers[i].callback(BUTTON_EVENT_SHORT_PRESS);
                 button_states[i].press_count = 0;
+            }
+            // If the button is pressed and cycle period elapsed
+            if (button_states[i].pressed && HAL_GetTick() - button_states[i].cycle_time >= button_handlers[i].cycle_period){
+            	// Trigger the cyclic hold event and reset the counter
+                button_handlers[i].callback(BUTTON_EVENT_HOLD_CYCLIC);
+                button_states[i].cycle_time = HAL_GetTick();
             }
 
             // Reset the debounce counter if the button state hasn't changed

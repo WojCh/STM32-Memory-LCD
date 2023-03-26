@@ -18,6 +18,7 @@ uint8_t shortPressCount = 0;
 uint8_t longPressCount = 0;
 uint8_t doublePressCount = 0;
 uint8_t releaseCount = 0;
+uint8_t holdCyclicCount = 0;
 
 void add_counter(Button_Event event){
 	switch (event) {
@@ -36,6 +37,9 @@ void add_counter(Button_Event event){
 	        case BUTTON_EVENT_RELEASE:
 	        	releaseCount++;
 	            break;
+	        case BUTTON_EVENT_HOLD_CYCLIC:
+	        	holdCyclicCount++;
+	            break;
 	        default:
 	            break;
 	    }
@@ -47,6 +51,7 @@ static void setDefaultClbcks(void){
 	btn_BC.onSinglePressHandler = &prevScreen;
 
 	//new button handlers
+	button_set_hold_cycle_time(1, 1000);
 	button_set_long_press_time(1, 500);
 	button_set_handler(1, add_counter, NULL);
 }
@@ -72,7 +77,7 @@ void faceMain(void){
 	lcdPutStr(5, 20, tempStr2, font_12_zekton);
 	sprintf(&tempStr2, "single: %d", singlePressCount);
 	lcdPutStr(5, 35, tempStr2, font_12_zekton);
-	sprintf(&tempStr2, "total: %d", shortPressCount+longPressCount+2*doublePressCount);
+	sprintf(&tempStr2, "total: %d, cyclic: %d", shortPressCount+longPressCount+2*doublePressCount, holdCyclicCount);
 	lcdPutStr(5, 50, tempStr2, font_12_zekton);
 
 	char temperature[30] = {0};
