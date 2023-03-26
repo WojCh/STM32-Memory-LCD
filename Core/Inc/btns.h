@@ -11,7 +11,7 @@
 #include "gpio.h"
 
 
-// Button names
+// Button aliases
 typedef enum {
 	BTN_BA,
 	BTN_BB,
