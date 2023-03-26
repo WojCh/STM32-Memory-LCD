@@ -33,6 +33,7 @@
 #include "lcd.h"
 #include "bmp180.h"
 #include "buttons.h"
+#include "btns.h"
 #include "gui.h"
 #include "fonts/fonts.h"
 #include "fatfs.h"
@@ -299,6 +300,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	// button polling
 	if(htim->Instance == TIM11){
 		scanButtons(btnsPtrs);
+		button_task();
 		// check timeouts
 		if(timeoutState){
 			if(timeoutValue == timeoutSetpoint){

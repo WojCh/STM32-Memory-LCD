@@ -1,0 +1,4 @@
+../Core/Src/btns.c:38:6:button_set_long_press_time	16	static
+../Core/Src/btns.c:45:6:button_init	16	static
+../Core/Src/btns.c:55:6:button_set_handler	24	static
+../Core/Src/btns.c:62:6:button_task	32	static

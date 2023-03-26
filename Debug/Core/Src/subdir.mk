@@ -7,6 +7,7 @@
 C_SRCS += \
 ../Core/Src/File_Handling.c \
 ../Core/Src/bmp180.c \
+../Core/Src/btns.c \
 ../Core/Src/buttons.c \
 ../Core/Src/countdownTImer.c \
 ../Core/Src/customTimer.c \
@@ -33,6 +34,7 @@ C_SRCS += \
 OBJS += \
 ./Core/Src/File_Handling.o \
 ./Core/Src/bmp180.o \
+./Core/Src/btns.o \
 ./Core/Src/buttons.o \
 ./Core/Src/countdownTImer.o \
 ./Core/Src/customTimer.o \
@@ -59,6 +61,7 @@ OBJS += \
 C_DEPS += \
 ./Core/Src/File_Handling.d \
 ./Core/Src/bmp180.d \
+./Core/Src/btns.d \
 ./Core/Src/buttons.d \
 ./Core/Src/countdownTImer.d \
 ./Core/Src/customTimer.d \
@@ -90,7 +93,7 @@ Core/Src/%.o Core/Src/%.su: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/File_Handling.d ./Core/Src/File_Handling.o ./Core/Src/File_Handling.su ./Core/Src/bmp180.d ./Core/Src/bmp180.o ./Core/Src/bmp180.su ./Core/Src/buttons.d ./Core/Src/buttons.o ./Core/Src/buttons.su ./Core/Src/countdownTImer.d ./Core/Src/countdownTImer.o ./Core/Src/countdownTImer.su ./Core/Src/customTimer.d ./Core/Src/customTimer.o ./Core/Src/customTimer.su ./Core/Src/gpio.d ./Core/Src/gpio.o ./Core/Src/gpio.su ./Core/Src/gps.d ./Core/Src/gps.o ./Core/Src/gps.su ./Core/Src/gps2.d ./Core/Src/gps2.o ./Core/Src/gps2.su ./Core/Src/gui.d ./Core/Src/gui.o ./Core/Src/gui.su ./Core/Src/i2c.d ./Core/Src/i2c.o ./Core/Src/i2c.su ./Core/Src/lcd.d ./Core/Src/lcd.o ./Core/Src/lcd.su ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/rtc.d ./Core/Src/rtc.o ./Core/Src/rtc.su ./Core/Src/sdio.d ./Core/Src/sdio.o ./Core/Src/sdio.su ./Core/Src/spi.d ./Core/Src/spi.o ./Core/Src/spi.su ./Core/Src/stm32f4xx_hal_msp.d ./Core/Src/stm32f4xx_hal_msp.o ./Core/Src/stm32f4xx_hal_msp.su ./Core/Src/stm32f4xx_it.d ./Core/Src/stm32f4xx_it.o ./Core/Src/stm32f4xx_it.su ./Core/Src/stw.d ./Core/Src/stw.o ./Core/Src/stw.su ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32f4xx.d ./Core/Src/system_stm32f4xx.o ./Core/Src/system_stm32f4xx.su ./Core/Src/tim.d ./Core/Src/tim.o ./Core/Src/tim.su ./Core/Src/usart.d ./Core/Src/usart.o ./Core/Src/usart.su ./Core/Src/vibrationMotor.d ./Core/Src/vibrationMotor.o ./Core/Src/vibrationMotor.su
+	-$(RM) ./Core/Src/File_Handling.d ./Core/Src/File_Handling.o ./Core/Src/File_Handling.su ./Core/Src/bmp180.d ./Core/Src/bmp180.o ./Core/Src/bmp180.su ./Core/Src/btns.d ./Core/Src/btns.o ./Core/Src/btns.su ./Core/Src/buttons.d ./Core/Src/buttons.o ./Core/Src/buttons.su ./Core/Src/countdownTImer.d ./Core/Src/countdownTImer.o ./Core/Src/countdownTImer.su ./Core/Src/customTimer.d ./Core/Src/customTimer.o ./Core/Src/customTimer.su ./Core/Src/gpio.d ./Core/Src/gpio.o ./Core/Src/gpio.su ./Core/Src/gps.d ./Core/Src/gps.o ./Core/Src/gps.su ./Core/Src/gps2.d ./Core/Src/gps2.o ./Core/Src/gps2.su ./Core/Src/gui.d ./Core/Src/gui.o ./Core/Src/gui.su ./Core/Src/i2c.d ./Core/Src/i2c.o ./Core/Src/i2c.su ./Core/Src/lcd.d ./Core/Src/lcd.o ./Core/Src/lcd.su ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/rtc.d ./Core/Src/rtc.o ./Core/Src/rtc.su ./Core/Src/sdio.d ./Core/Src/sdio.o ./Core/Src/sdio.su ./Core/Src/spi.d ./Core/Src/spi.o ./Core/Src/spi.su ./Core/Src/stm32f4xx_hal_msp.d ./Core/Src/stm32f4xx_hal_msp.o ./Core/Src/stm32f4xx_hal_msp.su ./Core/Src/stm32f4xx_it.d ./Core/Src/stm32f4xx_it.o ./Core/Src/stm32f4xx_it.su ./Core/Src/stw.d ./Core/Src/stw.o ./Core/Src/stw.su ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32f4xx.d ./Core/Src/system_stm32f4xx.o ./Core/Src/system_stm32f4xx.su ./Core/Src/tim.d ./Core/Src/tim.o ./Core/Src/tim.su ./Core/Src/usart.d ./Core/Src/usart.o ./Core/Src/usart.su ./Core/Src/vibrationMotor.d ./Core/Src/vibrationMotor.o ./Core/Src/vibrationMotor.su
 
 .PHONY: clean-Core-2f-Src
 

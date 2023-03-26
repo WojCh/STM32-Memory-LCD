@@ -1,5 +1,6 @@
 "./Core/Src/File_Handling.o"
 "./Core/Src/bmp180.o"
+"./Core/Src/btns.o"
 "./Core/Src/buttons.o"
 "./Core/Src/countdownTImer.o"
 "./Core/Src/customTimer.o"

@@ -8,17 +8,47 @@
  */
 #include "watchfaceModule.h"
 #include "../utils/timerUtils.h"
+#include "btns.h"
 
 // fonts
 #include "fonts/fonts.h"
 
+uint8_t singlePressCount = 0;
+uint8_t shortPressCount = 0;
+uint8_t longPressCount = 0;
+uint8_t doublePressCount = 0;
+uint8_t releaseCount = 0;
 
+void add_counter(uint8_t button_num, Button_Event event){
+	switch (event) {
+	        case BUTTON_EVENT_DOWN:
+	        	singlePressCount++;
+	            break;
+	        case BUTTON_EVENT_SHORT_PRESS:
+	        	shortPressCount++;
+	            break;
+	        case BUTTON_EVENT_DOUBLE_PRESS:
+	        	doublePressCount++;
+	            break;
+	        case BUTTON_EVENT_LONG_PRESS:
+	        	longPressCount++;
+	            break;
+	        case BUTTON_EVENT_RELEASE:
+	        	releaseCount++;
+	            break;
+	        default:
+	            break;
+	    }
+}
 
 static void setDefaultClbcks(void){
 	// module callbacks
 	btn_BA.onSinglePressHandler = &nextScreen;
 	btn_BC.onSinglePressHandler = &prevScreen;
 
+	//new button handlers
+	button_set_long_press_time(1, 500);
+	button_set_handler(1, add_counter, NULL);
 }
 
 static void setTimeAction(void){
@@ -32,7 +62,18 @@ void faceSetup(void){
 	setDefaultClbcks();
 }
 
+
 void faceMain(void){
+
+	char tempStr2[30] = {0};
+	sprintf(&tempStr2, "short: %d, long: %d", shortPressCount, longPressCount);
+	lcdPutStr(5, 5, tempStr2, font_12_zekton);
+	sprintf(&tempStr2, "double: %d, release: %d", doublePressCount, releaseCount);
+	lcdPutStr(5, 20, tempStr2, font_12_zekton);
+	sprintf(&tempStr2, "single: %d", singlePressCount);
+	lcdPutStr(5, 35, tempStr2, font_12_zekton);
+	sprintf(&tempStr2, "total: %d", shortPressCount+longPressCount+2*doublePressCount);
+	lcdPutStr(5, 50, tempStr2, font_12_zekton);
 
 	char temperature[30] = {0};
 	sprintf(&temperature, "%4.1f`C", bmpData.temperature);
